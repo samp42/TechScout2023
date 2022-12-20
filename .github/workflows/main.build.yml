@@ -41,8 +41,8 @@ jobs:
         with:
           channel: 'stable'
 
-      - name: Run dart analyze
-        run: dart analyze
+      - name: Run flutter analyze
+        run: flutter analyze
         working-directory: Scout
 
   # Task 1.2
