@@ -75,7 +75,7 @@ jobs:
   # Task 3.0
   # BUILD SCOUT INSIGHTS
   build_scout_insights:
-    runs_on: macos-latest
+    runs-on: macos-latest
     
     steps:
       - uses: actions/checkout@v3
