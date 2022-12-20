@@ -1,0 +1,84 @@
+# This workflow builds the changes and executes some sanity checks.
+name: Pull request build
+
+on:
+  # might want to only run build and analysis on PR, then everything + integration tests, if any, on push
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+
+  # Task 1.0
+  # BUILD SCOUT AND RUN TESTS
+  build_scout:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Get dependencies
+        run: flutter pub get
+        working-directory: Scout
+
+      - name: Run tests
+        run: flutter test
+        working-directory: Scout
+
+  # Task 1.1
+  # ANALYZE SCOUT
+  analyze_scout:
+    needs: build_scout
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Run dart analyze
+        run: dart analyze
+        working-directory: Scout
+
+  # Task 1.2
+  # CHECK SCOUT FORMAT
+  #
+  format_scout:
+    needs: build_scout
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Run dart format
+        run: dart format --output=none --set-exit-if-changed .
+        working-directory: Scout
+
+  # Task 2.0
+  # BUILD SCOUT API
+  build_scout_api:
+    runs-on: ubuntu-latest
+
+  # Task 3.0
+  # BUILD SCOUT INSIGHTS
+  build_scout_insights:
+    runs_on: macos-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run Xcode Build
+        run: xcodebuild -project ScoutInsights.xcodeproj -target ScoutInsights -sdk iphoneos -allowProvisioningUpdates build
+        working-directory: ScoutInsights
+
+      # - name: Run Xcode Tests
+      #   run: xcodebuild -project ScoutInsights.xcodeproj -target ScoutInsightsTests -sdk iphoneos -allowProvisioningUpdates build
+      #   working-directory: ScoutInsights
