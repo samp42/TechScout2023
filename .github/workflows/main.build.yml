@@ -67,6 +67,9 @@ jobs:
   build_scout_api:
     runs-on: ubuntu-latest
 
+    steps:
+      - uses: actions/checkout@v3
+
   # Task 3.0
   # BUILD SCOUT INSIGHTS
   build_scout_insights:
