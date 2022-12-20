@@ -4,9 +4,9 @@ name: Pull request build
 on:
   # might want to only run build and analysis on PR, then everything + integration tests, if any, on push
   push:
-    branches: ["main"]
+    branches: [ "main" ]
   pull_request:
-    branches: ["main"]
+    branches: [ "main" ]
 
 jobs:
 
@@ -64,11 +64,13 @@ jobs:
 
   # Task 2.0
   # BUILD SCOUT API
-  build_scout_api:
-    runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v3
+  # TODO
+  # build_scout_api:
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - uses: actions/checkout@v3
 
   # Task 3.0
   # BUILD SCOUT INSIGHTS
