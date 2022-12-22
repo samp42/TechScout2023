@@ -47,7 +47,6 @@ jobs:
 
   # Task 1.2
   # CHECK SCOUT FORMAT
-  #
   format_scout:
     needs: build_scout
     runs-on: macos-latest
@@ -81,7 +80,8 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Run Xcode Build
-        run: xcodebuild -project ScoutInsights.xcodeproj -target ScoutInsights -sdk iphoneos -allowProvisioningUpdates build
+        run: xcodebuild -project ScoutInsights.xcodeproj -target ScoutInsights -sdk iphoneos -allowProvisioningUpdates build -configuration CODE_SIGNING_ALLOWED=NO
+
         working-directory: ScoutInsights
 
       # - name: Run Xcode Tests
