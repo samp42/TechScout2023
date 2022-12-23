@@ -13,3 +13,5 @@ for token in "${tokens[@]}"; do
     fi
 
 done
+
+exit 0
