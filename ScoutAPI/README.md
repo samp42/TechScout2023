@@ -1,5 +1,5 @@
 # ScoutAPI
-This project is a TechScout's data collection and analysis API.
+This is TechScout's data collection and analysis API.
 
 To get started, clone the repository and run `go install` in the root directory.
 Then, you will need docker installed to run the mongo database.
