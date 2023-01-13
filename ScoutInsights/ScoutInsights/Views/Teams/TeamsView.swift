@@ -7,14 +7,20 @@
 
 import SwiftUI
 
-struct PitScoutingListView: View {
+struct TeamsView: View {
+    @State private var searchedTeam: String = ""
+    
     var body: some View {
-        Text("Pit Scouting List")
+        VStack {
+            TextField("Search for a team", text: $searchedTeam)
+            
+            Text("Teams List")
+        }
     }
 }
 
 struct PitScoutingListView_Previews: PreviewProvider {
     static var previews: some View {
-        PitScoutingListView()
+        TeamsView()
     }
 }
