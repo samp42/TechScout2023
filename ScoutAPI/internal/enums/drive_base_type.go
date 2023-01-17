@@ -1,7 +1,9 @@
 package enums
 
+type DriveBaseType uint8
+
 const (
-	Tank = iota
+	Tank DriveBaseType = iota
 	Swerve
 	Mecanum
 	Other
