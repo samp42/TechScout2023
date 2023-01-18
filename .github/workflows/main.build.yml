@@ -16,7 +16,6 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      - name: Checkout repo
       - uses: actions/checkout@v3
       
       - name: Setup flutter
@@ -86,10 +85,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
       - uses: actions/checkout@v3
-
-      - name: Setup Go
       - uses: actions/setup-go@v3
       
       - name: Set format script as executable
@@ -106,7 +102,6 @@ jobs:
     runs-on: macos-latest
     
     steps:
-      - name: Checkout repo
       - uses: actions/checkout@v3
 
       - name: Run Xcode Build
