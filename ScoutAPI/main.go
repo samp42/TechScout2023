@@ -32,16 +32,16 @@ func main() {
 
 	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(mongoUri))
 
+	if err != nil {
+		e.Logger.Fatalf("Error connecting to MongoDB: %v", err)
+	}
+
 	// close mongo client on exit
 	defer func() {
 		if err := client.Disconnect(context.TODO()); err != nil {
 			e.Logger.Fatalf("Error disconnecting from mongo: %v", err)
 		}
 	}()
-
-	if err != nil {
-		e.Logger.Fatalf("Error connecting to MongoDB: %v", err)
-	}
 
 	// register routes
 	e.GET("/", func(c echo.Context) error {
