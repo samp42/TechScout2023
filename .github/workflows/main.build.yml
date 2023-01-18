@@ -101,7 +101,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Run Xcode Build
-        run: xcodebuild -scheme ScoutInsights build
+        run: xcodebuild -scheme ScoutInsights -sdk iphoneos -allowProvisioningUpdates build CODE_SIGNING_ALLOWED=NO
         working-directory: ScoutInsights
 
       # - name: Run Xcode Tests
