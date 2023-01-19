@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E45AC31297785C000885E50 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 1E45AC30297785C000885E50 /* Realm */; };
+		1E45AC33297785C000885E50 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1E45AC32297785C000885E50 /* RealmSwift */; };
+		1E45AC372977863700885E50 /* PitScoutingSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E45AC362977863700885E50 /* PitScoutingSheet.swift */; };
 		1E5F53962948325E00848137 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5F53952948325E00848137 /* ScheduleView.swift */; };
 		1ED94E252940FDDA00FDE7E6 /* ScoutInsightsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED94E242940FDDA00FDE7E6 /* ScoutInsightsApp.swift */; };
 		1ED94E272940FDDA00FDE7E6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED94E262940FDDA00FDE7E6 /* ContentView.swift */; };
@@ -15,10 +18,8 @@
 		1ED94E362940FDDB00FDE7E6 /* ScoutInsightsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED94E352940FDDB00FDE7E6 /* ScoutInsightsTests.swift */; };
 		1ED94E402940FDDB00FDE7E6 /* ScoutInsightsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED94E3F2940FDDB00FDE7E6 /* ScoutInsightsUITests.swift */; };
 		1ED94E422940FDDB00FDE7E6 /* ScoutInsightsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED94E412940FDDB00FDE7E6 /* ScoutInsightsUITestsLaunchTests.swift */; };
-		1ED94E502940FE1100FDE7E6 /* PitScoutingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED94E4F2940FE1100FDE7E6 /* PitScoutingListView.swift */; };
-		1ED94E512940FE1100FDE7E6 /* PitScoutingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED94E4F2940FE1100FDE7E6 /* PitScoutingListView.swift */; };
-		1ED94E532940FE3C00FDE7E6 /* MatchScoutingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED94E522940FE3C00FDE7E6 /* MatchScoutingListView.swift */; };
-		1ED94E542940FE3C00FDE7E6 /* MatchScoutingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED94E522940FE3C00FDE7E6 /* MatchScoutingListView.swift */; };
+		1ED94E502940FE1100FDE7E6 /* TeamsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED94E4F2940FE1100FDE7E6 /* TeamsView.swift */; };
+		1ED94E512940FE1100FDE7E6 /* TeamsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED94E4F2940FE1100FDE7E6 /* TeamsView.swift */; };
 		1ED94E562940FE5500FDE7E6 /* PickListEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED94E552940FE5500FDE7E6 /* PickListEditorView.swift */; };
 		1ED94E572940FE5500FDE7E6 /* PickListEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED94E552940FE5500FDE7E6 /* PickListEditorView.swift */; };
 		1ED94E592940FE5E00FDE7E6 /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED94E582940FE5E00FDE7E6 /* StatisticsView.swift */; };
@@ -45,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1E45AC362977863700885E50 /* PitScoutingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitScoutingSheet.swift; sourceTree = "<group>"; };
 		1E5F53952948325E00848137 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
 		1ED94E212940FDDA00FDE7E6 /* ScoutInsights.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScoutInsights.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1ED94E242940FDDA00FDE7E6 /* ScoutInsightsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoutInsightsApp.swift; sourceTree = "<group>"; };
@@ -56,8 +58,7 @@
 		1ED94E3B2940FDDB00FDE7E6 /* ScoutInsightsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScoutInsightsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1ED94E3F2940FDDB00FDE7E6 /* ScoutInsightsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoutInsightsUITests.swift; sourceTree = "<group>"; };
 		1ED94E412940FDDB00FDE7E6 /* ScoutInsightsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoutInsightsUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		1ED94E4F2940FE1100FDE7E6 /* PitScoutingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitScoutingListView.swift; sourceTree = "<group>"; };
-		1ED94E522940FE3C00FDE7E6 /* MatchScoutingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchScoutingListView.swift; sourceTree = "<group>"; };
+		1ED94E4F2940FE1100FDE7E6 /* TeamsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsView.swift; sourceTree = "<group>"; };
 		1ED94E552940FE5500FDE7E6 /* PickListEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickListEditorView.swift; sourceTree = "<group>"; };
 		1ED94E582940FE5E00FDE7E6 /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		1ED94E5F2940FEC600FDE7E6 /* PickListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickListView.swift; sourceTree = "<group>"; };
@@ -68,6 +69,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E45AC33297785C000885E50 /* RealmSwift in Frameworks */,
+				1E45AC31297785C000885E50 /* Realm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,6 +91,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E45AC342977861600885E50 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1E45AC362977863700885E50 /* PitScoutingSheet.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		1E5F53932948324600848137 /* Schedule */ = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +130,7 @@
 		1ED94E232940FDDA00FDE7E6 /* ScoutInsights */ = {
 			isa = PBXGroup;
 			children = (
+				1E45AC342977861600885E50 /* Models */,
 				1ED94E4E2940FDEC00FDE7E6 /* Views */,
 				1ED94E242940FDDA00FDE7E6 /* ScoutInsightsApp.swift */,
 				1ED94E262940FDDA00FDE7E6 /* ContentView.swift */,
@@ -157,28 +169,19 @@
 			isa = PBXGroup;
 			children = (
 				1E5F53932948324600848137 /* Schedule */,
-				1ED94E5B2940FE7400FDE7E6 /* Pit Scouting */,
-				1ED94E5C2940FE8600FDE7E6 /* Match Scouting */,
+				1ED94E5B2940FE7400FDE7E6 /* Teams */,
 				1ED94E5D2940FE9000FDE7E6 /* Pick List */,
 				1ED94E5E2940FEA000FDE7E6 /* Statistics */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		1ED94E5B2940FE7400FDE7E6 /* Pit Scouting */ = {
+		1ED94E5B2940FE7400FDE7E6 /* Teams */ = {
 			isa = PBXGroup;
 			children = (
-				1ED94E4F2940FE1100FDE7E6 /* PitScoutingListView.swift */,
+				1ED94E4F2940FE1100FDE7E6 /* TeamsView.swift */,
 			);
-			path = "Pit Scouting";
-			sourceTree = "<group>";
-		};
-		1ED94E5C2940FE8600FDE7E6 /* Match Scouting */ = {
-			isa = PBXGroup;
-			children = (
-				1ED94E522940FE3C00FDE7E6 /* MatchScoutingListView.swift */,
-			);
-			path = "Match Scouting";
+			path = Teams;
 			sourceTree = "<group>";
 		};
 		1ED94E5D2940FE9000FDE7E6 /* Pick List */ = {
@@ -214,6 +217,10 @@
 			dependencies = (
 			);
 			name = ScoutInsights;
+			packageProductDependencies = (
+				1E45AC30297785C000885E50 /* Realm */,
+				1E45AC32297785C000885E50 /* RealmSwift */,
+			);
 			productName = ScoutInsights;
 			productReference = 1ED94E212940FDDA00FDE7E6 /* ScoutInsights.app */;
 			productType = "com.apple.product-type.application";
@@ -286,6 +293,9 @@
 				Base,
 			);
 			mainGroup = 1ED94E182940FDDA00FDE7E6;
+			packageReferences = (
+				1E45AC2F297785C000885E50 /* XCRemoteSwiftPackageReference "realm-swift" */,
+			);
 			productRefGroup = 1ED94E222940FDDA00FDE7E6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -331,8 +341,8 @@
 				1ED94E602940FEC600FDE7E6 /* PickListView.swift in Sources */,
 				1ED94E272940FDDA00FDE7E6 /* ContentView.swift in Sources */,
 				1ED94E592940FE5E00FDE7E6 /* StatisticsView.swift in Sources */,
-				1ED94E502940FE1100FDE7E6 /* PitScoutingListView.swift in Sources */,
-				1ED94E532940FE3C00FDE7E6 /* MatchScoutingListView.swift in Sources */,
+				1E45AC372977863700885E50 /* PitScoutingSheet.swift in Sources */,
+				1ED94E502940FE1100FDE7E6 /* TeamsView.swift in Sources */,
 				1E5F53962948325E00848137 /* ScheduleView.swift in Sources */,
 				1ED94E252940FDDA00FDE7E6 /* ScoutInsightsApp.swift in Sources */,
 				1ED94E562940FE5500FDE7E6 /* PickListEditorView.swift in Sources */,
@@ -345,9 +355,8 @@
 			files = (
 				1ED94E572940FE5500FDE7E6 /* PickListEditorView.swift in Sources */,
 				1ED94E5A2940FE5E00FDE7E6 /* StatisticsView.swift in Sources */,
-				1ED94E542940FE3C00FDE7E6 /* MatchScoutingListView.swift in Sources */,
 				1ED94E362940FDDB00FDE7E6 /* ScoutInsightsTests.swift in Sources */,
-				1ED94E512940FE1100FDE7E6 /* PitScoutingListView.swift in Sources */,
+				1ED94E512940FE1100FDE7E6 /* TeamsView.swift in Sources */,
 				1ED94E612940FEC600FDE7E6 /* PickListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -668,6 +677,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1E45AC2F297785C000885E50 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.34.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1E45AC30297785C000885E50 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1E45AC2F297785C000885E50 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		1E45AC32297785C000885E50 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1E45AC2F297785C000885E50 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1ED94E192940FDDA00FDE7E6 /* Project object */;
 }
