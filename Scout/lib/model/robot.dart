@@ -8,5 +8,4 @@ class _Robot {
   late final int teamNumber;
 
   late String scoutName;
-
 }
