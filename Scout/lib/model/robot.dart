@@ -1,6 +1,6 @@
 import 'package:realm/realm.dart';
 
-part 'Robot.g.dart';
+part 'robot.g.dart';
 
 @RealmModel()
 class _Robot {

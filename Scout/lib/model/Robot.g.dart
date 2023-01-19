@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'Robot.dart';
+part of 'robot.dart';
 
 // **************************************************************************
 // RealmObjectGenerator
