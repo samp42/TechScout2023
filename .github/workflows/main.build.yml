@@ -12,89 +12,89 @@ jobs:
 
   # Task 1.0
   # BUILD SCOUT AND RUN TESTS
-  # build_scout:
-  #   runs-on: macos-latest
+  build_scout:
+    runs-on: macos-latest
 
-  #   steps:
-  #     - uses: actions/checkout@v3
+    steps:
+      - uses: actions/checkout@v3
       
-  #     - name: Setup flutter
-  #       uses: subosito/flutter-action@v2
-  #       with:
-  #         flutter-version: ${{ env.FLUTTER_VERSION }}
-  #         cache: true
-  #         cache-path: ${{ runner.tool_cache }}/flutter/linux
+      - name: Setup flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+          cache-path: ${{ runner.tool_cache }}/flutter/linux
 
-  #     - name: Get dependencies
-  #       run: flutter pub get
-  #       working-directory: Scout
+      - name: Get dependencies
+        run: flutter pub get
+        working-directory: Scout
 
-  #     - name: Run tests
-  #       run: flutter test
-  #       working-directory: Scout
+      - name: Run tests
+        run: flutter test
+        working-directory: Scout
 
   # Task 1.1
   # ANALYZE SCOUT
-  # analyze_scout:
-  #   needs: build_scout
-  #   runs-on: macos-latest
+  analyze_scout:
+    needs: build_scout
+    runs-on: macos-latest
 
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - uses: subosito/flutter-action@v2
-  #       with:
-  #         channel: 'stable'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
 
-  #     - name: Run flutter analyze
-  #       run: flutter analyze
-  #       working-directory: Scout
+      - name: Run flutter analyze
+        run: flutter analyze
+        working-directory: Scout
 
   # Task 1.2
   # CHECK SCOUT FORMAT
-  # format_scout:
-  #   needs: build_scout
-  #   runs-on: macos-latest
+  format_scout:
+    needs: build_scout
+    runs-on: macos-latest
 
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - uses: subosito/flutter-action@v2
-  #       with:
-  #         channel: 'stable'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
 
-  #     - name: Run dart format
-  #       run: dart format --output=none --set-exit-if-changed .
-  #       working-directory: Scout
+      - name: Run dart format
+        run: dart format --output=none --set-exit-if-changed .
+        working-directory: Scout
 
   # Task 2.0
   # BUILD SCOUT API
-  # build_scout_api:
-  #   runs-on: ubuntu-latest
+  build_scout_api:
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - uses: actions/setup-go@v3
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
 
-  #     - name: Run go build
-  #       run: go build ScoutAPI
-  #       working-directory: ScoutAPI
+      - name: Run go build
+        run: go build ScoutAPI
+        working-directory: ScoutAPI
 
   # Task 2.1
   # CHECK SCOUTAPI FORMAT
-  # format_scoutapi:
-  #   needs: build_scout_api
-  #   runs-on: ubuntu-latest
+  format_scoutapi:
+    needs: build_scout_api
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - uses: actions/setup-go@v3
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
       
-  #     - name: Set format script as executable
-  #       run: chmod +x ./go-format.sh
-  #       working-directory: ci
+      - name: Set format script as executable
+        run: chmod +x ./go-format.sh
+        working-directory: ci
 
-  #     - name: Run go format
-  #       run: ./go-format.sh
-  #       working-directory: ci
+      - name: Run go format
+        run: ./go-format.sh
+        working-directory: ci
 
   # Task 3.0
   # BUILD SCOUT INSIGHTS
@@ -108,9 +108,9 @@ jobs:
           xcode-version: latest-stable
 
       - name: Run Xcode Build
-        run: xcodebuild -scheme ScoutInsights -sdk iphoneos -allowProvisioningUpdates build CODE_SIGNING_ALLOWED=NO #  -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=16.2'
+        run: xcodebuild -scheme ScoutInsights -sdk iphoneos -allowProvisioningUpdates CODE_SIGNING_ALLOWED=NO build
         working-directory: ScoutInsights
 
       # - name: Run Xcode Tests
-      #   run: xcodebuild -project ScoutInsights.xcodeproj -target ScoutInsightsTests -sdk iphoneos -allowProvisioningUpdates build
+      #   run: xcodebuild -scheme ScoutInsightsTests -sdk iphoneos -allowProvisioningUpdates CODE_SIGNING_ALLOWED=NO test -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=16.2'
       #   working-directory: ScoutInsights
