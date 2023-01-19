@@ -48,4 +48,9 @@ app.*.map.json
 
 # ios
 build/
+**/xcuserdata/
+
+# vscode
+./vscode
+
 
