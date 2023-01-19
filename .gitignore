@@ -50,3 +50,7 @@ app.*.map.json
 build/
 **/xcuserdata/
 
+# vscode
+./vscode
+
+
