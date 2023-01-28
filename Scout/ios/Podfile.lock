@@ -1,0 +1,22 @@
+PODS:
+  - Flutter (1.0.0)
+  - "realm (0.9.0+rc)":
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - realm (from `.symlinks/plugins/realm/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  realm:
+    :path: ".symlinks/plugins/realm/ios"
+
+SPEC CHECKSUMS:
+  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  realm: 3b968089035e6aea2036c445031201e83afbd0ac
+
+PODFILE CHECKSUM: ae273562e2241d2b1bd4b6d2d349a48b8fe1a2a7
+
+COCOAPODS: 1.11.3
