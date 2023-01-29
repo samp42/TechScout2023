@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scout/navigation_bar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,12 +11,31 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      home: DefaultTabController(
+        length: 4,
+        child: Scaffold(
+            appBar: AppBar(
+              backgroundColor: Color(0xFF3F5AA6),
+              title: Text("TechScout"),
+            ),
+            bottomNavigationBar: navigationBar()),
+        // body: TabBarView(
+        //   children: [
+        //     Container(child: Icon(Icons.directions_car)),
+        //     Container(child: Icon(Icons.directions_transit)),
+        //     Container(child: Icon(Icons.directions_bike)),
+        //     Container(child: Icon(Icons.directions_bike)),
+        //   ],
+        // ),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
+    // return MaterialApp(
+    //   title: 'TechScout',
+    //   theme: ThemeData(
+    //     primarySwatch: Colors.blue,
+    //   ),
+    //   home: const MyHomePage(title: 'TechScout'),
+    // );
   }
 }
 
@@ -52,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
         ),
