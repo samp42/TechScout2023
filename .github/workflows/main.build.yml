@@ -15,13 +15,13 @@ build:
   steps:
     - uses: actions/checkout@v3
     
-      - name: Set get-targets script as executable
-        run: chmod +x ./get-targets.sh
-        working-directory: ci
+    - name: Set get-targets script as executable
+      run: chmod +x ./get-targets.sh
+      working-directory: ci
 
-      - name: Run get targets
-        run: ./get-targets.sh
-        working-directory: ci
+    - name: Run get targets
+      run: ./get-targets.sh
+      working-directory: ci
 
   # # Task 1.0
   # # BUILD SCOUT AND RUN TESTS
