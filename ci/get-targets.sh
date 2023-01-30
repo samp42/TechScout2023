@@ -1,4 +1,7 @@
 #!/bin/bash
+
+git fetch
+
 commits=$(git log --format=%H main..$1)
 
 project_targets=(".github" "ci" "Scout" "ScoutAPI" "ScoutInsights")
