@@ -3,8 +3,8 @@ name: Pull request build
 
 on:
   # might want to only run build and analysis on PR, then everything + integration tests, if any, on push
-  push:
-    branches: [ "main" ]
+  # push:
+  #   branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
@@ -20,7 +20,7 @@ jobs:
         working-directory: ci
 
       - name: Run get targets
-        run: ./get-targets.sh ${{ github.ref_name }}
+        run: ./get-targets.sh ${{ github.head_ref }}
         working-directory: ci
 
   # # Task 1.0
