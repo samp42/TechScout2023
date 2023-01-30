@@ -1,0 +1,1 @@
+enum PickUpEnum { floor, tablet }
