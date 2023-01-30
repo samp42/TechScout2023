@@ -20,7 +20,7 @@ jobs:
         working-directory: ci
 
       - name: Run get targets
-        run: ./get-targets.sh
+        run: ./get-targets.sh ${{ github.ref_name }}
         working-directory: ci
 
   # # Task 1.0
