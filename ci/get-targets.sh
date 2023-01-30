@@ -1,5 +1,5 @@
 #!/bin/bash
-commits=$(git log --format=%H -- main..$1)
+commits=$(git log --format=%H main..$1 --)
 
 project_targets=(".github" "ci" "Scout" "ScoutAPI" "ScoutInsights")
 
