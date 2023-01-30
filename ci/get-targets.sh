@@ -1,9 +1,10 @@
 #!/bin/bash
 
 git fetch
-git branch -a
 
-# commits=$(git log --format=%H "main..$1")
+commits=$(git log --format=%H "main..$1")
+
+echo "COMMITS:: $commits"
 
 # project_targets=(".github" "ci" "Scout" "ScoutAPI" "ScoutInsights")
 
