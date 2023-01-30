@@ -2,7 +2,7 @@
 
 git fetch
 
-commits=$(git log --format=%H "main..$1")
+commits=$(git log --format=%H "origin/main..origin/$1")
 
 echo "COMMITS:: $commits"
 
