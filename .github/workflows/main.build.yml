@@ -25,7 +25,7 @@ jobs:
       - name: Run get targets
         id: build_targets
         # run: echo "targets=$( ./get-targets.sh ${{ github.head_ref }} )" >> $GITHUB_OUTPUT
-        run: ./get-targets.sh
+        run: ./get-targets.sh ${{ github.head_ref }} 
         working-directory: ci
 
   dependent:
