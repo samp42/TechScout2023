@@ -37,8 +37,7 @@ jobs:
 
       - name: echo status based on previous job
         run: echo "${{ steps.build_targets.outputs.TARGETS }}"
-
-
+  
   # # Task 1.0
   # # BUILD SCOUT AND RUN TESTS
   # build_scout:
@@ -46,6 +45,15 @@ jobs:
 
   #   steps:
   #     - uses: actions/checkout@v3
+
+  #     - name: Set up JDK 11
+  #       uses: actions/setup-java@v3
+  #       with:
+  #         java-version: 11
+  #         distribution: 'adopt'
+
+  #     - name: Setup Android SDK
+  #       uses: android-actions/setup-android@v2
       
   #     - name: Setup flutter
   #       uses: subosito/flutter-action@v2
@@ -58,8 +66,8 @@ jobs:
   #       run: flutter pub get
   #       working-directory: Scout
 
-  #     - name: Run tests
-  #       run: flutter test
+  #     - name: Run build
+  #       run: flutter build appbundle
   #       working-directory: Scout
 
   # # Task 1.1
@@ -93,6 +101,7 @@ jobs:
   #     - name: Run dart format
   #       run: dart format --output=none --set-exit-if-changed .
   #       working-directory: Scout
+
 
   # # Task 2.0
   # # BUILD SCOUT API
