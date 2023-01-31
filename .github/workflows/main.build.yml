@@ -12,8 +12,8 @@ jobs:
 
   targets:
     runs-on: ubuntu-latest
-    outputs:
-      output_targets: ${{ steps.build_targets.outputs.targets }}
+    # outputs:
+    #   output_targets: ${{ steps.build_targets.outputs.targets }}
 
     steps:
       - uses: actions/checkout@v3
@@ -26,8 +26,7 @@ jobs:
         id: build_targets
         # run: echo "targets=$( ./get-targets.sh ${{ github.head_ref }} )" >> $GITHUB_OUTPUT
         run: |
-        result=$(./ci/get-targets.sh ${{ github.head_ref }})
-        echo "::set-output name=targets::$result"
+          echo "TARGETS=$(./ci/get-targets.sh ${{ github.head_ref }})" >> $GITHUB_OUTPUT
 
   dependent:
     needs: targets
@@ -36,7 +35,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: echo status based on previous job
-        run: echo "${{ steps.build_targets.outputs.targets }}"
+        run: echo "${{ steps.build_targets.outputs.TARGETS }}"
 
 
   # # Task 1.0
