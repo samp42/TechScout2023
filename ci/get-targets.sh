@@ -22,4 +22,4 @@ for commit in $commits; do
     done
 done
 
-echo "TARGETS:: $targets"
+echo "::set-output name=targets::$targets"
