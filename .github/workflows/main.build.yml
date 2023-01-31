@@ -10,8 +10,11 @@ on:
 
 jobs:
 
-  build:
+  targets:
     runs-on: ubuntu-latest
+    # outputs:
+    #   output_targets: ${{ steps.build_targets.outputs.targets }}
+
     steps:
       - uses: actions/checkout@v3
     
@@ -21,11 +24,11 @@ jobs:
 
       - name: Run get targets
         id: build_targets
-        run: ./get-targets.sh ${{ github.head_ref }}
+        run: ./get-targets.sh ${{ github.head_ref }} >> $GITHUB_OUTPUT
         working-directory: ci
 
   dependent:
-    needs: build
+    needs: targets
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
