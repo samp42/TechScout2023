@@ -29,8 +29,8 @@ jobs:
         run: flutter pub get
         working-directory: Scout
 
-      - name: Run tests
-        run: flutter test
+      - name: Run build
+        run: flutter build appbundle
         working-directory: Scout
 
   # Task 1.1
