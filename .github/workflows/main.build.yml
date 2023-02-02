@@ -31,6 +31,7 @@ jobs:
   # Task 1.0
   # BUILD SCOUT AND RUN TESTS
   build_scout:
+    needs: targets
     if: |
      ${{
         contains(needs.target.outputs.target-output, '.github') ||
@@ -105,6 +106,7 @@ jobs:
   # Task 2.0
   # BUILD SCOUT API
   build_scout_api:
+    needs: targets
     if: |
      ${{
         contains(needs.target.outputs.target-output, '.github') ||
@@ -144,6 +146,7 @@ jobs:
   # Task 3.0
   # BUILD SCOUT INSIGHTS
   build_scout_insights:
+    needs: targets
     if: |
      ${{
         contains(needs.target.outputs.target-output, '.github') ||
