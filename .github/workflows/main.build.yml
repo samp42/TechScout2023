@@ -1,16 +1,12 @@
 # This workflow builds the changes and executes some sanity checks.
-# It runs on pull request to main and push to main events.
 name: Project Build
 
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
 jobs:
   targets:
-    if: ${{ github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
     outputs:
       target-output: ${{ steps.get_targets.outputs.build_targets }}
@@ -36,8 +32,7 @@ jobs:
      ${{
         contains(needs.target.outputs.target-output, '.github') ||
         contains(needs.target.outputs.target-output, 'ci') ||
-        contains(needs.target.outputs.target-output, 'Scout') ||
-        github.event_name == 'push'
+        contains(needs.target.outputs.target-output, 'Scout')
       }}
     runs-on: macos-latest
 
@@ -72,7 +67,6 @@ jobs:
   # ANALYZE SCOUT
   analyze_scout:
     needs: build_scout
-    if: ${{ github.event_name == 'pull_request' }}
     runs-on: macos-latest
 
     steps:
@@ -89,7 +83,6 @@ jobs:
   # CHECK SCOUT FORMAT
   format_scout:
     needs: build_scout
-    if: ${{ github.event_name == 'pull_request' }}
     runs-on: macos-latest
 
     steps:
@@ -111,8 +104,7 @@ jobs:
      ${{
         contains(needs.target.outputs.target-output, '.github') ||
         contains(needs.target.outputs.target-output, 'ci') ||
-        contains(needs.target.outputs.target-output, 'ScoutAPI') ||
-        github.event_name == 'push'
+        contains(needs.target.outputs.target-output, 'ScoutAPI')
       }}
     runs-on: ubuntu-latest
 
@@ -151,8 +143,7 @@ jobs:
      ${{
         contains(needs.target.outputs.target-output, '.github') ||
         contains(needs.target.outputs.target-output, 'ci') ||
-        contains(needs.target.outputs.target-output, 'ScoutInsights') ||
-        github.event_name == 'push'
+        contains(needs.target.outputs.target-output, 'ScoutInsights')
       }}
     runs-on: macos-latest
     
