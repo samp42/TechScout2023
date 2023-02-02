@@ -1,18 +1,44 @@
 # This workflow builds the changes and executes some sanity checks.
-name: Pull request build
+# It runs on pull request to main and push to main events.
+name: Project Build
 
 on:
-  # might want to only run build and analysis on PR, then everything + integration tests, if any, on push
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
 jobs:
+  targets:
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    outputs:
+      target-output: ${{ steps.get_targets.outputs.build_targets }}
 
+    steps:
+      - uses: actions/checkout@v3
+    
+      - name: Set get-targets script as executable
+        run: chmod +x ./get-targets.sh
+        working-directory: ci
+
+      - name: Run get targets
+        id: get_targets
+        run: |
+          branch=${{ github.head_ref }}
+          echo "build_targets=$(./ci/get-targets.sh $branch)" >> $GITHUB_OUTPUT
+  
   # Task 1.0
   # BUILD SCOUT AND RUN TESTS
   build_scout:
+    needs: targets
+    if: |
+     ${{
+        contains(needs.target.outputs.target-output, '.github') ||
+        contains(needs.target.outputs.target-output, 'ci') ||
+        contains(needs.target.outputs.target-output, 'Scout') ||
+        github.event_name == 'push'
+      }}
     runs-on: macos-latest
 
     steps:
@@ -46,6 +72,7 @@ jobs:
   # ANALYZE SCOUT
   analyze_scout:
     needs: build_scout
+    if: ${{ github.event_name == 'pull_request' }}
     runs-on: macos-latest
 
     steps:
@@ -62,6 +89,7 @@ jobs:
   # CHECK SCOUT FORMAT
   format_scout:
     needs: build_scout
+    if: ${{ github.event_name == 'pull_request' }}
     runs-on: macos-latest
 
     steps:
@@ -74,9 +102,18 @@ jobs:
         run: dart format --output=none --set-exit-if-changed .
         working-directory: Scout
 
+
   # Task 2.0
   # BUILD SCOUT API
   build_scout_api:
+    needs: targets
+    if: |
+     ${{
+        contains(needs.target.outputs.target-output, '.github') ||
+        contains(needs.target.outputs.target-output, 'ci') ||
+        contains(needs.target.outputs.target-output, 'ScoutAPI') ||
+        github.event_name == 'push'
+      }}
     runs-on: ubuntu-latest
 
     steps:
@@ -91,6 +128,7 @@ jobs:
   # CHECK SCOUTAPI FORMAT
   format_scoutapi:
     needs: build_scout_api
+    if: ${{ github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -108,6 +146,14 @@ jobs:
   # Task 3.0
   # BUILD SCOUT INSIGHTS
   build_scout_insights:
+    needs: targets
+    if: |
+     ${{
+        contains(needs.target.outputs.target-output, '.github') ||
+        contains(needs.target.outputs.target-output, 'ci') ||
+        contains(needs.target.outputs.target-output, 'ScoutInsights') ||
+        github.event_name == 'push'
+      }}
     runs-on: macos-latest
     
     steps:
