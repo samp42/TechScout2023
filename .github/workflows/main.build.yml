@@ -1,10 +1,7 @@
 # This workflow builds the changes and executes some sanity checks.
-# It runs on pull request to main and push to main events.
 name: Project Build
 
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
