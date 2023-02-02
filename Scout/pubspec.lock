@@ -39,6 +39,7 @@ packages:
       name: boolean_selector
       sha256: "6cfb5af12253eaf2b368f07bacc5a80d1301a071c73360d746b7f2e32d762c66"
       url: "https://pub.dev"
+<<<<<<< HEAD
     source: hosted
     version: "2.1.1"
   build:
@@ -121,6 +122,10 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.0"
+=======
+    source: hosted
+    version: "2.1.1"
+>>>>>>> 1002fc489cad82940c8e0a381124c2243457acb9
   characters:
     dependency: transitive
     description:
@@ -129,6 +134,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.1"
+<<<<<<< HEAD
   checked_yaml:
     dependency: transitive
     description:
@@ -137,6 +143,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.2"
+=======
+>>>>>>> 1002fc489cad82940c8e0a381124c2243457acb9
   clock:
     dependency: transitive
     description:
@@ -145,6 +153,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.1"
+<<<<<<< HEAD
   code_builder:
     dependency: transitive
     description:
@@ -153,6 +162,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.4.0"
+=======
+>>>>>>> 1002fc489cad82940c8e0a381124c2243457acb9
   collection:
     dependency: transitive
     description:
@@ -161,6 +172,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.17.0"
+<<<<<<< HEAD
   convert:
     dependency: transitive
     description:
@@ -177,6 +189,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.2"
+=======
+>>>>>>> 1002fc489cad82940c8e0a381124c2243457acb9
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -199,6 +213,7 @@ packages:
       name: fake_async
       sha256: "511392330127add0b769b75a987850d136345d9227c6b94c96a04cf4a391bf78"
       url: "https://pub.dev"
+<<<<<<< HEAD
     source: hosted
     version: "1.3.1"
   ffi:
@@ -225,6 +240,10 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
+=======
+    source: hosted
+    version: "1.3.1"
+>>>>>>> 1002fc489cad82940c8e0a381124c2243457acb9
   flutter:
     dependency: "direct main"
     description: flutter
@@ -243,6 +262,7 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+<<<<<<< HEAD
   frontend_server_client:
     dependency: transitive
     description:
@@ -299,6 +319,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+=======
+>>>>>>> 1002fc489cad82940c8e0a381124c2243457acb9
   js:
     dependency: transitive
     description:
@@ -307,6 +329,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.5"
+<<<<<<< HEAD
   json_annotation:
     dependency: transitive
     description:
@@ -315,6 +338,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.8.0"
+=======
+>>>>>>> 1002fc489cad82940c8e0a381124c2243457acb9
   lints:
     dependency: transitive
     description:
@@ -353,6 +378,7 @@ packages:
       name: meta
       sha256: "6c268b42ed578a53088d834796959e4a1814b5e9e164f147f580a386e5decf42"
       url: "https://pub.dev"
+<<<<<<< HEAD
     source: hosted
     version: "1.8.0"
   mime:
@@ -379,12 +405,17 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
+=======
+    source: hosted
+    version: "1.8.0"
+>>>>>>> 1002fc489cad82940c8e0a381124c2243457acb9
   path:
     dependency: transitive
     description:
       name: path
       sha256: db9d4f58c908a4ba5953fcee2ae317c94889433e5024c27ce74a37f94267945b
       url: "https://pub.dev"
+<<<<<<< HEAD
     source: hosted
     version: "1.8.2"
   pool:
@@ -459,6 +490,10 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.3"
+=======
+    source: hosted
+    version: "1.8.2"
+>>>>>>> 1002fc489cad82940c8e0a381124c2243457acb9
   sky_engine:
     dependency: transitive
     description: flutter
@@ -494,6 +529,7 @@ packages:
       name: stream_channel
       sha256: "83615bee9045c1d322bbbd1ba209b7a749c2cbcdcb3fdd1df8eb488b3279c1c8"
       url: "https://pub.dev"
+<<<<<<< HEAD
     source: hosted
     version: "2.1.1"
   stream_transform:
@@ -502,8 +538,10 @@ packages:
       name: stream_transform
       sha256: "14a00e794c7c11aa145a170587321aedce29769c08d7f58b1d141da75e3b1c6f"
       url: "https://pub.dev"
+=======
+>>>>>>> 1002fc489cad82940c8e0a381124c2243457acb9
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   string_scanner:
     dependency: transitive
     description:
@@ -512,6 +550,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+<<<<<<< HEAD
   tar:
     dependency: transitive
     description:
@@ -520,6 +559,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.6"
+=======
+>>>>>>> 1002fc489cad82940c8e0a381124c2243457acb9
   term_glyph:
     dependency: transitive
     description:
@@ -534,6 +575,7 @@ packages:
       name: test_api
       sha256: ad540f65f92caa91bf21dfc8ffb8c589d6e4dc0c2267818b4cc2792857706206
       url: "https://pub.dev"
+<<<<<<< HEAD
     source: hosted
     version: "0.4.16"
   timing:
@@ -552,12 +594,17 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.1"
+=======
+    source: hosted
+    version: "0.4.16"
+>>>>>>> 1002fc489cad82940c8e0a381124c2243457acb9
   vector_math:
     dependency: transitive
     description:
       name: vector_math
       sha256: "80b3257d1492ce4d091729e3a67a60407d227c27241d6927be0130c98e741803"
       url: "https://pub.dev"
+<<<<<<< HEAD
     source: hosted
     version: "2.1.4"
   watcher:
@@ -587,3 +634,9 @@ packages:
 sdks:
   dart: ">=2.18.0 <4.0.0"
   flutter: ">=3.0.3"
+=======
+    source: hosted
+    version: "2.1.4"
+sdks:
+  dart: ">=2.18.0 <4.0.0"
+>>>>>>> 1002fc489cad82940c8e0a381124c2243457acb9

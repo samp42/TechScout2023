@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:scout/match_scouting/match_scouting_entry.dart';
+import 'package:scout/match_scouting/match_scouting_list.dart';
+import 'package:scout/pit_scouting/pit_scouting_entry.dart';
+import 'package:scout/pit_scouting/pit_scouting_list.dart';
+import 'package:scout/theme.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  final _title = 'Tech Scout';
   const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: _title,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: materialBlackT4K,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: _title),
     );
   }
 }
@@ -29,38 +35,51 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  int _pageIndex = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  void _navigate() {
+    Navigator.push(
+        context,
+        _pageIndex == 0
+            ? MaterialPageRoute(builder: (context) => const PitScoutingEntry())
+            : MaterialPageRoute(
+                builder: (context) => const MatchScoutingEntry()));
   }
+
+  final List<Widget> _tabs = const [PitScoutingList(), MatchScoutingList()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(widget.title, style: const TextStyle(color: yellowT4K)),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
+      body: _tabs[_pageIndex],
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
+        onPressed: _navigate,
+        tooltip: 'New Entry',
+        backgroundColor: yellowT4K,
+        foregroundColor: blackT4K,
         child: const Icon(Icons.add),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.people_alt_rounded),
+            label: 'Pit Scouting',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.library_books_rounded),
+            label: 'Match Scouting',
+          ),
+        ],
+        currentIndex: _pageIndex,
+        selectedItemColor: blackT4K,
+        onTap: (int index) {
+          setState(() {
+            _pageIndex = index;
+          });
+        },
       ),
     );
   }
