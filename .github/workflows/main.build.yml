@@ -65,6 +65,7 @@ jobs:
   # ANALYZE SCOUT
   analyze_scout:
     needs: build_scout
+    if: ${{ contains(needs.targets.outputs.target-output, 'Scout') }}
     runs-on: macos-latest
 
     steps:
@@ -101,6 +102,7 @@ jobs:
   # CHECK SCOUTAPI FORMAT
   format_scoutapi:
     needs: build_scout_api
+    if: ${{ contains(needs.targets.outputs.target-output, 'ScoutAPI') }}
     runs-on: ubuntu-latest
 
     steps:
