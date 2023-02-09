@@ -74,11 +74,4 @@ class Robot {
   String toJson() {
     return jsonEncode(this);
   }
-  
-  File toFile({String? path = '', required String name}) {
-    File file = File('$path/$name');
-    file.writeAsString(toJson());
-
-    return file;
-  }
 }
