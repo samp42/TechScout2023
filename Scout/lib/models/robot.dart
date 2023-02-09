@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:scout/enums/cone_orientation_enum.dart';
 import 'package:scout/enums/drive_base_type_enum.dart';
@@ -71,7 +70,25 @@ class Robot {
                 (e) => GridLevelEnumExtension.fromValue(e))
             .toList();
 
+  Map<String, dynamic> _toMap() {
+    return {
+      'teamNumber': teamNumber,
+      'scoutName': scoutName,
+      'driverExperience': driverExperience.value,
+      'weight': weight,
+      'width': width,
+      'length': length,
+      'driveBaseType': driveBaseType.name,
+      'stable': stable,
+      'canIntakeCone': canIntakeCone,
+      'canIntakeCube': canIntakeCube,
+      'pickupSpots': pickupSpots.map((e) => e.value).toList(),
+      'intakeConeOrientations': intakeConeOrientations.map((e) => e.name).toList(),
+      'gridScoringLevels': gridScoringLevels.map((e) => e.value).toList(),
+    };
+  }
+
   String toJson() {
-    return jsonEncode(this);
+    return jsonEncode(this._toMap());
   }
 }

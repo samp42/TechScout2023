@@ -114,14 +114,29 @@ void main() {
   test('Test toJson', () {
     // Given
     File robotJsonFile = File('test_resources/robot.json');
-    String expectedRobotJson = robotJsonFile.readAsStringSync();
+    String expectedRobotJsonString = robotJsonFile.readAsStringSync();
+    Map<String, dynamic> expectedRobotJson = jsonDecode(expectedRobotJsonString);
 
     // When
-    File actualRobotFile = robotMock.toJson();
-    String actualRobotJson = actualRobotFile.readAsStringSync();
+    Map<String, dynamic> actualRobotJson = jsonDecode(robotMock.toJson());
 
     // Then
-    expect(actualRobotJson, equals(expectedRobotJson));
+    expect(actualRobotJson['teamNumber'], equals(expectedRobotJson['teamNumber']));
+    expect(actualRobotJson['scoutName'], equals(expectedRobotJson['scoutName']));
+    expect(actualRobotJson['driverExperience'], equals(expectedRobotJson['driverExperience']));
+    expect(actualRobotJson['weight'], equals(expectedRobotJson['weight']));
+    expect(actualRobotJson['width'], equals(expectedRobotJson['width']));
+    expect(actualRobotJson['length'], equals(expectedRobotJson['length']));
+    expect(actualRobotJson['driveBaseType'], equals(expectedRobotJson['driveBaseType']));
+    expect(actualRobotJson['stable'], equals(expectedRobotJson['stable']));
+    expect(actualRobotJson['canIntakeCone'], equals(expectedRobotJson['canIntakeCone']));
+    expect(actualRobotJson['canIntakeCube'], equals(expectedRobotJson['canIntakeCube']));
+    // expect to be equal ignoring order
+    expect(actualRobotJson['pickupSpots'].toSet(), equals(expectedRobotJson['pickupSpots'].toSet()));
+    // expect to be equal ignoring order
+    expect(actualRobotJson['intakeConeOrientations'].toSet(), equals(expectedRobotJson['intakeConeOrientations'].toSet()));
+    // expect to be equal ignoring order
+    expect(actualRobotJson['gridScoringLevels'].toSet(), equals(expectedRobotJson['gridScoringLevels'].toSet()));
   });
 
 }
