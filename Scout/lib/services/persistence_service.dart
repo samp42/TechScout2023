@@ -13,16 +13,6 @@ class PersistenceService {
     final _ = await _writeJson(fileName, robot);
   }
 
-  Robot readRobotByTeamNumber(num teamNumber) {
-    return
-  }
-
-  List<Robot> readRobots() {
-
-  }
-
-
-
   Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
 
