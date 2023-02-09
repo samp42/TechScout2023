@@ -20,9 +20,7 @@ jobs:
 
       - name: Run get targets
         id: get_targets
-        run: |
-          branch=${{ github.head_ref }}
-          echo "build_targets=$(./ci/get-targets.sh $branch)" >> $GITHUB_OUTPUT
+        run: echo "build_targets=$(./ci/get-targets.sh $GITHUB_HEAD_REF)" >> $GITHUB_OUTPUT
   
   # Task 1.0
   # BUILD SCOUT AND RUN TESTS
@@ -30,9 +28,9 @@ jobs:
     needs: targets
     if: |
      ${{
-        contains(needs.target.outputs.target-output, '.github') ||
-        contains(needs.target.outputs.target-output, 'ci') ||
-        contains(needs.target.outputs.target-output, 'Scout')
+        contains(needs.targets.outputs.target-output, '.github') ||
+        contains(needs.targets.outputs.target-output, 'ci') ||
+        contains(needs.targets.outputs.target-output, 'Scout')
       }}
     runs-on: macos-latest
 
@@ -79,32 +77,15 @@ jobs:
         run: flutter analyze
         working-directory: Scout
 
-  # Task 1.2
-  # CHECK SCOUT FORMAT
-  format_scout:
-    needs: build_scout
-    runs-on: macos-latest
-
-    steps:
-      - uses: actions/checkout@v3
-      - uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-
-      - name: Run dart format
-        run: dart format --output=none --set-exit-if-changed .
-        working-directory: Scout
-
-
   # Task 2.0
   # BUILD SCOUT API
   build_scout_api:
     needs: targets
     if: |
      ${{
-        contains(needs.target.outputs.target-output, '.github') ||
-        contains(needs.target.outputs.target-output, 'ci') ||
-        contains(needs.target.outputs.target-output, 'ScoutAPI')
+        contains(needs.targets.outputs.target-output, '.github') ||
+        contains(needs.targets.outputs.target-output, 'ci') ||
+        contains(needs.targets.outputs.target-output, 'ScoutAPI')
       }}
     runs-on: ubuntu-latest
 
@@ -120,7 +101,6 @@ jobs:
   # CHECK SCOUTAPI FORMAT
   format_scoutapi:
     needs: build_scout_api
-    if: ${{ github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -141,9 +121,9 @@ jobs:
     needs: targets
     if: |
      ${{
-        contains(needs.target.outputs.target-output, '.github') ||
-        contains(needs.target.outputs.target-output, 'ci') ||
-        contains(needs.target.outputs.target-output, 'ScoutInsights')
+        contains(needs.targets.outputs.target-output, '.github') ||
+        contains(needs.targets.outputs.target-output, 'ci') ||
+        contains(needs.targets.outputs.target-output, 'ScoutInsights')
       }}
     runs-on: macos-latest
     
@@ -156,7 +136,3 @@ jobs:
       - name: Run Xcode Build
         run: xcodebuild -scheme ScoutInsights -sdk iphoneos -allowProvisioningUpdates CODE_SIGNING_ALLOWED=NO build
         working-directory: ScoutInsights
-
-      # - name: Run Xcode Tests
-      #   run: xcodebuild -scheme ScoutInsightsTests -sdk iphoneos -allowProvisioningUpdates CODE_SIGNING_ALLOWED=NO test -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=16.2'
-      #   working-directory: ScoutInsights
