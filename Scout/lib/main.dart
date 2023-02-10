@@ -42,10 +42,12 @@ class _MyHomePageState extends State<MyHomePage> {
   void _navigate() {
     Navigator.push(
         context,
-        _pageIndex == 0
-            ? MaterialPageRoute(builder: (context) => const PitScoutingEntry())
-            : MaterialPageRoute(
-                builder: (context) => const MatchScoutingEntry()));
+       _pageIndex == 0 ?
+          MaterialPageRoute(builder: (context) => const PitScoutingEntry())
+           : (_pageIndex==1 ? MaterialPageRoute(builder: (context) => const PracticeFieldScoutingEntry())
+           : MaterialPageRoute(builder: (context) => const MatchScoutingEntry()))
+    );
+
   }
 
   final List<Widget> _tabs = const [
