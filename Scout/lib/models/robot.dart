@@ -28,6 +28,10 @@ class Robot {
 
   // scoring
   List<GridLevelEnum> gridScoringLevels;
+  String scoringNotes;
+
+  // charging stations
+  String chargingStationNotes;
 
   Robot(
       {required this.teamNumber,
@@ -42,7 +46,9 @@ class Robot {
       required this.canIntakeCube,
       required this.pickupSpots,
       required this.intakeConeOrientations,
-      required this.gridScoringLevels});
+      required this.gridScoringLevels,
+      required this.scoringNotes,
+      required this.chargingStationNotes});
 
   Robot.fromMap(Map<String, dynamic> map)
       : teamNumber = map['teamNumber'],
@@ -66,7 +72,9 @@ class Robot {
             .toList(),
         gridScoringLevels = map['gridScoringLevels']
             .map<GridLevelEnum>((e) => GridLevelEnumExtension.fromValue(e))
-            .toList();
+            .toList(),
+        scoringNotes = map['scoringNotes'],
+        chargingStationNotes = map['chargingStationNotes'];
 
   Map<String, dynamic> _toMap() {
     return {
@@ -84,6 +92,8 @@ class Robot {
       'intakeConeOrientations':
           intakeConeOrientations.map((e) => e.value).toList(),
       'gridScoringLevels': gridScoringLevels.map((e) => e.value).toList(),
+      'scoringNotes': scoringNotes,
+      'chargingStationNotes': chargingStationNotes,
     };
   }
 

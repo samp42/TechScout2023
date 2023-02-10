@@ -75,6 +75,10 @@ jobs:
         run: flutter build appbundle
         working-directory: Scout
 
+      - name: Run tests
+        run: flutter test
+        working-directory: Scout
+
   # Task 1.1
   # ANALYZE SCOUT
   analyze_scout:
@@ -90,6 +94,23 @@ jobs:
 
       - name: Run flutter analyze
         run: flutter analyze
+        working-directory: Scout
+
+  # Task 1.2
+  # CHECK SCOUT FORMAT
+  format_scout:
+    needs: build_scout
+    if: ${{ contains(needs.targets.outputs.target-output, 'flutter') }}
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Run dart format
+        run: dart format --output=none --set-exit-if-changed .
         working-directory: Scout
 
   # Task 2.0
