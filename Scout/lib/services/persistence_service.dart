@@ -12,6 +12,12 @@ class PersistenceService {
     final _ = await _writeJson(fileName, robot);
   }
 
+  Future<Robot> readRobotByTeamNumber(num teamNumber) async {
+    final fileName = 'robot_$teamNumber';
+    final json = await _readJson(fileName);
+    return Robot.fromMap(json);
+  }
+
   Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
 

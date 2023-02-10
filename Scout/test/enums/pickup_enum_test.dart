@@ -1,5 +1,3 @@
-import 'package:scout/enums/driver_experience_enum.dart';
-import 'package:scout/enums/grid_level_enum.dart';
 import 'package:scout/enums/pickup_enum.dart';
 import 'package:test/test.dart';
 
