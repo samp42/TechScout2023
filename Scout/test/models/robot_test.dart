@@ -33,6 +33,9 @@ void main() {
       GridLevelEnum.middle,
       GridLevelEnum.top,
     ],
+    scoringNotes: 'We can only score cubes on the bottom level of the grid.',
+    chargingStationNotes:
+        'We can only park on the left side of the charging station.',
   );
 
   test('Test fromMap', () {
@@ -55,7 +58,11 @@ void main() {
         'sideways',
         'up right'
       ],
-      'gridScoringLevels': ['bottom', 'middle', 'top']
+      'gridScoringLevels': ['bottom', 'middle', 'top'],
+      'scoringNotes':
+          'We can only score cubes on the bottom level of the grid.',
+      'chargingStationNotes':
+          'We can only park on the left side of the charging station.',
     });
 
     // Then
@@ -78,6 +85,9 @@ void main() {
     // expect to be equal ignoring order
     expect(actualRobot.gridScoringLevels.toSet(),
         equals(robotMock.gridScoringLevels.toSet()));
+    expect(actualRobot.scoringNotes, equals(robotMock.scoringNotes));
+    expect(actualRobot.chargingStationNotes,
+        equals(robotMock.chargingStationNotes));
   });
 
   test('test fromMap from json file', () {
@@ -109,6 +119,9 @@ void main() {
     // expect to be equal ignoring order
     expect(actualRobot.gridScoringLevels.toSet(),
         equals(robotMock.gridScoringLevels.toSet()));
+    expect(actualRobot.scoringNotes, equals(robotMock.scoringNotes));
+    expect(actualRobot.chargingStationNotes,
+        equals(robotMock.chargingStationNotes));
   });
 
   test('Test toJson', () {
@@ -147,5 +160,9 @@ void main() {
     // expect to be equal ignoring order
     expect(actualRobotJson['gridScoringLevels'].toSet(),
         equals(expectedRobotJson['gridScoringLevels'].toSet()));
+    expect(actualRobotJson['scoringNotes'],
+        equals(expectedRobotJson['scoringNotes']));
+    expect(actualRobotJson['chargingStationNotes'],
+        equals(expectedRobotJson['chargingStationNotes']));
   });
 }
