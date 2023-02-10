@@ -7,7 +7,6 @@ import 'package:path_provider/path_provider.dart';
 import '../models/robot.dart';
 
 class PersistenceService {
-
   void writeRobot(Robot robot) async {
     final fileName = 'robot_${robot.teamNumber}';
     final _ = await _writeJson(fileName, robot);
@@ -44,5 +43,4 @@ class PersistenceService {
 
     return file.writeAsString(jsonEncode(content));
   }
-
 }

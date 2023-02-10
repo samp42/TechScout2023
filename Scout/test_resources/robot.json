@@ -5,7 +5,7 @@
   "weight": 120,
   "width": 28,
   "length": 30,
-  "driveBaseType": "Tank",
+  "driveBaseType": "tank",
   "stable": false,
   "canIntakeCone": true,
   "canIntakeCube": true,
@@ -13,14 +13,14 @@
     "floor"
   ],
   "intakeConeOrientations": [
-    "Pointing Away",
-    "Pointing Towards",
-    "Sideways",
-    "Up Right"
+    "pointing away",
+    "pointing towards",
+    "sideways",
+    "up right"
   ],
   "gridScoringLevels": [
-    "Bottom",
-    "Middle",
-    "Top"
+    "bottom",
+    "middle",
+    "top"
   ]
 }

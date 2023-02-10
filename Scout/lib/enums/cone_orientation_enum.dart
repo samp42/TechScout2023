@@ -1,38 +1,26 @@
 enum ConeOrientationEnum {
-  pointingAway,
-  pointingTowards,
-  sideways,
-  upRight,
+  pointingAway('pointing away'),
+  pointingTowards('pointing towards'),
+  sideways('sideways'),
+  upRight('up right');
+
+  const ConeOrientationEnum(this.value);
+  final String value;
 }
 
 extension ConeOrientationEnumExtension on ConeOrientationEnum {
-  
-  String get name {
-    switch (this) {
-      case ConeOrientationEnum.pointingAway:
-        return 'Pointing Away';
-      case ConeOrientationEnum.pointingTowards:
-        return 'Pointing Towards';
-      case ConeOrientationEnum.sideways:
-        return 'Sideways';
-      case ConeOrientationEnum.upRight:
-        return 'Up Right';
-    }
-  }
-
-  static ConeOrientationEnum fromName(String name) {
-    switch (name) {
-      case 'Pointing Away':
+  static ConeOrientationEnum fromValue(String value) {
+    switch (value) {
+      case 'pointing away':
         return ConeOrientationEnum.pointingAway;
-      case 'Pointing Towards':
+      case 'pointing towards':
         return ConeOrientationEnum.pointingTowards;
-      case 'Sideways':
+      case 'sideways':
         return ConeOrientationEnum.sideways;
-      case 'Up Right':
+      case 'up right':
         return ConeOrientationEnum.upRight;
       default:
-        throw Exception('Invalid ConeOrientationEnum name: $name');
+        throw Exception('Invalid ConeOrientationEnum name: $value');
     }
   }
-  
 }

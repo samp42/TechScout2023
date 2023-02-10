@@ -1,19 +1,12 @@
 enum PickupEnum {
-
   floor('floor'),
   tablet('tablet');
 
   const PickupEnum(this.value);
   final String value;
-
 }
 
 extension PickupEnumExtension on PickupEnum {
-
-  String get value {
-    return this.value;
-  }
-
   static PickupEnum fromValue(String value) {
     switch (value) {
       case 'floor':
@@ -24,5 +17,4 @@ extension PickupEnumExtension on PickupEnum {
         throw Exception('Invalid PickupEnum value: $value');
     }
   }
-
 }

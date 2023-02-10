@@ -6,5 +6,4 @@ class MatchReport {
     required this.matchNumber,
     required this.teamNumber,
   });
-
 }

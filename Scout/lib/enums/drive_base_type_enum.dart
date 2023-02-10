@@ -1,33 +1,23 @@
 enum DriveBaseTypeEnum {
-  swerve,
-  tank,
-  other,
+  swerve('swerve'),
+  tank('tank'),
+  other('other');
+
+  const DriveBaseTypeEnum(this.value);
+  final String value;
 }
 
 extension DriveBaseTypeEnumExtension on DriveBaseTypeEnum {
-  
-  String get name {
-    switch (this) {
-      case DriveBaseTypeEnum.swerve:
-        return 'Swerve';
-      case DriveBaseTypeEnum.tank:
-        return 'Tank';
-      case DriveBaseTypeEnum.other:
-        return 'Other';
-    }
-  }
-
-  static DriveBaseTypeEnum fromName(String name) {
-    switch (name) {
-      case 'Swerve':
+  static DriveBaseTypeEnum fromValue(String value) {
+    switch (value) {
+      case 'swerve':
         return DriveBaseTypeEnum.swerve;
-      case 'Tank':
+      case 'tank':
         return DriveBaseTypeEnum.tank;
-      case 'Other':
+      case 'other':
         return DriveBaseTypeEnum.other;
       default:
-        throw Exception('Invalid DriveBaseTypeEnum name: $name');
+        throw Exception('Invalid DriveBaseTypeEnum name: $value');
     }
   }
-
 }

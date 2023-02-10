@@ -29,45 +29,43 @@ class Robot {
   // scoring
   List<GridLevelEnum> gridScoringLevels;
 
-  Robot({
-    required this.teamNumber,
-    required this.scoutName,
-    required this.driverExperience,
-    required this.weight,
-    required this.width,
-    required this.length,
-    required this.driveBaseType,
-    required this.stable,
-    required this.canIntakeCone,
-    required this.canIntakeCube,
-    required this.pickupSpots,
-    required this.intakeConeOrientations,
-    required this.gridScoringLevels
-  });
-
+  Robot(
+      {required this.teamNumber,
+      required this.scoutName,
+      required this.driverExperience,
+      required this.weight,
+      required this.width,
+      required this.length,
+      required this.driveBaseType,
+      required this.stable,
+      required this.canIntakeCone,
+      required this.canIntakeCube,
+      required this.pickupSpots,
+      required this.intakeConeOrientations,
+      required this.gridScoringLevels});
 
   Robot.fromMap(Map<String, dynamic> map)
       : teamNumber = map['teamNumber'],
         scoutName = map['scoutName'],
-        driverExperience = DriverExperienceEnumExtension.fromValue(map['driverExperience']),
+        driverExperience =
+            DriverExperienceEnumExtension.fromValue(map['driverExperience']),
         weight = map['weight'],
         width = map['width'],
         length = map['length'],
-        driveBaseType = DriveBaseTypeEnumExtension.fromName(map['driveBaseType']),
+        driveBaseType =
+            DriveBaseTypeEnumExtension.fromValue(map['driveBaseType']),
         stable = map['stable'],
         canIntakeCone = map['canIntakeCone'],
         canIntakeCube = map['canIntakeCube'],
         pickupSpots = map['pickupSpots']
-            .map<PickupEnum>(
-                (e) => PickupEnumExtension.fromValue(e))
+            .map<PickupEnum>((e) => PickupEnumExtension.fromValue(e))
             .toList(),
         intakeConeOrientations = map['intakeConeOrientations']
             .map<ConeOrientationEnum>(
-                (e) => ConeOrientationEnumExtension.fromName(e))
+                (e) => ConeOrientationEnumExtension.fromValue(e))
             .toList(),
         gridScoringLevels = map['gridScoringLevels']
-            .map<GridLevelEnum>(
-                (e) => GridLevelEnumExtension.fromValue(e))
+            .map<GridLevelEnum>((e) => GridLevelEnumExtension.fromValue(e))
             .toList();
 
   Map<String, dynamic> _toMap() {
@@ -78,17 +76,18 @@ class Robot {
       'weight': weight,
       'width': width,
       'length': length,
-      'driveBaseType': driveBaseType.name,
+      'driveBaseType': driveBaseType.value,
       'stable': stable,
       'canIntakeCone': canIntakeCone,
       'canIntakeCube': canIntakeCube,
       'pickupSpots': pickupSpots.map((e) => e.value).toList(),
-      'intakeConeOrientations': intakeConeOrientations.map((e) => e.name).toList(),
+      'intakeConeOrientations':
+          intakeConeOrientations.map((e) => e.value).toList(),
       'gridScoringLevels': gridScoringLevels.map((e) => e.value).toList(),
     };
   }
 
   String toJson() {
-    return jsonEncode(this._toMap());
+    return jsonEncode(_toMap());
   }
 }
