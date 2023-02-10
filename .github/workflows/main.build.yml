@@ -96,6 +96,7 @@ jobs:
   # CHECK SCOUT FORMAT
   format_scout:
     needs: build_scout
+    if: ${{ contains(needs.targets.outputs.target-output, 'flutter') }}
     runs-on: macos-latest
 
     steps:
