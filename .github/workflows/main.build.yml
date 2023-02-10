@@ -78,6 +78,22 @@ jobs:
         run: flutter analyze
         working-directory: Scout
 
+  # Task 1.2
+  # CHECK SCOUT FORMAT
+  format_scout:
+    needs: build_scout
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Run dart format
+        run: dart format --output=none --set-exit-if-changed .
+        working-directory: Scout
+
   # Task 2.0
   # BUILD SCOUT API
   build_scout_api:
