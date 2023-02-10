@@ -1,0 +1,26 @@
+{
+  "teamNumber": 3990,
+  "scoutName": "John Doe",
+  "driverExperience": 1,
+  "weight": 120,
+  "width": 28,
+  "length": 30,
+  "driveBaseType": "tank",
+  "stable": false,
+  "canIntakeCone": true,
+  "canIntakeCube": true,
+  "pickupSpots": [
+    "floor"
+  ],
+  "intakeConeOrientations": [
+    "pointing away",
+    "pointing towards",
+    "sideways",
+    "up right"
+  ],
+  "gridScoringLevels": [
+    "bottom",
+    "middle",
+    "top"
+  ]
+}
