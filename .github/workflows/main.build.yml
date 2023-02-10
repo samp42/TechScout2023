@@ -6,6 +6,8 @@ on:
     branches: [ "main" ]
 
 jobs:
+  # Task 0.0
+  # GET TARGETS TO BUILD
   targets:
     runs-on: ubuntu-latest
     outputs:
@@ -21,7 +23,19 @@ jobs:
       - name: Run get targets
         id: get_targets
         run: echo "build_targets=$(./ci/get-targets.sh $GITHUB_HEAD_REF)" >> $GITHUB_OUTPUT
-  
+
+  # Task 0.1
+  # ECHO TARGETS TO BUILD
+  debug_targets:
+    needs: targets
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Display targets to build
+        run: echo "${{ needs.targets.outputs.target-output }}"
+
   # Task 1.0
   # BUILD SCOUT AND RUN TESTS
   build_scout:
@@ -30,7 +44,7 @@ jobs:
      ${{
         contains(needs.targets.outputs.target-output, '.github') ||
         contains(needs.targets.outputs.target-output, 'ci') ||
-        contains(needs.targets.outputs.target-output, 'Scout')
+        contains(needs.targets.outputs.target-output, 'flutter')
       }}
     runs-on: macos-latest
 
@@ -65,7 +79,7 @@ jobs:
   # ANALYZE SCOUT
   analyze_scout:
     needs: build_scout
-    if: ${{ contains(needs.targets.outputs.target-output, 'Scout') }}
+    if: ${{ contains(needs.targets.outputs.target-output, 'flutter') }}
     runs-on: macos-latest
 
     steps:
@@ -102,7 +116,7 @@ jobs:
      ${{
         contains(needs.targets.outputs.target-output, '.github') ||
         contains(needs.targets.outputs.target-output, 'ci') ||
-        contains(needs.targets.outputs.target-output, 'ScoutAPI')
+        contains(needs.targets.outputs.target-output, 'API')
       }}
     runs-on: ubuntu-latest
 
@@ -118,7 +132,7 @@ jobs:
   # CHECK SCOUTAPI FORMAT
   format_scoutapi:
     needs: build_scout_api
-    if: ${{ contains(needs.targets.outputs.target-output, 'ScoutAPI') }}
+    if: ${{ contains(needs.targets.outputs.target-output, 'API') }}
     runs-on: ubuntu-latest
 
     steps:
@@ -141,7 +155,7 @@ jobs:
      ${{
         contains(needs.targets.outputs.target-output, '.github') ||
         contains(needs.targets.outputs.target-output, 'ci') ||
-        contains(needs.targets.outputs.target-output, 'ScoutInsights')
+        contains(needs.targets.outputs.target-output, 'iOs')
       }}
     runs-on: macos-latest
     
