@@ -44,7 +44,7 @@ jobs:
      ${{
         contains(needs.targets.outputs.target-output, '.github') ||
         contains(needs.targets.outputs.target-output, 'ci') ||
-        contains(needs.targets.outputs.target-output, 'Scout')
+        contains(needs.targets.outputs.target-output, 'flutter')
       }}
     runs-on: macos-latest
 
@@ -79,7 +79,7 @@ jobs:
   # ANALYZE SCOUT
   analyze_scout:
     needs: build_scout
-    if: ${{ contains(needs.targets.outputs.target-output, 'Scout') }}
+    if: ${{ contains(needs.targets.outputs.target-output, 'flutter') }}
     runs-on: macos-latest
 
     steps:
@@ -100,7 +100,7 @@ jobs:
      ${{
         contains(needs.targets.outputs.target-output, '.github') ||
         contains(needs.targets.outputs.target-output, 'ci') ||
-        contains(needs.targets.outputs.target-output, 'ScoutAPI')
+        contains(needs.targets.outputs.target-output, 'API')
       }}
     runs-on: ubuntu-latest
 
@@ -116,7 +116,7 @@ jobs:
   # CHECK SCOUTAPI FORMAT
   format_scoutapi:
     needs: build_scout_api
-    if: ${{ contains(needs.targets.outputs.target-output, 'ScoutAPI') }}
+    if: ${{ contains(needs.targets.outputs.target-output, 'API') }}
     runs-on: ubuntu-latest
 
     steps:
@@ -139,7 +139,7 @@ jobs:
      ${{
         contains(needs.targets.outputs.target-output, '.github') ||
         contains(needs.targets.outputs.target-output, 'ci') ||
-        contains(needs.targets.outputs.target-output, 'ScoutInsights')
+        contains(needs.targets.outputs.target-output, 'iOs')
       }}
     runs-on: macos-latest
     

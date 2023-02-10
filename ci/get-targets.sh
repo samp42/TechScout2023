@@ -35,6 +35,6 @@ for file in $files; do
 done
 
 # map items in targets, Scout -> flutter, ScoutAPI -> API, ScoutInsights -> ios
-targets=$(echo $targets | sed -e 's/Scout/flutter/g' -e 's/ScoutAPI/API/g' -e 's/ScoutInsights/ios/g')
+targets=$(echo $targets | sed -e 's/Scout/flutter/g' -e 's/ScoutAPI/API/g' -e 's/ScoutInsights/iOs/g')
 
 echo "TARGETS: $targets"
