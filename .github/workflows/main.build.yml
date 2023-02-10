@@ -24,8 +24,17 @@ jobs:
         id: get_targets
         run: echo "build_targets=$(./ci/get-targets.sh $GITHUB_HEAD_REF)" >> $GITHUB_OUTPUT
 
+  # Task 0.1
+  # ECHO TARGETS TO BUILD
+  debug_targets:
+    needs: targets
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
       - name: Display targets to build
-        run: echo "${{ steps.targets.outputs.target-output }}"
+        run: echo "${{ needs.targets.outputs.target-output }}"
 
   # Task 1.0
   # BUILD SCOUT AND RUN TESTS
