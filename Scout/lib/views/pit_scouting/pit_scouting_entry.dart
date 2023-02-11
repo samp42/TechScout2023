@@ -6,6 +6,9 @@ class PitScoutingEntry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ScrollController _scrollController = ScrollController();
+    // final driveType = []
+
     return Scaffold(
         appBar: AppBar(
           title: const Text(
@@ -31,7 +34,54 @@ class PitScoutingEntry extends StatelessWidget {
                     border: OutlineInputBorder(),
                     hintText: 'Enter team number'),
               ))
+            ]),
+            Row(children: const <Widget>[
+              Expanded(child: Text('  Driver Experience: ')),
+              Expanded(
+                  child: TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Years',
+                ),
+              )),
+              Expanded(child: Text('  years')),
+            ]),
+            Row(children: const <Widget>[
+              Expanded(child: Text('  Weight: ')),
+              Expanded(
+                  child: TextField(
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(), hintText: 'weight'),
+              )),
+              Expanded(
+                child: Text('  lb'),
+              )
+            ]),
+            Row(children: const <Widget>[
+              Expanded(child: Text('  Widht:  ')),
+              Expanded(
+                  child: TextField(
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(), hintText: 'widht'),
+              )),
+              Expanded(child: Text('  inches'))
+            ]),
+            Row(children: const <Widget>[
+              Expanded(child: Text('  Drive Type:  ')),
             ])
+            /*   Scrollbar(
+              thumbVisibility: false,
+              controller: _scrollController,
+              child: ListView.builder(
+                  controller: _scrollController,
+                  itemCount: 2,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Scrollable 1 : Index $index'),
+                    );
+                  }),
+            ),*/
           ]),
         ),
         resizeToAvoidBottomInset:
