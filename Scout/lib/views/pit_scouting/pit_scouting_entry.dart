@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scout/theme.dart';
+import 'package:dropdown_textfield/dropdown_textfield.dart';
 
 class PitScoutingEntry extends StatelessWidget {
   const PitScoutingEntry({Key? key}) : super(key: key);
@@ -68,7 +69,13 @@ class PitScoutingEntry extends StatelessWidget {
             ]),
             Row(children: const <Widget>[
               Expanded(child: Text('  Drive Type:  ')),
-            ])
+              Expanded(
+                  child: DropDownTextField(dropDownList: const [
+                DropDownValueModel(name: 'Swerve', value: 'Swerve'),
+                DropDownValueModel(name: 'Tank', value: 'Tank'),
+                DropDownValueModel(name: 'Other', value: 'Other')
+              ]))
+            ]),
             /*   Scrollbar(
               thumbVisibility: false,
               controller: _scrollController,
