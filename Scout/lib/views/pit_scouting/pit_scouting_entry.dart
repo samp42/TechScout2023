@@ -17,9 +17,10 @@ class PitScoutingEntry extends StatelessWidget {
             style: TextStyle(color: yellowT4K),
           ),
         ),
-        body: Container(
-          child: Column(children: <Widget>[
-            Row(children: const <Widget>[
+        body: Column(children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(children: const <Widget>[
               Expanded(child: Text('  Your Name: ')),
               Expanded(
                   child: TextField(
@@ -27,7 +28,10 @@ class PitScoutingEntry extends StatelessWidget {
                     border: OutlineInputBorder(), hintText: 'Scout Name'),
               ))
             ]),
-            Row(children: const <Widget>[
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(children: const <Widget>[
               Expanded(child: Text('  Team Number: ')),
               Expanded(
                   child: TextField(
@@ -36,8 +40,11 @@ class PitScoutingEntry extends StatelessWidget {
                     hintText: 'Enter team number'),
               ))
             ]),
-            Row(children: const <Widget>[
-              Expanded(child: Text('  Driver Experience: ')),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(children: const <Widget>[
+              Expanded(child: Text('  Driver Experience: (years)')),
               Expanded(
                   child: TextField(
                 decoration: InputDecoration(
@@ -45,52 +52,68 @@ class PitScoutingEntry extends StatelessWidget {
                   hintText: 'Years',
                 ),
               )),
-              Expanded(child: Text('  years')),
             ]),
-            Row(children: const <Widget>[
-              Expanded(child: Text('  Weight: ')),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(children: const <Widget>[
+              Expanded(child: Text('  Weight: (lbs)')),
               Expanded(
                   child: TextField(
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(), hintText: 'weight'),
+                    border: OutlineInputBorder(), hintText: 'Weight'),
               )),
-              Expanded(
-                child: Text('  lb'),
-              )
             ]),
-            Row(children: const <Widget>[
-              Expanded(child: Text('  Widht:  ')),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(children: const <Widget>[
+              Expanded(child: Text('  Widht:  (inches)')),
               Expanded(
                   child: TextField(
                 decoration: InputDecoration(
                     border: OutlineInputBorder(), hintText: 'widht'),
               )),
-              Expanded(child: Text('  inches'))
             ]),
-            Row(children: const <Widget>[
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(children: const <Widget>[
+              Expanded(child: Text('  Height:  (inches)')),
+              Expanded(
+                  child: TextField(
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(), hintText: 'height'),
+              )),
+            ]),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(children: const <Widget>[
               Expanded(child: Text('  Drive Type:  ')),
               Expanded(
-                  child: DropDownTextField(dropDownList: const [
+                  child: DropDownTextField(dropDownList: [
                 DropDownValueModel(name: 'Swerve', value: 'Swerve'),
                 DropDownValueModel(name: 'Tank', value: 'Tank'),
                 DropDownValueModel(name: 'Other', value: 'Other')
               ]))
             ]),
-            /*   Scrollbar(
-              thumbVisibility: false,
-              controller: _scrollController,
-              child: ListView.builder(
-                  controller: _scrollController,
-                  itemCount: 2,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text('Scrollable 1 : Index $index'),
-                    );
-                  }),
-            ),*/
-          ]),
-        ),
+          ),
+
+          /*   Scrollbar(
+            thumbVisibility: false,
+            controller: _scrollController,
+            child: ListView.builder(
+                controller: _scrollController,
+                itemCount: 2,
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('Scrollable 1 : Index $index'),
+                  );
+                }),
+          ),*/
+        ]),
         resizeToAvoidBottomInset:
             false // the scaffold is not going to resize when open keyboard
         );

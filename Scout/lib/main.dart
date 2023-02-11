@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
       title: _title,
       theme: ThemeData(
         primarySwatch: materialBlackT4K,
+        fontFamily: 'Futura',
       ),
       home: MyHomePage(title: _title),
     );
