@@ -13,9 +13,14 @@ class PitScoutingEntry extends StatelessWidget {
           style: TextStyle(color: yellowT4K),
         ),
       ),
-      body: const Center(
-        child: Text('Pit Scouting Entry'),
+
+      body:  Container(
+        child: Text(
+            'Pit Scouting Entry',
+           textAlign: TextAlign.left),
+
       ),
+        //resizeToAvoidBottomInset : false; // the scaffold is not going to resize when open keyboard
     );
   }
 }
