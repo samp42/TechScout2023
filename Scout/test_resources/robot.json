@@ -9,19 +9,20 @@
   "stable": false,
   "canIntakeCone": true,
   "canIntakeCube": true,
-  "pickupSpotsCube": ["floor"],
-  "pickupSpotsCone": ["floor"],
+  "pickupSpots": [
+    "floor"
+  ],
   "intakeConeOrientations": [
     "pointing away",
     "pointing towards",
     "sideways",
     "up right"
   ],
-  "gridScoringLevelsCube": ["bottom", "middle", "top"],
-  "gridScoringLevelsCone": ["bottom", "middle", "top"],
-  "gamePiecesNotes": "The robot can intake but the intake is not very strong.",
-  "scoringNotes":
-      "We can only score cubes on the bottom level of the grid.",
-  "chargingStationNotes":
-      "We can only park on the left side of the charging station."
+  "gridScoringLevels": [
+    "bottom",
+    "middle",
+    "top"
+  ],
+  "scoringNotes": "We can only score cubes on the bottom level of the grid.",
+  "chargingStationNotes": "We can only park on the left side of the charging station."
 }

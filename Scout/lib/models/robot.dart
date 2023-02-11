@@ -23,13 +23,11 @@ class Robot {
   // game pieces
   bool canIntakeCone;
   bool canIntakeCube;
-  List<PickupEnum> pickupSpotsCube;
-  List<PickupEnum> pickupSpotsCone;
-  List<GridLevelEnum> gridScoringLevelsCube;
-  List<GridLevelEnum> gridScoringLevelsCone;
+  List<PickupEnum> pickupSpots;
   List<ConeOrientationEnum> intakeConeOrientations;
-  String gamePiecesNotes;
 
+  // scoring
+  List<GridLevelEnum> gridScoringLevels;
   String scoringNotes;
 
   // charging stations
@@ -46,12 +44,9 @@ class Robot {
       required this.stable,
       required this.canIntakeCone,
       required this.canIntakeCube,
-      required this.pickupSpotsCube,
-      required this.pickupSpotsCone,
-      required this.gridScoringLevelsCube,
-      required this.gridScoringLevelsCone,
+      required this.pickupSpots,
       required this.intakeConeOrientations,
-      required this.gamePiecesNotes,
+      required this.gridScoringLevels,
       required this.scoringNotes,
       required this.chargingStationNotes});
 
@@ -68,23 +63,16 @@ class Robot {
         stable = map['stable'],
         canIntakeCone = map['canIntakeCone'],
         canIntakeCube = map['canIntakeCube'],
-        pickupSpotsCube = map['pickupSpotsCube'] = map['pickupSpotsCube']
+        pickupSpots = map['pickupSpots']
             .map<PickupEnum>((e) => PickupEnumExtension.fromValue(e))
-            .toList(),
-        pickupSpotsCone = map['pickupSpotsCone'] = map['pickupSpotsCone']
-            .map<PickupEnum>((e) => PickupEnumExtension.fromValue(e))
-            .toList(),
-        gridScoringLevelsCube = map['gridScoringLevelsCube']
-            .map<GridLevelEnum>((e) => GridLevelEnumExtension.fromValue(e))
-            .toList(),
-        gridScoringLevelsCone = map['gridScoringLevelsCone']
-            .map<GridLevelEnum>((e) => GridLevelEnumExtension.fromValue(e))
             .toList(),
         intakeConeOrientations = map['intakeConeOrientations']
             .map<ConeOrientationEnum>(
                 (e) => ConeOrientationEnumExtension.fromValue(e))
             .toList(),
-        gamePiecesNotes = map['gamePiecesNotes'],
+        gridScoringLevels = map['gridScoringLevels']
+            .map<GridLevelEnum>((e) => GridLevelEnumExtension.fromValue(e))
+            .toList(),
         scoringNotes = map['scoringNotes'],
         chargingStationNotes = map['chargingStationNotes'];
 
@@ -100,15 +88,10 @@ class Robot {
       'stable': stable,
       'canIntakeCone': canIntakeCone,
       'canIntakeCube': canIntakeCube,
-      'pickupSpotsCube': pickupSpotsCube.map((e) => e.value).toList(),
-      'pickupSpotsCone': pickupSpotsCone.map((e) => e.value).toList(),
+      'pickupSpots': pickupSpots.map((e) => e.value).toList(),
       'intakeConeOrientations':
           intakeConeOrientations.map((e) => e.value).toList(),
-      'gridScoringLevelsCube':
-          gridScoringLevelsCube.map((e) => e.value).toList(),
-      'gridScoringLevelsCone':
-          gridScoringLevelsCone.map((e) => e.value).toList(),
-      'gamePiecesNotes': gamePiecesNotes,
+      'gridScoringLevels': gridScoringLevels.map((e) => e.value).toList(),
       'scoringNotes': scoringNotes,
       'chargingStationNotes': chargingStationNotes,
     };
