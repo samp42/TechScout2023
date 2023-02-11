@@ -5,6 +5,8 @@ import 'package:scout/views/pit_scouting/pit_scouting_entry.dart';
 import 'package:scout/views/pit_scouting/pit_scouting_list.dart';
 import 'package:scout/views/practice_field_scouting/practice_field_scouting_entry.dart';
 import 'package:scout/views/practice_field_scouting/practice_field_scouting_list.dart';
+import 'package:scout/views/team_scouting/team_scouting_entry.dart';
+import 'package:scout/views/team_scouting/team_scouting_list.dart';
 import 'package:scout/theme.dart';
 
 void main() {
@@ -54,7 +56,8 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<Widget> _tabs = const [
     PitScoutingList(),
     PracticeFieldScoutingList(),
-    MatchScoutingList()
+    MatchScoutingList(),
+    TeamScoutingList()
   ];
 
   @override
@@ -72,18 +75,23 @@ class _MyHomePageState extends State<MyHomePage> {
         child: const Icon(Icons.add),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
+            icon: Icon(Icons.house_sharp),
+            label: 'Pit',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.wysiwyg),
+            label: 'Practice',
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.people_alt_rounded),
-            label: 'Pit Scouting',
+            label: 'Team',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.bar_chart_rounded),
-            label: 'Practice Scouting',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.library_books_rounded),
-            label: 'Match Scouting',
+            label: 'Match',
           ),
         ],
         currentIndex: _pageIndex,
