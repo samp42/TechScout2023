@@ -1,4 +1,4 @@
-# scout
++# scout
 
 TechScout's data collection app.
 

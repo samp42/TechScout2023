@@ -3,6 +3,8 @@ import 'package:scout/views/match_scouting/match_scouting_entry.dart';
 import 'package:scout/views/match_scouting/match_scouting_list.dart';
 import 'package:scout/views/pit_scouting/pit_scouting_entry.dart';
 import 'package:scout/views/pit_scouting/pit_scouting_list.dart';
+import 'package:scout/views/practice_field_scouting/practice_field_scouting_entry.dart';
+import 'package:scout/views/practice_field_scouting/practice_field_scouting_list.dart';
 import 'package:scout/theme.dart';
 
 void main() {
@@ -42,11 +44,18 @@ class _MyHomePageState extends State<MyHomePage> {
         context,
         _pageIndex == 0
             ? MaterialPageRoute(builder: (context) => const PitScoutingEntry())
-            : MaterialPageRoute(
-                builder: (context) => const MatchScoutingEntry()));
+            : (_pageIndex == 1
+                ? MaterialPageRoute(
+                    builder: (context) => const PracticeFieldScoutingEntry())
+                : MaterialPageRoute(
+                    builder: (context) => const MatchScoutingEntry())));
   }
 
-  final List<Widget> _tabs = const [PitScoutingList(), MatchScoutingList()];
+  final List<Widget> _tabs = const [
+    PitScoutingList(),
+    PracticeFieldScoutingList(),
+    MatchScoutingList()
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +76,10 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.people_alt_rounded),
             label: 'Pit Scouting',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.bar_chart_rounded),
+            label: 'Practice Scouting',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.library_books_rounded),
