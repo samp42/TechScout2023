@@ -6,11 +6,11 @@ import 'package:scout/enums/drive_base_type_enum.dart';
 import 'package:scout/enums/driver_experience_enum.dart';
 import 'package:scout/enums/grid_level_enum.dart';
 import 'package:scout/enums/pickup_enum.dart';
-import 'package:scout/models/robot.dart';
+import 'package:scout/models/pit_scouting.dart';
 import 'package:test/test.dart';
 
 void main() {
-  final Robot robotMock = Robot(
+  final PitScouting robotMock = PitScouting(
     teamNumber: 3990,
     scoutName: 'John Doe',
     driverExperience: DriverExperienceEnum.firstYear,
@@ -40,7 +40,7 @@ void main() {
 
   test('Test fromMap', () {
     // Given / When
-    Robot actualRobot = Robot.fromMap({
+    PitScouting actualRobot = PitScouting.fromMap({
       'teamNumber': 3990,
       'scoutName': 'John Doe',
       'driverExperience': 1,
@@ -92,12 +92,12 @@ void main() {
 
   test('test fromMap from json file', () {
     // Given
-    File robotJsonFile = File('test_resources/robot.json');
+    File robotJsonFile = File('test_resources/pit_scouting.json');
     String actualJson = robotJsonFile.readAsStringSync();
     Map<String, dynamic> actualMap = jsonDecode(actualJson);
 
     // When
-    Robot actualRobot = Robot.fromMap(actualMap);
+    PitScouting actualRobot = PitScouting.fromMap(actualMap);
 
     // Then
     expect(actualRobot.teamNumber, equals(robotMock.teamNumber));
@@ -126,7 +126,7 @@ void main() {
 
   test('Test toJson', () {
     // Given
-    File robotJsonFile = File('test_resources/robot.json');
+    File robotJsonFile = File('test_resources/pit_scouting.json');
     String expectedRobotJsonString = robotJsonFile.readAsStringSync();
     Map<String, dynamic> expectedRobotJson =
         jsonDecode(expectedRobotJsonString);

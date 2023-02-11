@@ -6,7 +6,7 @@ import 'package:scout/enums/driver_experience_enum.dart';
 import 'package:scout/enums/grid_level_enum.dart';
 import 'package:scout/enums/pickup_enum.dart';
 
-class Robot {
+class PitScouting {
   int teamNumber;
   String scoutName;
 
@@ -33,7 +33,7 @@ class Robot {
   // charging stations
   String chargingStationNotes;
 
-  Robot(
+  PitScouting(
       {required this.teamNumber,
       required this.scoutName,
       required this.driverExperience,
@@ -50,7 +50,7 @@ class Robot {
       required this.scoringNotes,
       required this.chargingStationNotes});
 
-  Robot.fromMap(Map<String, dynamic> map)
+  PitScouting.fromMap(Map<String, dynamic> map)
       : teamNumber = map['teamNumber'],
         scoutName = map['scoutName'],
         driverExperience =

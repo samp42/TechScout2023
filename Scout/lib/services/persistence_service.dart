@@ -4,18 +4,18 @@ import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
 
-import '../models/robot.dart';
+import '../models/pit_scouting.dart';
 
 class PersistenceService {
-  void writeRobot(Robot robot) async {
+  void writeRobot(PitScouting robot) async {
     final fileName = 'robot_${robot.teamNumber}';
     final _ = await _writeJson(fileName, robot);
   }
 
-  Future<Robot> readRobotByTeamNumber(num teamNumber) async {
+  Future<PitScouting> readRobotByTeamNumber(num teamNumber) async {
     final fileName = 'robot_$teamNumber';
     final json = await _readJson(fileName);
-    return Robot.fromMap(json);
+    return PitScouting.fromMap(json);
   }
 
   Future<String> get _localPath async {
