@@ -26,6 +26,7 @@
 		1ED94E5A2940FE5E00FDE7E6 /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED94E582940FE5E00FDE7E6 /* StatisticsView.swift */; };
 		1ED94E602940FEC600FDE7E6 /* PickListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED94E5F2940FEC600FDE7E6 /* PickListView.swift */; };
 		1ED94E612940FEC600FDE7E6 /* PickListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED94E5F2940FEC600FDE7E6 /* PickListView.swift */; };
+		20AE3D372997FAC100DA111F /* TeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20AE3D362997FAC100DA111F /* TeamView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,7 @@
 		1ED94E552940FE5500FDE7E6 /* PickListEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickListEditorView.swift; sourceTree = "<group>"; };
 		1ED94E582940FE5E00FDE7E6 /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		1ED94E5F2940FEC600FDE7E6 /* PickListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickListView.swift; sourceTree = "<group>"; };
+		20AE3D362997FAC100DA111F /* TeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +170,7 @@
 		1ED94E4E2940FDEC00FDE7E6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				20AE3D352997FAAC00DA111F /* Team */,
 				1E5F53932948324600848137 /* Schedule */,
 				1ED94E5B2940FE7400FDE7E6 /* Teams */,
 				1ED94E5D2940FE9000FDE7E6 /* Pick List */,
@@ -199,6 +202,14 @@
 				1ED94E582940FE5E00FDE7E6 /* StatisticsView.swift */,
 			);
 			path = Statistics;
+			sourceTree = "<group>";
+		};
+		20AE3D352997FAAC00DA111F /* Team */ = {
+			isa = PBXGroup;
+			children = (
+				20AE3D362997FAC100DA111F /* TeamView.swift */,
+			);
+			path = Team;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -346,6 +357,7 @@
 				1E5F53962948325E00848137 /* ScheduleView.swift in Sources */,
 				1ED94E252940FDDA00FDE7E6 /* ScoutInsightsApp.swift in Sources */,
 				1ED94E562940FE5500FDE7E6 /* PickListEditorView.swift in Sources */,
+				20AE3D372997FAC100DA111F /* TeamView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
