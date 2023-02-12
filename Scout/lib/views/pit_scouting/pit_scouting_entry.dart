@@ -10,7 +10,9 @@ class PitScoutingEntry extends StatefulWidget {
 }
 
 class _PitScoutingEntryState extends State<PitScoutingEntry> {
-  bool? a = true;
+  bool? isStable = true;
+  bool? canIntakeCone = true;
+  bool? canIntakeCube = true;
 
   @override
   Widget build(BuildContext context) {
@@ -106,16 +108,45 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
               ]))
             ]),
           ),
-          Row(children: <Widget>[
-            Expanded(child: Text('Is Stable?')),
-            Checkbox(
-                value: a,
-                onChanged: (bool? value1) {
-                  setState(() {
-                    a = value1;
-                  });
-                })
-          ])
+          Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(children: <Widget>[
+                const Expanded(child: Text('Is Stable?')),
+                Expanded(
+                    child: Checkbox(
+                        value: isStable,
+                        onChanged: (bool? value1) {
+                          setState(() {
+                            isStable = value1;
+                          });
+                        })),
+              ])),
+          Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(children: <Widget>[
+                const Expanded(child: Text('Can Intake Cones?')),
+                Expanded(
+                    child: Checkbox(
+                        value: canIntakeCone,
+                        onChanged: (bool? value1) {
+                          setState(() {
+                            canIntakeCone = value1;
+                          });
+                        })),
+              ])),
+          Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(children: <Widget>[
+                const Expanded(child: Text('Can Inetake Cubes?')),
+                Expanded(
+                    child: Checkbox(
+                        value: canIntakeCube,
+                        onChanged: (bool? value1) {
+                          setState(() {
+                            canIntakeCube = value1;
+                          });
+                        })),
+              ])),
 
           /*   Scrollbar(
             thumbVisibility: false,
