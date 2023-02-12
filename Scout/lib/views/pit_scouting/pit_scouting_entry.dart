@@ -2,8 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:scout/theme.dart';
 import 'package:dropdown_textfield/dropdown_textfield.dart';
 
-class PitScoutingEntry extends StatelessWidget {
-  const PitScoutingEntry({Key? key}) : super(key: key);
+class PitScoutingEntry extends StatefulWidget {
+  PitScoutingEntry({Key? key}) : super(key: key);
+
+  @override
+  State<PitScoutingEntry> createState() => _PitScoutingEntryState();
+}
+
+class _PitScoutingEntryState extends State<PitScoutingEntry> {
+  bool? a = true;
 
   @override
   Widget build(BuildContext context) {
@@ -99,6 +106,16 @@ class PitScoutingEntry extends StatelessWidget {
               ]))
             ]),
           ),
+          Row(children: <Widget>[
+            Expanded(child: Text('Is Stable?')),
+            Checkbox(
+                value: a,
+                onChanged: (bool? value1) {
+                  setState(() {
+                    a = value1;
+                  });
+                })
+          ])
 
           /*   Scrollbar(
             thumbVisibility: false,

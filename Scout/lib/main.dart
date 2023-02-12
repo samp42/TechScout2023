@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scout/models/pit_scouting.dart';
 import 'package:scout/views/match_scouting/match_scouting_entry.dart';
 import 'package:scout/views/match_scouting/match_scouting_list.dart';
 import 'package:scout/views/pit_scouting/pit_scouting_entry.dart';
@@ -46,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.push(
         context,
         _pageIndex == 0
-            ? MaterialPageRoute(builder: (context) => const PitScoutingEntry())
+            ? MaterialPageRoute(builder: (context) => PitScoutingEntry())
             : (_pageIndex == 1
                 ? MaterialPageRoute(
                     builder: (context) => const PracticeFieldScoutingEntry())
