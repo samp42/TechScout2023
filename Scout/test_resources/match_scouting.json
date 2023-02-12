@@ -1,0 +1,27 @@
+{
+    "matchNumber": 1,
+    "teamNumber": 1,
+    "scoutName": "Test",
+    "mobility": true,
+    "chargeStation": ["engage"],
+    "scoringGridCones": 1,
+    "scoringGridCubes": 1,
+    "penaltiesAutonomous": 1,
+    "robotCycleTimer": 1.0,
+    "robotSpeed": ["slow"],
+    "placementSpeedCones": ["slow"],
+    "placementSpeedCubes": ["slow"],
+    "pickupSpeedCones": ["slow"],
+    "pickupSpeedCubes": ["slow"],
+    "canDropCones": true,
+    "canDropCubes": true,
+    "coopertition": ["Tried and succeeded"],
+    "scoringGridTeleopCones": 1,
+    "scoringGridTeleopCubes": 1,
+    "penaltiesTeleop": 1,
+    "chargedStationEndgame": ["engage"],
+    "engageOrder": [1],
+    "penaltiesEndgame": 1,
+    "card": ["red"]
+  }
+  
