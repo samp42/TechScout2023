@@ -68,8 +68,7 @@ void main() {
       'gamePiecesNotes': '',
       'gridScoringLevelsCube': ['bottom', 'middle'],
       'gridScoringLevelsCone': ['bottom', 'middle', 'top'],
-      'scoringNotes':
-          'We can only score cubes on the coopertition grid.',
+      'scoringNotes': 'We can only score cubes on the coopertition grid.',
       'chargingStationNotes':
           'We can only park on the left side of the charging station.',
     });
