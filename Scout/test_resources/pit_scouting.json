@@ -9,7 +9,11 @@
   "stable": false,
   "canIntakeCone": true,
   "canIntakeCube": true,
-  "pickupSpots": [
+  "pickupSpotsCube": [
+    "floor",
+    "tablet"
+  ],
+  "pickupSpotsCone": [
     "floor"
   ],
   "intakeConeOrientations": [
@@ -18,11 +22,16 @@
     "sideways",
     "up right"
   ],
-  "gridScoringLevels": [
+  "gamePiecesNotes": "",
+  "gridScoringLevelsCube": [
+    "bottom",
+    "middle"
+  ],
+  "gridScoringLevelsCone": [
     "bottom",
     "middle",
     "top"
   ],
-  "scoringNotes": "We can only score cubes on the bottom level of the grid.",
+  "scoringNotes": "We can only score cubes on the coopertition grid.",
   "chargingStationNotes": "We can only park on the left side of the charging station."
 }
