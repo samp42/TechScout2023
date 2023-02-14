@@ -10,7 +10,9 @@ class PitScoutingEntry extends StatefulWidget {
 }
 
 class _PitScoutingEntryState extends State<PitScoutingEntry> {
-  bool? a = true;
+  bool? isStable = true;
+  bool? canIntakeCone = true;
+  bool? canIntakeCube = true;
   int _index = 0;
   late bool isLastStep;
 
