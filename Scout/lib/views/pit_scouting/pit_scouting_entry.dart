@@ -10,9 +10,9 @@ class PitScoutingEntry extends StatefulWidget {
 }
 
 class _PitScoutingEntryState extends State<PitScoutingEntry> {
-  bool? isStable = true;
-  bool? canIntakeCone = true;
-  bool? canIntakeCube = true;
+  bool? isStable = false;
+  bool? canIntakeCone = false;
+  bool? canIntakeCube = false;
   int _index = 0;
   late bool isLastStep;
 
@@ -23,7 +23,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: const <Widget>[
-                  Expanded(child: Text('  Your Name: ')),
+                  Expanded(child: Text('Your Name: ')),
                   Expanded(
                       child: TextField(
                     decoration: InputDecoration(
@@ -34,7 +34,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: const <Widget>[
-                  Expanded(child: Text('  Team Number: ')),
+                  Expanded(child: Text('Team Number: ')),
                   Expanded(
                       child: TextField(
                     decoration: InputDecoration(
@@ -50,7 +50,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: const <Widget>[
-                  Expanded(child: Text('  Driver Experience: (years)')),
+                  Expanded(child: Text('Driver Experience: (years)')),
                   Expanded(
                       child: TextField(
                     decoration: InputDecoration(
@@ -67,7 +67,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: const <Widget>[
-                  Expanded(child: Text('  Weight: (lbs)')),
+                  Expanded(child: Text('Weight: (lbs)')),
                   Expanded(
                       child: TextField(
                     decoration: InputDecoration(
@@ -78,7 +78,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: const <Widget>[
-                  Expanded(child: Text('  Widht:  (inches)')),
+                  Expanded(child: Text('Widht:  (inches)')),
                   Expanded(
                       child: TextField(
                     decoration: InputDecoration(
@@ -89,7 +89,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: const <Widget>[
-                  Expanded(child: Text('  Height:  (inches)')),
+                  Expanded(child: Text('Height:  (inches)')),
                   Expanded(
                       child: TextField(
                     decoration: InputDecoration(
@@ -100,7 +100,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: const <Widget>[
-                  Expanded(child: Text('  Drive Type:  ')),
+                  Expanded(child: Text('Drive Type:')),
                   Expanded(
                       child: DropDownTextField(dropDownList: [
                     DropDownValueModel(name: 'Swerve', value: 'Swerve'),
@@ -109,43 +109,80 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                   ]))
                 ]),
               ),
-              Row(children: <Widget>[
-                const Expanded(child: Text('  Is Stable?')),
-                Checkbox(
-                    value: a,
-                    onChanged: (bool? value1) {
-                      setState(() {
-                        a = value1;
-                      });
-                    })
-              ])
+              Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(children: <Widget>[
+                    const Expanded(child: Text('Is Stable?')),
+                    Checkbox(
+                        value: isStable,
+                        onChanged: (bool? value1) {
+                          setState(() {
+                            isStable = value1;
+                          });
+                        })
+                  ]))
             ])),
         Step(
             title: const Text('Game pieces'),
             content: Column(children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Row(children: const <Widget>[
-                  Expanded(child: Text('  Your Name: ')),
-                  Expanded(
-                      child: TextField(
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(), hintText: 'Scout Name'),
-                  ))
+                child: Row(children: <Widget>[
+                  const Expanded(child: Text('Can intake cones?')),
+                  Checkbox(
+                      value: canIntakeCone,
+                      onChanged: (bool? value1) {
+                        setState(() {
+                          canIntakeCone = value1;
+                        });
+                      })
                 ]),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Row(children: const <Widget>[
-                  Expanded(child: Text('  Team Number: ')),
-                  Expanded(
-                      child: TextField(
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Enter team number'),
-                  ))
+                child: Row(children: <Widget>[
+                  const Expanded(child: Text('Can intake cubes?')),
+                  Checkbox(
+                      value: canIntakeCube,
+                      onChanged: (bool? value1) {
+                        setState(() {
+                          canIntakeCube = value1;
+                        });
+                      })
                 ]),
               ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: const <Widget>[
+                    Expanded(child: Text('Pickup Spots')),
+                    Expanded(
+                        child: DropDownTextField(dropDownList: [
+                      DropDownValueModel(name: 'Floor', value: 'floor'),
+                      DropDownValueModel(name: 'Tablet', value: 'tablet'),
+                      DropDownValueModel(
+                          name: 'Floor and Tablet', value: 'floor and tablet')
+                    ]))
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: const <Widget>[
+                    Expanded(child: Text('Intake cone orientation')),
+                    Expanded(
+                        child: DropDownTextField(dropDownList: [
+                      DropDownValueModel(
+                          name: 'Pointing away', value: 'pointing away'),
+                      DropDownValueModel(
+                          name: 'Pointing towards', value: 'pointing towards'),
+                      DropDownValueModel(name: 'Sideways', value: 'sideways'),
+                      DropDownValueModel(name: 'Up right', value: 'up right')
+                    ]))
+                  ],
+                ),
+              )
             ])),
         Step(
             title: const Text('Scoring'),
@@ -153,31 +190,30 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: const <Widget>[
-                  Expanded(child: Text('  Your Name: ')),
+                  Expanded(child: Text('Grid Scoring Levels')),
                   Expanded(
-                      child: TextField(
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(), hintText: 'Scout Name'),
-                  ))
+                      child: DropDownTextField(dropDownList: [
+                    DropDownValueModel(name: 'Bottom', value: 'bottom'),
+                    DropDownValueModel(name: 'Middle', value: 'middle'),
+                    DropDownValueModel(name: 'Top', value: 'top')
+                  ]))
                 ]),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Row(children: const <Widget>[
-                  Expanded(child: Text('  Team Number: ')),
-                  Expanded(
-                      child: TextField(
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Enter team number'),
-                  ))
-                ]),
+                child: Row(children: const <Widget>[Text('Notes :')]),
               ),
+              Padding(padding: const EdgeInsets.all(8.0), child: TextField())
             ])),
-        const Step(
-          title: Text('Charging station'),
-          content: Text('Final Content Review'),
-        ),
+        Step(
+            title: const Text('Charging station'),
+            content: Column(children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: const <Widget>[Text('Notes :')]),
+              ),
+              Padding(padding: const EdgeInsets.all(8.0), child: TextField())
+            ])),
       ];
 
   @override
@@ -240,7 +276,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
             },
             steps: StepList()),
         resizeToAvoidBottomInset:
-            false // the scaffold is not going to resize when open keyboard
+            true // the scaffold is not going to resize when open keyboard
         );
   }
 }
