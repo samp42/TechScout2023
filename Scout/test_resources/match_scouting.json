@@ -1,0 +1,12 @@
+{
+    "matchNumber": 1,
+    "scoutName": "John Doe",
+    "redTeams": [3990, 3991, 3992],
+    "blueTeams": [3993, 3994, 3995],
+    "redLinks": 2,
+    "blueLinks": 1,
+    "redCoopertition": true,
+    "blueCoopertition": false,
+    "redEngaged": true,
+    "blueEngaged": false
+}
