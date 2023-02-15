@@ -21,6 +21,14 @@ class MatchScouting {
   bool redEngaged;
   bool blueEngaged;
 
+  // match results
+  num redScore;
+  num blueScore;
+  num redPenalty;
+  num bluePenalty;
+  num redRankingPoints;
+  num blueRankingPoints;
+
   MatchScouting(
       {required this.matchNumber,
       required this.scoutName,
@@ -31,7 +39,13 @@ class MatchScouting {
       required this.redCoopertition,
       required this.blueCoopertition,
       required this.redEngaged,
-      required this.blueEngaged});
+      required this.blueEngaged,
+      required this.redScore,
+      required this.blueScore,
+      required this.redPenalty,
+      required this.bluePenalty,
+      required this.redRankingPoints,
+      required this.blueRankingPoints});
 
   MatchScouting.fromMap(Map<String, dynamic> map)
       : matchNumber = map['matchNumber'],
@@ -43,7 +57,13 @@ class MatchScouting {
         redCoopertition = map['redCoopertition'],
         blueCoopertition = map['blueCoopertition'],
         redEngaged = map['redEngaged'],
-        blueEngaged = map['blueEngaged'];
+        blueEngaged = map['blueEngaged'],
+        redScore = map['redScore'],
+        blueScore = map['blueScore'],
+        redPenalty = map['redPenalty'],
+        bluePenalty = map['bluePenalty'],
+        redRankingPoints = map['redRankingPoints'],
+        blueRankingPoints = map['blueRankingPoints'];
 
   Map<String, dynamic> _toMap() {
     return {
@@ -57,6 +77,12 @@ class MatchScouting {
       'blueCoopertition': blueCoopertition,
       'redEngaged': redEngaged,
       'blueEngaged': blueEngaged,
+      'redScore': redScore,
+      'blueScore': blueScore,
+      'redPenalty': redPenalty,
+      'bluePenalty': bluePenalty,
+      'redRankingPoints': redRankingPoints,
+      'blueRankingPoints': blueRankingPoints,
     };
   }
 

@@ -17,6 +17,12 @@ void main() {
     blueCoopertition: false,
     redEngaged: true,
     blueEngaged: false,
+    redScore: 193,
+    blueScore: 20,
+    redPenalty: 0,
+    bluePenalty: 25,
+    redRankingPoints: 4,
+    blueRankingPoints: 1,
   );
 
   test('Test fromMap', () {
@@ -32,6 +38,12 @@ void main() {
       'blueCoopertition': false,
       'redEngaged': true,
       'blueEngaged': false,
+      'redScore': 193,
+      'blueScore': 20,
+      'redPenalty': 0,
+      'bluePenalty': 25,
+      'redRankingPoints': 4,
+      'blueRankingPoints': 1,
     });
 
     // Then
@@ -50,6 +62,16 @@ void main() {
         actualMatchScouting.redEngaged, equals(matchScoutingMock.redEngaged));
     expect(
         actualMatchScouting.blueEngaged, equals(matchScoutingMock.blueEngaged));
+    expect(actualMatchScouting.redScore, equals(matchScoutingMock.redScore));
+    expect(actualMatchScouting.blueScore, equals(matchScoutingMock.blueScore));
+    expect(
+        actualMatchScouting.redPenalty, equals(matchScoutingMock.redPenalty));
+    expect(
+        actualMatchScouting.bluePenalty, equals(matchScoutingMock.bluePenalty));
+    expect(actualMatchScouting.redRankingPoints,
+        equals(matchScoutingMock.redRankingPoints));
+    expect(actualMatchScouting.blueRankingPoints,
+        equals(matchScoutingMock.blueRankingPoints));
   });
 
   test('test fromMap from json file', () {
@@ -74,6 +96,14 @@ void main() {
         equals(matchScoutingMock.blueCoopertition));
     expect(actualMatch.redEngaged, equals(matchScoutingMock.redEngaged));
     expect(actualMatch.blueEngaged, equals(matchScoutingMock.blueEngaged));
+    expect(actualMatch.redScore, equals(matchScoutingMock.redScore));
+    expect(actualMatch.blueScore, equals(matchScoutingMock.blueScore));
+    expect(actualMatch.redPenalty, equals(matchScoutingMock.redPenalty));
+    expect(actualMatch.bluePenalty, equals(matchScoutingMock.bluePenalty));
+    expect(actualMatch.redRankingPoints,
+        equals(matchScoutingMock.redRankingPoints));
+    expect(actualMatch.blueRankingPoints,
+        equals(matchScoutingMock.blueRankingPoints));
   });
 
   test('test toJson', () {
@@ -105,5 +135,12 @@ void main() {
         actualMatchJson['redEngaged'], equals(expectedMatchJson['redEngaged']));
     expect(actualMatchJson['blueEngaged'],
         equals(expectedMatchJson['blueEngaged']));
+    expect(actualMatchJson['redScore'], equals(expectedMatchJson['redScore']));
+    expect(
+        actualMatchJson['blueScore'], equals(expectedMatchJson['blueScore']));
+    expect(
+        actualMatchJson['redPenalty'], equals(expectedMatchJson['redPenalty']));
+    expect(actualMatchJson['bluePenalty'],
+        equals(expectedMatchJson['bluePenalty']));
   });
 }
