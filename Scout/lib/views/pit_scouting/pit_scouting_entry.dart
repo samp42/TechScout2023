@@ -89,18 +89,18 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: const <Widget>[
-                  Expanded(child: Text('Height:  (inches)')),
+                  Expanded(child: Text('Length:  (inches)')),
                   Expanded(
                       child: TextField(
                     decoration: InputDecoration(
-                        border: OutlineInputBorder(), hintText: 'height'),
+                        border: OutlineInputBorder(), hintText: 'length'),
                   )),
                 ]),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: const <Widget>[
-                  Expanded(child: Text('Drive Type:')),
+                  Expanded(child: Text('Drivebase Type:')),
                   Expanded(
                       child: DropDownTextField(dropDownList: [
                     DropDownValueModel(name: 'Swerve', value: 'Swerve'),
