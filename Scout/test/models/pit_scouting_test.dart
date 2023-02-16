@@ -44,7 +44,7 @@ void main() {
         'We can only park on the left side of the charging station.',
   );
 
-  test('Test fromMap', () {
+  test('test fromMap', () {
     // Given / When
     PitScouting actualRobot = PitScouting.fromMap({
       'teamNumber': 3990,
@@ -146,7 +146,7 @@ void main() {
         equals(robotMock.chargingStationNotes));
   });
 
-  test('Test toJson', () {
+  test('test toJson', () {
     // Given
     File robotJsonFile = File('test_resources/pit_scouting.json');
     String expectedRobotJsonString = robotJsonFile.readAsStringSync();
