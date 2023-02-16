@@ -16,7 +16,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
   int _index = 0;
   late bool isLastStep;
 
-  List<Step> StepList() => <Step>[
+  List<Step> stepList() => <Step>[
         Step(
             title: const Text('Identification'),
             content: Column(children: <Widget>[
@@ -203,7 +203,16 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: const <Widget>[Text('Notes :')]),
               ),
-              Padding(padding: const EdgeInsets.all(8.0), child: TextField())
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: TextField(
+                  maxLines: 2,
+                  decoration: InputDecoration(
+                    hintText: 'Enter your notes here',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              )
             ])),
         Step(
             title: const Text('Charging station'),
@@ -212,7 +221,16 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: const <Widget>[Text('Notes :')]),
               ),
-              Padding(padding: const EdgeInsets.all(8.0), child: TextField())
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: TextField(
+                  maxLines: 4,
+                  decoration: InputDecoration(
+                    hintText: 'Enter your notes here',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              )
             ])),
       ];
 
@@ -230,8 +248,18 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
         ),
         body: Stepper(
             controlsBuilder: (BuildContext context, ControlsDetails details) {
-              final isLastStep = _index == StepList().length - 1;
+              final isLastStep = _index == stepList().length - 1;
               return Row(children: <Widget>[
+                if (_index > 0)
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: details.onStepCancel,
+                      child: const Text('Back'),
+                    ),
+                  ),
+                const SizedBox(
+                  width: 10,
+                ),
                 Expanded(
                   child: ElevatedButton(
                     onPressed: details.onStepContinue,
@@ -240,16 +268,6 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                         : const Text('Next'),
                   ),
                 ),
-                const SizedBox(
-                  width: 10,
-                ),
-                if (_index > 0)
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: details.onStepCancel,
-                      child: const Text('Back'),
-                    ),
-                  )
               ]);
             },
             currentStep: _index,
@@ -261,7 +279,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
               }
             },
             onStepContinue: () {
-              if (_index < (StepList().length - 1)) {
+              if (_index < (stepList().length - 1)) {
                 setState(() {
                   _index += 1;
                 });
@@ -274,7 +292,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                 _index = index;
               });
             },
-            steps: StepList()),
+            steps: stepList()),
         resizeToAvoidBottomInset:
             true // the scaffold is not going to resize when open keyboard
         );
