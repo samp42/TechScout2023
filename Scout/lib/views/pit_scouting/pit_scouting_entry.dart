@@ -8,7 +8,7 @@ import '../../enums/grid_level_enum.dart';
 import '../../enums/pickup_enum.dart';
 
 class PitScoutingEntry extends StatefulWidget {
-  PitScoutingEntry({Key? key}) : super(key: key);
+  const PitScoutingEntry({Key? key}) : super(key: key);
 
   @override
   State<PitScoutingEntry> createState() => _PitScoutingEntryState();
@@ -45,8 +45,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
   // charging stations
   String chargingStationNote = '';
 
-  List<Step> StepList() => <Step>[
-        //fait en mode form
+  List<Step> stepList() => <Step>[
         Step(
             title: const Text('Identification'),
             content: Column(children: <Widget>[
@@ -452,7 +451,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
           key: _formKey,
           child: Stepper(
               controlsBuilder: (BuildContext context, ControlsDetails details) {
-                final isLastStep = _index == StepList().length - 1;
+                final isLastStep = _index == stepList().length - 1;
                 return Row(children: <Widget>[
                   Expanded(
                     child: ElevatedButton(
@@ -483,7 +482,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                 }
               },
               onStepContinue: () {
-                if (_index < (StepList().length - 1)) {
+                if (_index < (stepList().length - 1)) {
                   setState(() {
                     _index += 1;
                   });
@@ -504,7 +503,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                   _index = index;
                 });
               },
-              steps: StepList()),
+              steps: stepList()),
         ),
         resizeToAvoidBottomInset:
             true // the scaffold is not going to resize when open keyboard
