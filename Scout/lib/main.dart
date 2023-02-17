@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:scout/views/match_scouting/match_scouting_entry.dart';
 import 'package:scout/views/match_scouting/match_scouting_list.dart';
 import 'package:scout/views/pit_scouting/pit_scouting_entry.dart';
@@ -10,6 +11,13 @@ import 'package:scout/views/team_scouting/team_scouting_list.dart';
 import 'package:scout/views/team_scouting/team_scouting_entry.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.landscapeLeft,
+    DeviceOrientation.landscapeRight,
+  ]);
+
   runApp(const MyApp());
 }
 
@@ -51,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ? const PracticeFieldScoutingEntry()
                     : _pageIndex == 2
                         ? const TeamScoutingEntry()
-                        : const MatchScoutingEntry()));
+                        : MatchScoutingEntry()));
   }
 
   final List<Widget> _tabs = const [
