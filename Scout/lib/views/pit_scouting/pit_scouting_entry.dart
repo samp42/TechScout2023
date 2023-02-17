@@ -51,24 +51,30 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
             content: Column(children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Row(children: <Widget>[
-                  const Text('Your Name: '),
-                  Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    const Text('Your Name:     '),
+                    Expanded(
                       child: TextFormField(
-                          decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: 'Scout Name'),
-                          onSaved: (value) => setState(() {
-                                scoutName = value!;
-                              }),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please Enter Your Name';
-                            } else {
-                              return null;
-                            }
-                          }))
-                ]),
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Scout Name',
+                        ),
+                        onSaved: (value) => setState(() {
+                          scoutName = value!;
+                        }),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please Enter Your Name';
+                          } else {
+                            return null;
+                          }
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -141,7 +147,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                   const Expanded(child: Text('Weight: (lbs)')),
                   Expanded(
                       child: TextFormField(
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               border: OutlineInputBorder(), hintText: 'Weight'),
                           onSaved: (value) => setState(() {
                                 weight = int.parse(value!);
@@ -158,10 +164,10 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: <Widget>[
-                  Expanded(child: Text('Widht:  (inches)')),
+                  const Expanded(child: Text('Widht:  (inches)')),
                   Expanded(
                       child: TextFormField(
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               border: OutlineInputBorder(), hintText: 'widht'),
                           onSaved: (value) => setState(() {
                                 width = int.parse(value!);
@@ -178,10 +184,10 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: <Widget>[
-                  Expanded(child: Text('length:  (inches)')),
+                  const Expanded(child: Text('Length:  (inches)')),
                   Expanded(
                       child: TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         border: OutlineInputBorder(), hintText: 'length'),
                     onSaved: (value) => setState(() {
                       length = int.parse(value!);
@@ -204,9 +210,9 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                       child: DropdownButtonFormField(
                     value: _driveBaseValue,
                     items: const [
-                      DropdownMenuItem(child: Text('Swerve'), value: 'Swerve'),
-                      DropdownMenuItem(child: Text('Tank'), value: 'Tank'),
-                      DropdownMenuItem(child: Text('Other'), value: 'Other')
+                      DropdownMenuItem(value: 'Swerve', child: Text('Swerve')),
+                      DropdownMenuItem(value: 'Tank', child: Text('Tank')),
+                      DropdownMenuItem(value: 'Other', child: Text('Other'))
                     ],
                     onChanged: (value) => setState(() {
                       _driveBaseValue = value as String;
@@ -279,17 +285,17 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                     const Expanded(child: Text('Pickup Spots')),
                     Expanded(
                         child: DropdownButtonFormField(
-                      value: this._pickUp,
+                      value: _pickUp,
                       items: const [
-                        DropdownMenuItem(child: Text('Floor'), value: 'floor'),
+                        DropdownMenuItem(value: 'floor', child: Text('Floor')),
                         DropdownMenuItem(
-                            child: Text('Tablet'), value: 'tablet'),
+                            value: 'tablet', child: Text('Tablet')),
                         DropdownMenuItem(
-                            child: Text('Floor and Tablet'),
-                            value: 'floor and tablet')
+                            value: 'floor and tablet',
+                            child: Text('Floor and Tablet'))
                       ],
                       onChanged: (value) => setState(() {
-                        this._pickUp = value as String;
+                        _pickUp = value as String;
                       }),
                       onSaved: (value) => setState(() {
                         if (value == 'floor') {
@@ -321,15 +327,15 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                       value: intakeOrientation,
                       items: const [
                         DropdownMenuItem(
-                            child: Text('Pointing away'),
-                            value: 'pointing away'),
+                            value: 'pointing away',
+                            child: Text('Pointing away')),
                         DropdownMenuItem(
-                            child: Text('Pointing towards'),
-                            value: 'pointing towards'),
+                            value: 'pointing towards',
+                            child: Text('Pointing towards')),
                         DropdownMenuItem(
-                            child: Text('Sideways'), value: 'sideways'),
+                            value: 'sideways', child: Text('Sideways')),
                         DropdownMenuItem(
-                            child: Text('Up right'), value: 'up right')
+                            value: 'up right', child: Text('Up right'))
                       ],
                       onChanged: (value) => setState(() {
                         intakeOrientation = value as String;
@@ -365,17 +371,17 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: <Widget>[
-                  Expanded(child: Text('Grid Scoring Levels')),
+                  const Expanded(child: Text('Grid Scoring Levels')),
                   Expanded(
                       child: DropdownButtonFormField(
-                    value: this._scoringGrid,
+                    value: _scoringGrid,
                     items: const [
-                      DropdownMenuItem(child: Text('Bottom'), value: 'bottom'),
-                      DropdownMenuItem(child: Text('Middle'), value: 'middle'),
-                      DropdownMenuItem(child: Text('Top'), value: 'top')
+                      DropdownMenuItem(value: 'bottom', child: Text('Bottom')),
+                      DropdownMenuItem(value: 'middle', child: Text('Middle')),
+                      DropdownMenuItem(value: 'top', child: Text('Top'))
                     ],
                     onChanged: (value) => setState(() {
-                      this._scoringGrid = value as String;
+                      _scoringGrid = value as String;
                     }),
                     onSaved: (value) => setState(() {
                       if (value == 'bottom') {
@@ -401,12 +407,37 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                 child: Row(children: const <Widget>[Text('Notes :')]),
               ),
               Padding(
-                  padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    border: Border.all(
+                      color: Colors.grey,
+                      width: 1.0,
+                    ),
+                  ),
                   child: TextFormField(
                     onSaved: (value) => setState(() {
-                      scoringNotes = value!;
+                      chargingStationNote = value!;
                     }),
-                  ))
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some notes';
+                      } else {
+                        return null;
+                      }
+                    },
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Enter your notes here',
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 10.0,
+                        vertical: 8.0,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ])),
         Step(
             title: const Text('Charging station'),
@@ -416,20 +447,39 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                 child: Row(children: const <Widget>[Text('Notes :')]),
               ),
               Padding(
-                  padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    border: Border.all(
+                      color: Colors.grey,
+                      width: 1.0,
+                    ),
+                  ),
                   child: TextFormField(
                     onSaved: (value) => setState(() {
                       chargingStationNote = value!;
                     }),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please some notes';
+                        return 'Please enter some notes';
                       } else {
                         return null;
                       }
                     },
-                  ))
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Enter your notes here',
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 10.0,
+                        vertical: 8.0,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ])),
+
         const Step(
             title: Text('Submission'),
             content: Text(
@@ -453,6 +503,16 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
               controlsBuilder: (BuildContext context, ControlsDetails details) {
                 final isLastStep = _index == stepList().length - 1;
                 return Row(children: <Widget>[
+                  if (_index > 0)
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: details.onStepCancel,
+                        child: const Text('Back'),
+                      ),
+                    ),
+                  const SizedBox(
+                    width: 10,
+                  ),
                   Expanded(
                     child: ElevatedButton(
                       onPressed: details.onStepContinue,
@@ -461,16 +521,6 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                           : const Text('Next'),
                     ),
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  if (_index > 0)
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: details.onStepCancel,
-                        child: const Text('Back'),
-                      ),
-                    )
                 ]);
               },
               currentStep: _index,
@@ -490,7 +540,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                   final isValid = _formKey.currentState!.validate();
                   if (isValid) {
                     _formKey.currentState!.save();
-                    SnackBar snackBar = SnackBar(
+                    SnackBar snackBar = const SnackBar(
                       content: Text('Submission completed'),
                       backgroundColor: Colors.green,
                     );
