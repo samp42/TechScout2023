@@ -3,7 +3,7 @@ import 'package:scout/theme.dart';
 import 'package:dropdown_textfield/dropdown_textfield.dart';
 
 class PitScoutingEntry extends StatefulWidget {
-  PitScoutingEntry({Key? key}) : super(key: key);
+  const PitScoutingEntry({Key? key}) : super(key: key);
 
   @override
   State<PitScoutingEntry> createState() => _PitScoutingEntryState();
@@ -284,7 +284,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                   _index += 1;
                 });
               } else {
-                print('Submited');
+                // print('Submited');
               }
             },
             onStepTapped: (int index) {
