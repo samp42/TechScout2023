@@ -9,7 +9,6 @@ import '../../enums/pickup_enum.dart';
 
 class PitScoutingEntry extends StatefulWidget {
   const PitScoutingEntry({Key? key}) : super(key: key);
-
   @override
   State<PitScoutingEntry> createState() => _PitScoutingEntryState();
 }
@@ -47,7 +46,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
 
   List<Step> stepList() => <Step>[
         Step(
-            title: const Text('Identification'),
+            title: const Text('Identification'), // Change icon here
             content: Column(children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -82,6 +81,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                   const Text('Team Number: '),
                   Expanded(
                       child: TextFormField(
+                          keyboardType: TextInputType.number,
                           decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               hintText: 'ex : 3990'),
@@ -147,6 +147,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                   const Expanded(child: Text('Weight: (lbs)')),
                   Expanded(
                       child: TextFormField(
+                          keyboardType: TextInputType.number,
                           decoration: const InputDecoration(
                               border: OutlineInputBorder(), hintText: 'Weight'),
                           onSaved: (value) => setState(() {
@@ -155,6 +156,8 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please Enter Weight';
+                            } else if (value.length > 3) {
+                              return 'Invalid Weight';
                             } else {
                               return null;
                             }
@@ -167,6 +170,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                   const Expanded(child: Text('Widht:  (inches)')),
                   Expanded(
                       child: TextFormField(
+                          keyboardType: TextInputType.number,
                           decoration: const InputDecoration(
                               border: OutlineInputBorder(), hintText: 'widht'),
                           onSaved: (value) => setState(() {
@@ -175,6 +179,8 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please Enter Weight';
+                            } else if (value.length > 2) {
+                              return 'Invalid Widht';
                             } else {
                               return null;
                             }
@@ -187,6 +193,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                   const Expanded(child: Text('Length:  (inches)')),
                   Expanded(
                       child: TextFormField(
+                    keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(), hintText: 'length'),
                     onSaved: (value) => setState(() {
@@ -195,6 +202,8 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please Enter lenght';
+                      } else if (value.length > 2) {
+                        return 'Invalid Lenght';
                       } else {
                         return null;
                       }
@@ -543,6 +552,12 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                     SnackBar snackBar = const SnackBar(
                       content: Text('Submission completed'),
                       backgroundColor: Colors.green,
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  } else {
+                    SnackBar snackBar = const SnackBar(
+                      content: Text('Please fill in all the required fields'),
+                      backgroundColor: Colors.red,
                     );
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }
