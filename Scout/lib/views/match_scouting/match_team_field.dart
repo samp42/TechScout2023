@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:scout/theme.dart';
 
 class MatchTeamField extends StatelessWidget {
-  String label;
+  final String label;
+  final Color color;
   // TextEditingController? controller = TextEditingController();
 
-  MatchTeamField({
-    Key? key,
-    required this.label,
-    // required this.controller,
-  }) : super(key: key);
+  MatchTeamField({Key? key, required this.label, required this.color
+      // required this.controller,
+      })
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +17,8 @@ class MatchTeamField extends StatelessWidget {
       margin: const EdgeInsets.fromLTRB(0, 4, 0, 4),
       padding: const EdgeInsets.all(2),
       decoration: BoxDecoration(
-        color: redPrimary,
-        border: Border.all(color: redPrimary),
+        color: color,
+        border: Border.all(color: color),
         borderRadius: BorderRadius.circular(4),
       ),
       child: TextField(
@@ -30,7 +30,7 @@ class MatchTeamField extends StatelessWidget {
         ),
         style: const TextStyle(
           color: whiteT4K,
-          fontSize: 20,
+          fontSize: 16,
           fontWeight: FontWeight.bold,
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:scout/enums/alliance_enum.dart';
 import 'package:scout/theme.dart';
 import 'package:scout/views/match_scouting/match_information_step.dart';
 import 'package:scout/views/match_scouting/match_team_form.dart';
@@ -36,20 +37,32 @@ class _MatchScoutingEntryState extends State<MatchScoutingEntry> {
       body: Container(
         padding: const EdgeInsetsDirectional.only(start: 40),
         child: Stepper(
-          steps: const [
+          type: StepperType.horizontal,
+          elevation: 0,
+          steps: [
             Step(
-              title: Text('Match Information'),
-              content: MatchInformationStep(),
+              title: const Text('Match Information'),
+              content: Row(
+                children: const [
+                  Expanded(
+                    child: MatchInformationStep(allianceEnum: AllianceEnum.red),
+                  ),
+                  Expanded(
+                    child:
+                        MatchInformationStep(allianceEnum: AllianceEnum.blue),
+                  ),
+                ],
+              ),
             ),
-            Step(
+            const Step(
               title: Text('Teams'),
               content: Text('World'),
             ),
-            Step(
+            const Step(
               title: Text('Teleop'),
               content: Text('Hello'),
             ),
-            Step(
+            const Step(
               title: Text('Results'),
               content: Text('World'),
             ),
