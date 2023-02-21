@@ -28,7 +28,7 @@ void main() {
     scoringGridTeleopCones: 1,
     scoringGridTeleopCubes: 1,
     penalties: 4,
-    chargedStationEndgame: [ChargeStationEnum.engage],
+    chargedStationEndgame: ChargeStationEnum.engage,
     engageOrder: [EngageOrderEnum.engage1st],
     card: CardColorEnum.red,
   );

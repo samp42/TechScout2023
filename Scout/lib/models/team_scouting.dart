@@ -30,7 +30,7 @@ class TeamScouting {
   int penalties;
 
   // End Game
-  List<ChargeStationEnum> chargedStationEndgame;
+  ChargeStationEnum chargedStationEndgame;
   List<EngageOrderEnum> engageOrder;
   CardColorEnum card;
 
@@ -121,8 +121,7 @@ class TeamScouting {
       'scoringGridTeleopCones': scoringGridTeleopCones,
       'scoringGridTeleopCubes': scoringGridTeleopCubes,
       'penalties': penalties,
-      'chargedStationEndgame':
-          chargedStationEndgame.map((e) => e.value).toList(),
+      'chargedStationEndgame': chargedStationEndgame,
       'engageOrder': engageOrder.map((e) => e.value).toList(),
       'card': card,
     };

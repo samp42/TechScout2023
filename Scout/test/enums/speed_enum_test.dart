@@ -1,5 +1,6 @@
 import 'package:scout/enums/speed.dart';
 import 'package:test/test.dart';
+
 void main() {
   test('test fromValue when happy', () {
     for (var element in SpeedEnum.values) {
