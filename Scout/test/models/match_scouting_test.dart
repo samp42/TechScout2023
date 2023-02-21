@@ -14,7 +14,7 @@ void main() {
     teamNumber: 1,
     scoutName: 'Test',
     mobility: true,
-    chargeStation: [ChargeStationEnum.engage],
+    chargeStation: ChargeStationEnum.engage,
     scoringGridCones: 1,
     scoringGridCubes: 1,
     robotCycleTimer: 1,
@@ -28,8 +28,8 @@ void main() {
     scoringGridTeleopCones: 1,
     scoringGridTeleopCubes: 1,
     penalties: 4,
-    chargedStationEndgame: ChargeStationEnum.engage,
-    engageOrder: [EngageOrderEnum.engage1st],
+    chargeStationEndgame: ChargeStationEnum.engage,
+    engageOrder: EngageOrderEnum.engage1st,
     card: CardColorEnum.red,
   );
 
@@ -94,8 +94,8 @@ void main() {
     expect(teamScoutingActual.scoringGridTeleopCubes,
         equals(teamScouting.scoringGridTeleopCubes));
     expect(teamScoutingActual.penalties, equals(teamScouting.penalties));
-    expect(teamScoutingActual.chargedStationEndgame,
-        equals(teamScouting.chargedStationEndgame));
+    expect(teamScoutingActual.chargeStationEndgame,
+        equals(teamScouting.chargeStationEndgame));
     expect(teamScoutingActual.engageOrder, equals(teamScouting.engageOrder));
 
     expect(teamScoutingActual.card, equals(teamScouting.card));
@@ -142,8 +142,8 @@ void main() {
     expect(teamScoutingActual.scoringGridTeleopCubes,
         equals(teamScouting.scoringGridTeleopCubes));
     expect(teamScoutingActual.penalties, equals(teamScouting.penalties));
-    expect(teamScoutingActual.chargedStationEndgame,
-        equals(teamScouting.chargedStationEndgame));
+    expect(teamScoutingActual.chargeStationEndgame,
+        equals(teamScouting.chargeStationEndgame));
     expect(teamScoutingActual.engageOrder, equals(teamScouting.engageOrder));
 
     expect(teamScoutingActual.card, equals(teamScouting.card));

@@ -7,7 +7,7 @@ enum ChargeStationEnum {
   final String value;
 }
 
-extension ChargedStationEnumExtension on ChargeStationEnum {
+extension ChargeStationEnumExtension on ChargeStationEnum {
   static ChargeStationEnum fromValue(String value) {
     switch (value) {
       case 'engage':
@@ -17,7 +17,7 @@ extension ChargedStationEnumExtension on ChargeStationEnum {
       case 'none':
         return ChargeStationEnum.none;
       default:
-        throw Exception('Invalid ChargedStationEnum name: $value');
+        throw Exception('Invalid ChargeStationEnum name: $value');
     }
   }
 }

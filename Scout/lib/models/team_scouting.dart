@@ -12,7 +12,7 @@ class TeamScouting {
 
   // Autonomous
   bool mobility;
-  List<ChargeStationEnum> chargeStation;
+  ChargeStationEnum chargeStation;
   int scoringGridCones;
   int scoringGridCubes;
 
@@ -30,8 +30,8 @@ class TeamScouting {
   int penalties;
 
   // End Game
-  ChargeStationEnum chargedStationEndgame;
-  List<EngageOrderEnum> engageOrder;
+  ChargeStationEnum chargeStationEndgame;
+  EngageOrderEnum engageOrder;
   CardColorEnum card;
 
   TeamScouting({
@@ -53,7 +53,7 @@ class TeamScouting {
     required this.scoringGridTeleopCones,
     required this.scoringGridTeleopCubes,
     required this.penalties,
-    required this.chargedStationEndgame,
+    required this.chargeStationEndgame,
     required this.engageOrder,
     required this.card,
   });
@@ -65,7 +65,7 @@ class TeamScouting {
         mobility = map['mobility'],
         chargeStation = map['chargeStation']
             .map<ChargeStationEnum>(
-                (e) => ChargedStationEnumExtension.fromValue(e))
+                (e) => ChargeStationEnumExtension.fromValue(e))
             .toList(),
         scoringGridCones = map['scoringGridCones'],
         scoringGridCubes = map['scoringGridCubes'],
@@ -90,9 +90,9 @@ class TeamScouting {
         scoringGridTeleopCones = map['scoringGridTeleopCones'],
         scoringGridTeleopCubes = map['scoringGridTeleopCubes'],
         penalties = map['penalties'],
-        chargedStationEndgame = map['chargedStationEndgame']
+        chargeStationEndgame = map['chargedStationEndgame']
             .map<ChargeStationEnum>(
-                (e) => ChargedStationEnumExtension.fromValue(e))
+                (e) => ChargeStationEnumExtension.fromValue(e))
             .toList(),
         engageOrder = map['engageOrder']
             .map<EngageOrderEnum>((e) => EngageOrderExtension.fromValue(e))
@@ -107,7 +107,7 @@ class TeamScouting {
       'teamNumber': teamNumber,
       'scoutName': scoutName,
       'mobility': mobility,
-      'chargeStation': chargeStation.map((e) => e.value).toList(),
+      'chargeStation': chargeStation,
       'scoringGridCones': scoringGridCones,
       'scoringGridCubes': scoringGridCubes,
       'robotCycleTimer': robotCycleTimer,
@@ -121,8 +121,8 @@ class TeamScouting {
       'scoringGridTeleopCones': scoringGridTeleopCones,
       'scoringGridTeleopCubes': scoringGridTeleopCubes,
       'penalties': penalties,
-      'chargedStationEndgame': chargedStationEndgame,
-      'engageOrder': engageOrder.map((e) => e.value).toList(),
+      'chargedStationEndgame': chargeStationEndgame,
+      'engageOrder': engageOrder,
       'card': card,
     };
   }
