@@ -14,6 +14,9 @@ class MatchScoutingEntry extends StatefulWidget {
 }
 
 class _MatchScoutingEntryState extends State<MatchScoutingEntry> {
+  int _index = 0;
+  final int numOfSteps = 5;
+
   @override
   void initState() {
     super.initState();
@@ -38,6 +41,28 @@ class _MatchScoutingEntryState extends State<MatchScoutingEntry> {
       body: Container(
         padding: const EdgeInsetsDirectional.only(start: 40),
         child: Stepper(
+          controlsBuilder: (BuildContext context, ControlsDetails details) {
+            final isLastStep = _index == numOfSteps - 1;
+            return Row(children: <Widget>[
+              if (_index > 0)
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: details.onStepCancel,
+                    child: const Text('Back'),
+                  ),
+                ),
+              const SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: details.onStepContinue,
+                  child:
+                      (isLastStep) ? const Text('Submit') : const Text('Next'),
+                ),
+              ),
+            ]);
+          },
           type: StepperType.horizontal,
           elevation: 0,
           steps: [

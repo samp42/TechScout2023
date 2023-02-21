@@ -2,16 +2,16 @@ import 'dart:convert';
 
 class MatchScouting {
   // general info
-  late num matchNumber;
+  late int matchNumber;
   late String scoutName;
 
   // teams
-  late List<num> redTeams;
-  late List<num> blueTeams;
+  late List<int> redTeams;
+  late List<int> blueTeams;
 
   // links
-  late num redLinks;
-  late num blueLinks;
+  late int redLinks;
+  late int blueLinks;
 
   // coopertition
   late bool redCoopertition;
@@ -22,12 +22,12 @@ class MatchScouting {
   late bool blueEngaged;
 
   // match results
-  late num redScore;
-  late num blueScore;
-  late num redPenalty;
-  late num bluePenalty;
-  late num redRankingPoints;
-  late num blueRankingPoints;
+  late int redScore;
+  late int blueScore;
+  late int redPenalty;
+  late int bluePenalty;
+  late int redRankingPoints;
+  late int blueRankingPoints;
 
   MatchScouting();
 
@@ -52,8 +52,8 @@ class MatchScouting {
   MatchScouting.fromMap(Map<String, dynamic> map)
       : matchNumber = map['matchNumber'],
         scoutName = map['scoutName'],
-        redTeams = List<num>.from(map['redTeams']),
-        blueTeams = List<num>.from(map['blueTeams']),
+        redTeams = List<int>.from(map['redTeams']),
+        blueTeams = List<int>.from(map['blueTeams']),
         redLinks = map['redLinks'],
         blueLinks = map['blueLinks'],
         redCoopertition = map['redCoopertition'],
