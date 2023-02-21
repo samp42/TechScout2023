@@ -6,7 +6,7 @@ import 'package:test/test.dart';
 import 'package:scout/models/match_scouting.dart';
 
 void main() {
-  final matchScoutingMock = MatchScouting(
+  final matchScoutingMock = MatchScouting.allArgs(
     matchNumber: 1,
     scoutName: 'John Doe',
     redTeams: [3990, 3991, 3992],

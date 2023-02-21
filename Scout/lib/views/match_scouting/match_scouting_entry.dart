@@ -4,6 +4,7 @@ import 'package:scout/enums/alliance_enum.dart';
 import 'package:scout/theme.dart';
 import 'package:scout/views/match_scouting/match_information_step.dart';
 import 'package:scout/views/match_scouting/match_team_form.dart';
+import 'package:scout/views/match_scouting/math_general_form.dart';
 
 class MatchScoutingEntry extends StatefulWidget {
   const MatchScoutingEntry({Key? key}) : super(key: key);
@@ -40,6 +41,10 @@ class _MatchScoutingEntryState extends State<MatchScoutingEntry> {
           type: StepperType.horizontal,
           elevation: 0,
           steps: [
+            const Step(
+              title: Text('General Information'),
+              content: MatchGeneralForm(),
+            ),
             Step(
               title: const Text('Match Information'),
               content: Row(

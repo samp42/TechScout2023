@@ -2,34 +2,36 @@ import 'dart:convert';
 
 class MatchScouting {
   // general info
-  num matchNumber;
-  String scoutName;
+  late num matchNumber;
+  late String scoutName;
 
   // teams
-  List<num> redTeams;
-  List<num> blueTeams;
+  late List<num> redTeams;
+  late List<num> blueTeams;
 
   // links
-  num redLinks;
-  num blueLinks;
+  late num redLinks;
+  late num blueLinks;
 
   // coopertition
-  bool redCoopertition;
-  bool blueCoopertition;
+  late bool redCoopertition;
+  late bool blueCoopertition;
 
   // endgame
-  bool redEngaged;
-  bool blueEngaged;
+  late bool redEngaged;
+  late bool blueEngaged;
 
   // match results
-  num redScore;
-  num blueScore;
-  num redPenalty;
-  num bluePenalty;
-  num redRankingPoints;
-  num blueRankingPoints;
+  late num redScore;
+  late num blueScore;
+  late num redPenalty;
+  late num bluePenalty;
+  late num redRankingPoints;
+  late num blueRankingPoints;
 
-  MatchScouting(
+  MatchScouting();
+
+  MatchScouting.allArgs(
       {required this.matchNumber,
       required this.scoutName,
       required this.redTeams,
