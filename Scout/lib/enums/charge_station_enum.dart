@@ -1,21 +1,21 @@
-enum ChargedStationEnum {
+enum ChargeStationEnum {
   engage('engage'),
   dock('dock'),
   none('none');
 
-  const ChargedStationEnum(this.value);
+  const ChargeStationEnum(this.value);
   final String value;
 }
 
-extension ChargedStationEnumExtension on ChargedStationEnum {
-  static ChargedStationEnum fromValue(String value) {
+extension ChargedStationEnumExtension on ChargeStationEnum {
+  static ChargeStationEnum fromValue(String value) {
     switch (value) {
       case 'engage':
-        return ChargedStationEnum.engage;
+        return ChargeStationEnum.engage;
       case 'dock':
-        return ChargedStationEnum.dock;
+        return ChargeStationEnum.dock;
       case 'none':
-        return ChargedStationEnum.none;
+        return ChargeStationEnum.none;
       default:
         throw Exception('Invalid ChargedStationEnum name: $value');
     }

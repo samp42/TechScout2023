@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   test('test fromValue when happy', () {
-    for (var element in ChargedStationEnum.values) {
+    for (var element in ChargeStationEnum.values) {
       // When / Then
       expect(ChargedStationEnumExtension.fromValue(element.value),
           equals(element));
