@@ -21,7 +21,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
   String? _driveBaseValue;
   String? _pickUp;
   String? _scoringGrid;
-
+  String? _driverExperience;
   // scout info
   String scoutName = '';
   // team info
@@ -107,34 +107,35 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: <Widget>[
-                  const Expanded(child: Text('Driver Experience: (years)')),
+                  const Expanded(child: Text('Driver Experience: ')),
                   Expanded(
-                      child: TextFormField(
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Years',
-                    ),
+                      child: DropdownButtonFormField(
+                    value: _driverExperience,
+                    items: const [
+                      DropdownMenuItem(value: '1', child: Text('First Year')),
+                      DropdownMenuItem(value: '2', child: Text('Second Year')),
+                      DropdownMenuItem(value: '3', child: Text('Third Year')),
+                    ],
+                    onChanged: (value) => setState(() {
+                      _driverExperience = value as String;
+                    }),
                     onSaved: (value) => setState(() {
-                      if (int.parse(value!) == 1) {
+                      if (value == '1') {
                         driverExperience = DriverExperienceEnum.firstYear;
-                      } else if (int.parse(value) == 2) {
+                      } else if (_driveBaseValue == '2') {
                         driverExperience = DriverExperienceEnum.secondYear;
-                      } else if (int.parse(value) == 3) {
+                      } else if (_driveBaseValue == '3') {
                         driverExperience = DriverExperienceEnum.thirdYear;
                       }
                     }),
                     validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter the Driver Experience';
-                      } else if (int.parse(value) != 1 &&
-                          int.parse(value) != 2 &&
-                          int.parse(value) != 3) {
-                        return 'Enter 1,2 or 3 years';
+                      if (value == null) {
+                        return 'Please select an option';
                       } else {
                         return null;
                       }
                     },
-                  )),
+                  ))
                 ]),
               ),
             ])),
@@ -548,12 +549,37 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                 } else {
                   final isValid = _formKey.currentState!.validate();
                   if (isValid) {
-                    _formKey.currentState!.save();
-                    SnackBar snackBar = const SnackBar(
-                      content: Text('Submission completed'),
-                      backgroundColor: Colors.green,
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Submit'),
+                          content: const Text(
+                              'Make sure the information is correct, because you cannot edit it later.'),
+                          actions: <Widget>[
+                            TextButton(
+                              child: const Text('Cancel'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            TextButton(
+                              child: const Text('Submit'),
+                              onPressed: () {
+                                _formKey.currentState!.save();
+                                SnackBar snackBar = const SnackBar(
+                                  content: Text('Submission completed'),
+                                  backgroundColor: Colors.green,
+                                );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
                     );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   } else {
                     SnackBar snackBar = const SnackBar(
                       content: Text('Please fill in all the required fields'),
