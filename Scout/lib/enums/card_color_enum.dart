@@ -6,15 +6,11 @@ enum CardColorEnum {
   final String value;
 }
 
-extension CardColorExtension on CardColorEnum {
+extension CardColorEnumExtension on CardColorEnum {
   static CardColorEnum fromValue(String value) {
-    switch (value) {
-      case 'red':
-        return CardColorEnum.red;
-      case 'yellow':
-        return CardColorEnum.yellow;
-      default:
-        throw Exception('Invalid CardColor name: $value');
-    }
+    return CardColorEnum.values.firstWhere(
+      (e) => e.value == value,
+      orElse: () => throw Exception('Invalid CardColorEnum value: $value'),
+    );
   }
 }

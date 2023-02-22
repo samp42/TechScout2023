@@ -1,6 +1,7 @@
 enum ChargeStationEnum {
   engage('engage'),
   dock('dock'),
+  park('park'), // only in endgame
   none('none');
 
   const ChargeStationEnum(this.value);
@@ -9,15 +10,9 @@ enum ChargeStationEnum {
 
 extension ChargeStationEnumExtension on ChargeStationEnum {
   static ChargeStationEnum fromValue(String value) {
-    switch (value) {
-      case 'engage':
-        return ChargeStationEnum.engage;
-      case 'dock':
-        return ChargeStationEnum.dock;
-      case 'none':
-        return ChargeStationEnum.none;
-      default:
-        throw Exception('Invalid ChargeStationEnum name: $value');
-    }
+    return ChargeStationEnum.values.firstWhere(
+      (e) => e.value == value,
+      orElse: () => throw Exception('Invalid ChargeStationEnum value: $value'),
+    );
   }
 }

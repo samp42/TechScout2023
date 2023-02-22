@@ -1,60 +1,45 @@
 import 'dart:convert';
 
 import 'package:scout/enums/card_color_enum.dart';
-import 'package:scout/enums/charge_station_engage_order_enum.dart';
+import 'package:scout/enums/charge_station_order_enum.dart';
 import 'package:scout/enums/charge_station_enum.dart';
-import 'package:scout/enums/speed.dart';
+import 'package:scout/enums/grid_level_enum.dart';
+import 'package:scout/models/cycle_timestamp.dart';
 
 class TeamScouting {
-  String scoutName;
-  int teamNumber;
-  int matchNumber;
+  late String scoutName;
+  late int teamNumber;
+  late int matchNumber;
 
   // Autonomous
-  bool mobility;
-  ChargeStationEnum chargeStation;
-  int scoringGridCones;
-  int scoringGridCubes;
+  late bool mobility;
+  late ChargeStationEnum chargeStationAuto;
+  late Map<GridLevelEnum, int> conesAuto;
+  late Map<GridLevelEnum, int> cubesAuto;
 
   // Teleop
-  double robotCycleTimer;
-  SpeedEnum robotSpeed;
-  SpeedEnum placementSpeedCones;
-  SpeedEnum placementSpeedCubes;
-  SpeedEnum pickupSpeedCones;
-  SpeedEnum pickupSpeedCubes;
-  int dropCounterCones;
-  int dropCounterCubes;
-  int scoringGridTeleopCones;
-  int scoringGridTeleopCubes;
-  int penalties;
+  late List<CycleTimestamp> cycles;
+  late int penalties;
 
   // End Game
-  ChargeStationEnum chargeStationEndgame;
-  EngageOrderEnum engageOrder;
-  CardColorEnum card;
+  late ChargeStationEnum chargeStationEndgame;
+  late ChargeStationOrderEnum chargeStationOrder;
+  late CardColorEnum card;
 
-  TeamScouting({
+  TeamScouting();
+
+  TeamScouting.allArgs({
     required this.matchNumber,
     required this.teamNumber,
     required this.scoutName,
     required this.mobility,
-    required this.chargeStation,
-    required this.scoringGridCones,
-    required this.scoringGridCubes,
-    required this.robotCycleTimer,
-    required this.robotSpeed,
-    required this.placementSpeedCones,
-    required this.placementSpeedCubes,
-    required this.pickupSpeedCones,
-    required this.pickupSpeedCubes,
-    required this.dropCounterCones,
-    required this.dropCounterCubes,
-    required this.scoringGridTeleopCones,
-    required this.scoringGridTeleopCubes,
+    required this.chargeStationAuto,
+    required this.conesAuto,
+    required this.cubesAuto,
+    required this.cycles,
     required this.penalties,
     required this.chargeStationEndgame,
-    required this.engageOrder,
+    required this.chargeStationOrder,
     required this.card,
   });
 
@@ -63,43 +48,25 @@ class TeamScouting {
         teamNumber = map['teamNumber'],
         scoutName = map['scoutName'],
         mobility = map['mobility'],
-        chargeStation = map['chargeStation']
-            .map<ChargeStationEnum>(
-                (e) => ChargeStationEnumExtension.fromValue(e))
+        chargeStationAuto =
+            ChargeStationEnumExtension.fromValue(map['chargeStationAuto']),
+        conesAuto = map['conesAuto']
+            .cast<String, int>()
+            .map((k, v) => MapEntry(GridLevelEnumExtension.fromValue(k), v))
+            .cast<GridLevelEnum, int>(),
+        cubesAuto = map['cubesAuto']
+            .cast<String, int>()
+            .map((k, v) => MapEntry(GridLevelEnumExtension.fromValue(k), v))
+            .cast<GridLevelEnum, int>(),
+        cycles = map['cycles']
+            .map<CycleTimestamp>((e) => CycleTimestamp.fromMap(e))
             .toList(),
-        scoringGridCones = map['scoringGridCones'],
-        scoringGridCubes = map['scoringGridCubes'],
-        robotCycleTimer = map['robotCycleTimer'],
-        robotSpeed = map['robotSpeed']
-            .map<SpeedEnum>((e) => SpeedExtension.fromValue(e))
-            .toList(),
-        placementSpeedCones = map['placementSpeedCones']
-            .map<SpeedEnum>((e) => SpeedExtension.fromValue(e))
-            .toList(),
-        placementSpeedCubes = map['placementSpeedCubes']
-            .map<SpeedEnum>((e) => SpeedExtension.fromValue(e))
-            .toList(),
-        pickupSpeedCones = map['pickupSpeedCones']
-            .map<SpeedEnum>((e) => SpeedExtension.fromValue(e))
-            .toList(),
-        pickupSpeedCubes = map['pickupSpeedCubes']
-            .map<SpeedEnum>((e) => SpeedExtension.fromValue(e))
-            .toList(),
-        dropCounterCones = map['canDropCones'],
-        dropCounterCubes = map['canDropCubes'],
-        scoringGridTeleopCones = map['scoringGridTeleopCones'],
-        scoringGridTeleopCubes = map['scoringGridTeleopCubes'],
         penalties = map['penalties'],
-        chargeStationEndgame = map['chargedStationEndgame']
-            .map<ChargeStationEnum>(
-                (e) => ChargeStationEnumExtension.fromValue(e))
-            .toList(),
-        engageOrder = map['engageOrder']
-            .map<EngageOrderEnum>((e) => EngageOrderExtension.fromValue(e))
-            .toList(),
-        card = map['card']
-            .map<CardColorEnum>((e) => CardColorExtension.fromValue(e))
-            .toList();
+        chargeStationEndgame =
+            ChargeStationEnumExtension.fromValue(map['chargeStationEndgame']),
+        chargeStationOrder = ChargeStationOrderEnumExtension.fromValue(
+            map['chargeStationOrder']),
+        card = CardColorEnumExtension.fromValue(map['card']);
 
   Map<String, dynamic> _toMap() {
     return {
@@ -107,23 +74,14 @@ class TeamScouting {
       'teamNumber': teamNumber,
       'scoutName': scoutName,
       'mobility': mobility,
-      'chargeStation': chargeStation,
-      'scoringGridCones': scoringGridCones,
-      'scoringGridCubes': scoringGridCubes,
-      'robotCycleTimer': robotCycleTimer,
-      'robotSpeed': robotSpeed,
-      'placementSpeedCones': placementSpeedCones,
-      'placementSpeedCubes': placementSpeedCubes,
-      'pickupSpeedCones': pickupSpeedCones,
-      'pickupSpeedCubes': pickupSpeedCubes,
-      'canDropCones': dropCounterCones,
-      'canDropCubes': dropCounterCubes,
-      'scoringGridTeleopCones': scoringGridTeleopCones,
-      'scoringGridTeleopCubes': scoringGridTeleopCubes,
+      'chargeStationAuto': chargeStationAuto.value,
+      'conesAuto': conesAuto.map((k, v) => MapEntry(k.value, v)).toString(),
+      'cubesAuto': cubesAuto.map((k, v) => MapEntry(k.value, v)).toString(),
+      'cycles': cycles.map((c) => c.toJson()).toList(),
       'penalties': penalties,
-      'chargedStationEndgame': chargeStationEndgame,
-      'engageOrder': engageOrder,
-      'card': card,
+      'chargeStationEndgame': chargeStationEndgame.value,
+      'chargeStationOrder': chargeStationOrder.index,
+      'card': card.value,
     };
   }
 
