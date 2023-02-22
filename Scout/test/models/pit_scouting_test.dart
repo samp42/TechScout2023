@@ -36,6 +36,7 @@ void main() {
     scoringNotes: 'We can only score cubes on the bottom level of the grid.',
     chargingStationNotes:
         'We can only park on the left side of the charging station.',
+    haveSparatedIntake: true,
   );
 
   test('Test fromMap', () {

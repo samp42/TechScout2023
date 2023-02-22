@@ -19,6 +19,7 @@ class PitScouting {
   int length;
   DriveBaseTypeEnum driveBaseType;
   bool stable;
+  bool haveSparatedIntake;
 
   // game pieces
   bool canIntakeCone;
@@ -42,6 +43,7 @@ class PitScouting {
       required this.length,
       required this.driveBaseType,
       required this.stable,
+      required this.haveSparatedIntake,
       required this.canIntakeCone,
       required this.canIntakeCube,
       required this.pickupSpots,
@@ -61,6 +63,7 @@ class PitScouting {
         driveBaseType =
             DriveBaseTypeEnumExtension.fromValue(map['driveBaseType']),
         stable = map['stable'],
+        haveSparatedIntake = map['haveSparatedIntake'],
         canIntakeCone = map['canIntakeCone'],
         canIntakeCube = map['canIntakeCube'],
         pickupSpots = map['pickupSpots']
@@ -86,6 +89,7 @@ class PitScouting {
       'length': length,
       'driveBaseType': driveBaseType.value,
       'stable': stable,
+      'haveSparatedIntake': haveSparatedIntake,
       'canIntakeCone': canIntakeCone,
       'canIntakeCube': canIntakeCube,
       'pickupSpots': pickupSpots.map((e) => e.value).toList(),
