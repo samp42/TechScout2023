@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:scout/models/pit_scouting.dart';
 import 'package:scout/theme.dart';
+import 'package:scout/main.dart';
+import 'package:scout/views/pit_scouting/pit_scouting_list.dart';
 
 import '../../enums/cone_orientation_enum.dart';
 import '../../enums/drive_base_type_enum.dart';
@@ -9,6 +12,8 @@ import '../../enums/pickup_enum.dart';
 
 class PitScoutingEntry extends StatefulWidget {
   const PitScoutingEntry({Key? key}) : super(key: key);
+  static final list = _PitScoutingEntryState._list;
+
   @override
   State<PitScoutingEntry> createState() => _PitScoutingEntryState();
 }
@@ -20,15 +25,19 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
   String? intakeOrientation;
   String? _driveBaseValue;
   String? _pickUp;
-  String? _scoringGrid;
   String? _driverExperience;
+
+  static final _list = <PitScouting>[];
+
   // scout info
-  String scoutName = '';
+  late String scoutName;
   // team info
-  DriverExperienceEnum driverExperience = DriverExperienceEnum.firstYear;
   late int teamNumber;
+  late DriverExperienceEnum driverExperience;
   // robot info
-  late int weight, width, length;
+  late int weight;
+  late int width;
+  late int length;
   late DriveBaseTypeEnum driveBaseType;
   bool isStable = false;
   bool haveSeparatedIntake = false;
@@ -46,9 +55,9 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
   bool? top = false;
   bool? middle = false;
   bool? bottom = false;
-  String scoringNotes = '';
-  // charging stations
-  String chargingStationNote = '';
+  late String scoringNotes;
+  // charging station
+  late String chargingStationNotes;
 
   List<Step> stepList() => <Step>[
         Step(
@@ -59,7 +68,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    const Text('Your Name:     '),
+                    const Text('Your Name:'),
                     Expanded(
                       child: TextFormField(
                         decoration: const InputDecoration(
@@ -117,19 +126,22 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                       child: DropdownButtonFormField(
                     value: _driverExperience,
                     items: const [
-                      DropdownMenuItem(value: '1', child: Text('First Year')),
-                      DropdownMenuItem(value: '2', child: Text('Second Year')),
-                      DropdownMenuItem(value: '3', child: Text('Third Year')),
+                      DropdownMenuItem(
+                          value: 'First Year', child: Text('First Year')),
+                      DropdownMenuItem(
+                          value: 'Second Year', child: Text('Second Year')),
+                      DropdownMenuItem(
+                          value: 'Third Year', child: Text('Third Year')),
                     ],
                     onChanged: (value) => setState(() {
                       _driverExperience = value as String;
                     }),
                     onSaved: (value) => setState(() {
-                      if (value == '1') {
+                      if (value == 'First Year') {
                         driverExperience = DriverExperienceEnum.firstYear;
-                      } else if (_driveBaseValue == '2') {
+                      } else if (value == 'Second Year') {
                         driverExperience = DriverExperienceEnum.secondYear;
-                      } else if (_driveBaseValue == '3') {
+                      } else if (value == 'Third Year') {
                         driverExperience = DriverExperienceEnum.thirdYear;
                       }
                     }),
@@ -489,7 +501,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                   ),
                   child: TextFormField(
                     onSaved: (value) => setState(() {
-                      chargingStationNote = value!;
+                      scoringNotes = value!;
                     }),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -529,7 +541,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                   ),
                   child: TextFormField(
                     onSaved: (value) => setState(() {
-                      chargingStationNote = value!;
+                      chargingStationNotes = value!;
                     }),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -571,7 +583,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
           key: _formKey,
           child: Stepper(
               controlsBuilder: (BuildContext context, ControlsDetails details) {
-                final isLastStep = _index == stepList().length - 1;
+                final isLastStep = (_index == stepList().length - 1);
                 return Row(children: <Widget>[
                   if (_index > 0)
                     Expanded(
@@ -609,37 +621,54 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                 } else {
                   final isValid = _formKey.currentState!.validate();
                   if (isValid) {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: const Text('Submit'),
-                          content: const Text(
-                              'Make sure the information is correct, because you cannot edit it later.'),
-                          actions: <Widget>[
-                            TextButton(
-                              child: const Text('Cancel'),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                            TextButton(
-                              child: const Text('Submit'),
-                              onPressed: () {
-                                _formKey.currentState!.save();
-                                SnackBar snackBar = const SnackBar(
-                                  content: Text('Submission completed'),
-                                  backgroundColor: Colors.green,
-                                );
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ],
-                        );
-                      },
-                    );
+                    setState(() {
+                      _formKey.currentState!.save();
+
+                      _list.add(fillModel());
+                      print(_list[0].scoutName);
+
+                      SnackBar snackBar = const SnackBar(
+                        content: Text('Submission completed'),
+                        backgroundColor: Colors.green,
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      Navigator.of(context).pop(_list);
+                      //     },
+                    });
+                    //  showDialog(
+                    //    context: context,
+                    //    builder: (BuildContext context) {
+                    //      return AlertDialog(
+                    //        title: const Text('Submit'),
+                    //        content: const Text(
+                    //            'Make sure the information is correct, because you cannot edit it later.'),
+                    //        actions: <Widget>[
+                    //          TextButton(
+                    //            child: const Text('Cancel'),
+                    //            onPressed: () {
+                    //              Navigator.of(context).pop();
+                    //            },
+                    //          ),
+                    //   TextButton(
+                    //     child: const Text('Submit'),
+                    //     onPressed: () {
+                    //       Navigator.of(context).pop();
+                    //       _formKey.currentState!.save();
+//
+                    //       _list.add(fillModel());
+                    //       print(_list[0].scoutName);
+//
+                    //       SnackBar snackBar = const SnackBar(
+                    //         content: Text('Submission completed'),
+                    //         backgroundColor: Colors.green,
+                    //       );
+                    //       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    //     },
+                    //          ),
+                    //        ],
+                    //      );
+                    //    },
+                    //  );
                   } else {
                     SnackBar snackBar = const SnackBar(
                       content: Text('Please fill in all the required fields'),
@@ -659,5 +688,25 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
         resizeToAvoidBottomInset:
             true // the scaffold is not going to resize when open keyboard
         );
+  }
+
+  PitScouting fillModel() {
+    return PitScouting.full(
+        teamNumber: teamNumber,
+        scoutName: scoutName,
+        driverExperience: driverExperience,
+        weight: weight,
+        width: width,
+        length: length,
+        driveBaseType: driveBaseType,
+        stable: isStable,
+        haveSeparatedIntake: haveSeparatedIntake,
+        canIntakeCone: canIntakeCone,
+        canIntakeCube: canIntakeCube,
+        pickupSpots: pickupSpots,
+        intakeConeOrientations: intakeConeOrientations,
+        gridScoringLevels: gridScoringLevels,
+        scoringNotes: scoringNotes,
+        chargingStationNotes: chargingStationNotes);
   }
 }

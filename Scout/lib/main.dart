@@ -47,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.push(
         context,
         _pageIndex == 0
-            ? MaterialPageRoute(builder: (context) => PitScoutingEntry())
+            ? MaterialPageRoute(builder: (context) => const PitScoutingEntry())
             : (_pageIndex == 1
                 ? MaterialPageRoute(
                     builder: (context) => const PracticeFieldScoutingEntry())
@@ -55,8 +55,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     builder: (context) => const MatchScoutingEntry())));
   }
 
-  final List<Widget> _tabs = const [
-    PitScoutingList(),
+  final List<Widget> _tabs = [
+    PitScoutingList(list: PitScoutingEntry.list),
     PracticeFieldScoutingList(),
     MatchScoutingList(),
     TeamScoutingList()

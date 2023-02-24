@@ -10,7 +10,7 @@ import 'package:scout/models/pit_scouting.dart';
 import 'package:test/test.dart';
 
 void main() {
-  final PitScouting robotMock = PitScouting(
+  final PitScouting robotMock = PitScouting.full(
     teamNumber: 3990,
     scoutName: 'John Doe',
     driverExperience: DriverExperienceEnum.firstYear,
