@@ -27,3 +27,5 @@ Map<int, Color> _makeSwatch(Color color) {
     900: color,
   };
 }
+
+const double kBorderRadius = 12;

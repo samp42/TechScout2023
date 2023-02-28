@@ -107,11 +107,10 @@ class _MatchScoutingEntryState extends State<MatchScoutingEntry> {
               content: Row(
                 children: const [
                   Expanded(
-                    child: MatchInformationStep(allianceEnum: AllianceEnum.red),
+                    child: MatchInformationStep(alliance: AllianceEnum.red),
                   ),
                   Expanded(
-                    child:
-                        MatchInformationStep(allianceEnum: AllianceEnum.blue),
+                    child: MatchInformationStep(alliance: AllianceEnum.blue),
                   ),
                 ],
               ),
