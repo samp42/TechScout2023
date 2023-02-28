@@ -14,20 +14,7 @@ class MatchInformationStep extends StatefulWidget {
 }
 
 class _MatchInformationStepState extends State<MatchInformationStep> {
-  late TextEditingController? _controller;
   final double kBorderRadius = 12;
-
-  @override
-  void initState() {
-    super.initState();
-    // _controller = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    // _controller.dispose();
-    super.dispose();
-  }
 
   Color get _primary =>
       widget.allianceEnum == AllianceEnum.red ? redPrimary : bluePrimary;

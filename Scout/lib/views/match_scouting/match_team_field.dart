@@ -6,7 +6,7 @@ class MatchTeamField extends StatelessWidget {
   final Color color;
   // TextEditingController? controller = TextEditingController();
 
-  MatchTeamField({Key? key, required this.label, required this.color
+  const MatchTeamField({Key? key, required this.label, required this.color
       // required this.controller,
       })
       : super(key: key);
@@ -21,12 +21,20 @@ class MatchTeamField extends StatelessWidget {
         border: Border.all(color: color),
         borderRadius: BorderRadius.circular(4),
       ),
-      child: TextField(
+      child:  TextField(
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
-          labelText: label,
+          constraints: const BoxConstraints(
+            maxHeight: 36,
+          ),
           labelStyle: const TextStyle(color: whiteT4K),
           fillColor: bluePrimary,
+          hintText: label,
+          hintStyle: const TextStyle(
+            color: Colors.white70,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         style: const TextStyle(
           color: whiteT4K,

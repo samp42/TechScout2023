@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:scout/enums/alliance_enum.dart';
+import 'package:scout/models/match_scouting.dart';
 import 'package:scout/theme.dart';
 import 'package:scout/views/match_scouting/match_information_step.dart';
-import 'package:scout/views/match_scouting/match_team_form.dart';
 import 'package:scout/views/match_scouting/math_general_form.dart';
+import 'package:scout/views/match_scouting/results_form.dart';
+import 'package:scout/views/match_scouting/teleop_form.dart';
 
 class MatchScoutingEntry extends StatefulWidget {
   const MatchScoutingEntry({Key? key}) : super(key: key);
@@ -15,7 +17,11 @@ class MatchScoutingEntry extends StatefulWidget {
 
 class _MatchScoutingEntryState extends State<MatchScoutingEntry> {
   int _index = 0;
-  final int numOfSteps = 5;
+  final int numOfSteps = 4;
+
+  MatchScouting matchScouting = MatchScouting();
+
+  bool _isActive(int step) => _index == step;
 
   @override
   void initState() {
@@ -38,25 +44,49 @@ class _MatchScoutingEntryState extends State<MatchScoutingEntry> {
           style: TextStyle(color: yellowT4K),
         ),
       ),
-      body: Container(
-        padding: const EdgeInsetsDirectional.only(start: 40),
+      body: SafeArea(
         child: Stepper(
+          // TODO: don't allow user to go to other step if current step is not valid
+          // onStepTapped: (int step) {
+          //   setState(() {
+          //     _index = step;
+          //   });
+          // },
+          currentStep: _index,
           controlsBuilder: (BuildContext context, ControlsDetails details) {
             final isLastStep = _index == numOfSteps - 1;
-            return Row(children: <Widget>[
+            return Row(children: [
               if (_index > 0)
                 Expanded(
+                  flex: 1,
                   child: ElevatedButton(
-                    onPressed: details.onStepCancel,
+                    onPressed: () {
+                      setState(() {
+                        _index--;
+                      });
+                      details.onStepCancel;
+                    },
                     child: const Text('Back'),
                   ),
                 ),
-              const SizedBox(
-                width: 10,
-              ),
+              if (_index > 0)
+                const SizedBox(
+                  width: 10,
+                ),
               Expanded(
+                flex: 1,
                 child: ElevatedButton(
-                  onPressed: details.onStepContinue,
+                  onPressed: () {
+                    if (_index < numOfSteps - 1) {
+                      setState(() {
+                        _index++;
+                      });
+                      details.onStepContinue;
+                    } else {
+                      // TODO
+                      print('submit');
+                    }
+                  },
                   child:
                       (isLastStep) ? const Text('Submit') : const Text('Next'),
                 ),
@@ -66,12 +96,14 @@ class _MatchScoutingEntryState extends State<MatchScoutingEntry> {
           type: StepperType.horizontal,
           elevation: 0,
           steps: [
-            const Step(
-              title: Text('General Information'),
-              content: MatchGeneralForm(),
+            Step(
+              isActive: _isActive(0),
+              title: const Text('Match Information'),
+              content: const MatchGeneralForm(),
             ),
             Step(
-              title: const Text('Match Information'),
+              isActive: _isActive(1),
+              title: const Text('Teams'),
               content: Row(
                 children: const [
                   Expanded(
@@ -84,17 +116,15 @@ class _MatchScoutingEntryState extends State<MatchScoutingEntry> {
                 ],
               ),
             ),
-            const Step(
-              title: Text('Teams'),
-              content: Text('World'),
+            Step(
+              isActive: _isActive(2),
+              title: const Text('Teleop'),
+              content: const TeleopForm(),
             ),
-            const Step(
-              title: Text('Teleop'),
-              content: Text('Hello'),
-            ),
-            const Step(
-              title: Text('Results'),
-              content: Text('World'),
+            Step(
+              isActive: _isActive(3),
+              title: const Text('Results'),
+              content: const ResultsForm(),
             ),
           ],
         ),
