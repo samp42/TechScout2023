@@ -21,7 +21,7 @@ class MatchTeamField extends StatelessWidget {
         border: Border.all(color: color),
         borderRadius: BorderRadius.circular(4),
       ),
-      child:  TextField(
+      child: TextField(
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
           constraints: const BoxConstraints(

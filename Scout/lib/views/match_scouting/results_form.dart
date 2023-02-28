@@ -6,27 +6,43 @@ class ResultsFormState extends State<ResultsForm> {
 
   @override
   Widget build(BuildContext context) {
-    //   return Form(
-    //       key: _formKey,
-    //       child: Row(
-    //         children: [
-    //           TextFormField(
-    //             decoration: const InputDecoration(
-    //               border: OutlineInputBorder(),
-    //               fillColor: redPrimary,
-    //               hintText: 'Red Score',
-    //             ),
-    //           ),
-    //           TextFormField(
-    //             decoration: const InputDecoration(
-    //               border: OutlineInputBorder(),
-    //               fillColor: bluePrimary,
-    //               hintText: 'Blue Score',
-    //             ),
-    //           ),
-    //         ],
-    //       ));
-    return Container();
+    return Row(
+      children: [
+        Expanded(
+          flex: 1,
+          child: Container(
+            alignment: Alignment.topRight,
+            decoration: BoxDecoration(
+              color: redSecondary,
+              border: Border.all(color: redSecondary),
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(4), bottomLeft: Radius.circular(4)),
+            ),
+            child: TextFormField(
+              decoration: const InputDecoration(
+                  fillColor: redPrimary,
+                  filled: true,
+                  // no border
+                  border: InputBorder.none,
+                  hintText: 'Red',
+                  hintStyle: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  constraints: BoxConstraints(
+                      maxWidth: 120
+                  )
+              ),
+            ),
+          ),
+        ),
+        const Expanded(
+          flex: 1,
+          child: Text('Blue'),
+        ),
+      ],
+    );
   }
 }
 
