@@ -4,17 +4,16 @@ enum AllianceEnum {
 
   const AllianceEnum(this.value);
   final String value;
+
+  String get capitalisedValue =>
+      value[0].toUpperCase() + value.substring(1).toLowerCase();
 }
 
 extension AllianceEnumExtension on AllianceEnum {
   static AllianceEnum fromValue(String value) {
-    switch (value.toLowerCase()) {
-      case 'red':
-        return AllianceEnum.red;
-      case 'blue':
-        return AllianceEnum.blue;
-      default:
-        throw Exception('Invalid AllianceEnum value: $value');
-    }
+    return AllianceEnum.values.firstWhere(
+      (e) => e.value == value,
+      orElse: () => throw Exception('Invalid AllianceEnum value: $value'),
+    );
   }
 }

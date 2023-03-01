@@ -36,10 +36,6 @@ class TeleopFormColumnState extends State<TeleopFormColumn> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-          color: _secondary,
-          border: Border.all(color: _secondary),
-          borderRadius: _borderRadius),
       child: Column(
         children: [
           Row(
