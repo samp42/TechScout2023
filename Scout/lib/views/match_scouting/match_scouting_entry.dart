@@ -16,12 +16,21 @@ class MatchScoutingEntry extends StatefulWidget {
 }
 
 class _MatchScoutingEntryState extends State<MatchScoutingEntry> {
-  int _index = 0;
   final int numOfSteps = 4;
+  int _index = 0;
+
+  bool _isActiveStepValid = false;
 
   MatchScouting matchScouting = MatchScouting();
 
   bool _isActive(int step) => _index == step;
+
+  void _nextStep() {
+    setState(() {
+      _index++;
+      _isActiveStepValid = false;
+    });
+  }
 
   @override
   void initState() {
@@ -33,6 +42,21 @@ class _MatchScoutingEntryState extends State<MatchScoutingEntry> {
   void dispose() {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     super.dispose();
+  }
+
+  void _validateStep(String? value) {
+    if (value != null) {
+      setState(() {
+        _isActiveStepValid = true;
+      });
+    }
+  }
+
+  void _previousStep() {
+    setState(() {
+      _index--;
+      _isActiveStepValid = true;
+    });
   }
 
   @override
@@ -61,9 +85,7 @@ class _MatchScoutingEntryState extends State<MatchScoutingEntry> {
                   flex: 1,
                   child: ElevatedButton(
                     onPressed: () {
-                      setState(() {
-                        _index--;
-                      });
+                      _previousStep();
                       details.onStepCancel;
                     },
                     child: const Text('Back'),
@@ -78,10 +100,10 @@ class _MatchScoutingEntryState extends State<MatchScoutingEntry> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (_index < numOfSteps - 1) {
-                      setState(() {
-                        _index++;
-                      });
-                      details.onStepContinue;
+                      if (_isActiveStepValid) {
+                        _nextStep();
+                        details.onStepContinue;
+                      }
                     } else {
                       // TODO
                       print('submit');
@@ -99,18 +121,22 @@ class _MatchScoutingEntryState extends State<MatchScoutingEntry> {
             Step(
               isActive: _isActive(0),
               title: const Text('Match Information'),
-              content: const MatchGeneralForm(),
+              content: MatchGeneralForm(
+                onSubmit: (value) => _validateStep(value),
+              ),
             ),
             Step(
               isActive: _isActive(1),
               title: const Text('Teams'),
               content: Row(
-                children: const [
+                children: [
                   Expanded(
-                    child: MatchInformationStep(alliance: AllianceEnum.red),
+                    child: MatchInformationStep(
+                        alliance: AllianceEnum.red, onSubmit: _validateStep),
                   ),
                   Expanded(
-                    child: MatchInformationStep(alliance: AllianceEnum.blue),
+                    child: MatchInformationStep(
+                        alliance: AllianceEnum.blue, onSubmit: _validateStep),
                   ),
                 ],
               ),

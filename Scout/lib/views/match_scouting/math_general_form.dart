@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:scout/models/validator_callback.dart';
 
 class MatchGeneralForm extends StatefulWidget {
-  const MatchGeneralForm({Key? key}) : super(key: key);
+  final ValidatorCallback onSubmit;
+
+  const MatchGeneralForm({
+    Key? key,
+    required this.onSubmit,
+  }) : super(key: key);
 
   @override
   MatchGeneralFormState createState() => MatchGeneralFormState();
@@ -42,6 +48,10 @@ class MatchGeneralFormState extends State<MatchGeneralForm> {
                     }
                     return null;
                   },
+                  onChanged: (value) {
+                    widget.onSubmit(
+                        _formKey.currentState!.validate() ? value : null);
+                  },
                 ),
               ),
             ],
@@ -75,6 +85,10 @@ class MatchGeneralFormState extends State<MatchGeneralForm> {
                     }
 
                     return null;
+                  },
+                  onChanged: (value) {
+                    widget.onSubmit(
+                        _formKey.currentState!.validate() ? value : null);
                   },
                 ),
               ),
