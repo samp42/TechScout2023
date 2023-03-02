@@ -11,28 +11,34 @@ class ResultsForm extends StatefulWidget {
 class ResultsFormState extends State<ResultsForm> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: GridView.count(
-        crossAxisCount: 2,
-        children: [
-          Container(
-            color: Colors.amber,
-            child: const Text('Amber'),
-          ),
-          Container(
-            color: Colors.red,
-            child: const Text('Red'),
-          ),
-          Container(
-            color: Colors.blue,
-            child: const Text('Blue'),
-          ),
-          Container(
-            color: Colors.green,
-            child: const Text('Green'),
-          ),
-        ],
-      ),
+    return GridView.count(
+      crossAxisCount: 2,
+      children: [
+        Container(
+          width: 100,
+          height: 80,
+          color: Colors.amber,
+          child: const Text('Amber'),
+        ),
+        Container(
+          width: 100,
+          height: 80,
+          color: Colors.red,
+          child: const Text('Red'),
+        ),
+        Container(
+          width: 100,
+          height: 80,
+          color: Colors.blue,
+          child: const Text('Blue'),
+        ),
+        Container(
+          width: 100,
+          height: 80,
+          color: Colors.green,
+          child: const Text('Green'),
+        ),
+      ],
     );
   }
 }
