@@ -52,6 +52,13 @@ class _MatchScoutingEntryState extends State<MatchScoutingEntry> {
     }
   }
 
+  void _previousStep() {
+    setState(() {
+      _index--;
+      _isActiveStepValid = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,9 +85,7 @@ class _MatchScoutingEntryState extends State<MatchScoutingEntry> {
                   flex: 1,
                   child: ElevatedButton(
                     onPressed: () {
-                      setState(() {
-                        _index--;
-                      });
+                      _previousStep();
                       details.onStepCancel;
                     },
                     child: const Text('Back'),
