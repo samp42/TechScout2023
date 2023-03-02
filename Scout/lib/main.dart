@@ -48,15 +48,12 @@ class _MyHomePageState extends State<MyHomePage> {
             builder: (context) => _pageIndex == 0
                 ? const PitScoutingEntry()
                 : _pageIndex == 1
-                    ? const PracticeFieldScoutingEntry()
-                    : _pageIndex == 2
-                        ? const TeamScoutingEntry()
-                        : const MatchScoutingEntry()));
+                    ? const TeamScoutingEntry()
+                    : const MatchScoutingEntry()));
   }
 
   final List<Widget> _tabs = const [
     PitScoutingList(),
-    PracticeFieldScoutingList(),
     TeamScoutingList(),
     MatchScoutingList()
   ];
@@ -80,10 +77,6 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.people_alt_rounded),
             label: 'Pit',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart_rounded),
-            label: 'Practice',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.assignment_ind_rounded),
