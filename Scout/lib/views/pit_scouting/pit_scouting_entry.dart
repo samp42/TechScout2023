@@ -703,9 +703,11 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
         haveSeparatedIntake: haveSeparatedIntake,
         canIntakeCone: canIntakeCone,
         canIntakeCube: canIntakeCube,
-        pickupSpots: pickupSpots,
+        pickupSpotsCube: ,
+        pickupSpotsCone: pickupSpots,
         intakeConeOrientations: intakeConeOrientations,
-        gridScoringLevels: gridScoringLevels,
+        gridScoringLevelsCube: gridScoringLevels,
+        gridScoringLevelsCone: ,
         scoringNotes: scoringNotes,
         chargingStationNotes: chargingStationNotes);
   }

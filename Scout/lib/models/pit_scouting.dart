@@ -24,8 +24,8 @@ class PitScouting {
   // game pieces
   late bool canIntakeCone;
   late bool canIntakeCube;
-  late List<PickupEnum> pickupSpotsCube;
-  late List<PickupEnum> pickupSpotsCone;
+  late PickupEnum pickupSpotsCube;
+  late PickupEnum pickupSpotsCone;
   late List<ConeOrientationEnum> intakeConeOrientations;
   late String gamePiecesNotes;
 
@@ -106,8 +106,8 @@ class PitScouting {
       'haveSparatedIntake': haveSeparatedIntake,
       'canIntakeCone': canIntakeCone,
       'canIntakeCube': canIntakeCube,
-      'pickupSpotsCube': pickupSpotsCube.map((e) => e.value).toList(),
-      'pickupSpotsCone': pickupSpotsCone.map((e) => e.value).toList(),
+      'pickupSpotsCube': pickupSpotsCube,
+      'pickupSpotsCone': pickupSpotsCone,
       'intakeConeOrientations':
           intakeConeOrientations.map((e) => e.value).toList(),
       'gridScoringLevelsCube':

@@ -21,8 +21,8 @@ void main() {
     stable: false,
     canIntakeCone: true,
     canIntakeCube: true,
-    pickupSpotsCube: [PickupEnum.floor, PickupEnum.tablet],
-    pickupSpotsCone: [PickupEnum.floor],
+    pickupSpotsCube: PickupEnum.tablet,
+    pickupSpotsCone: PickupEnum.floor,
     intakeConeOrientations: [
       ConeOrientationEnum.pointingAway,
       ConeOrientationEnum.pointingTowards,
@@ -42,7 +42,7 @@ void main() {
     scoringNotes: 'We can only score cubes on the coopertition grid.',
     chargingStationNotes:
         'We can only park on the left side of the charging station.',
-    haveSparatedIntake: true,
+    haveSeparatedIntake: true,
   );
 
   test('test fromMap', () {
