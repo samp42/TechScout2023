@@ -1,9 +1,14 @@
-
 import 'package:flutter/material.dart';
+import 'package:scout/models/validator_callback.dart';
 import 'package:scout/theme.dart';
 
 class MatchResultsForm extends StatefulWidget {
-  const MatchResultsForm({Key? key}) : super(key: key);
+  final ValidatorCallback onChanged;
+
+  const MatchResultsForm({
+    Key? key,
+    required this.onChanged,
+  }) : super(key: key);
 
   @override
   MatchResultsFormState createState() => MatchResultsFormState();

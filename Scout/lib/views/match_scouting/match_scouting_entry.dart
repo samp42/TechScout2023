@@ -152,7 +152,9 @@ class _MatchScoutingEntryState extends State<MatchScoutingEntry> {
               state: _state(3),
               isActive: _isActive(3),
               title: const Text('Results'),
-              content: const MatchResultsForm(),
+              content: MatchResultsForm(
+                onChanged: (value) => _validateStep(value),
+              ),
             ),
           ],
         ),

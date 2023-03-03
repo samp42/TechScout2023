@@ -28,9 +28,9 @@ class MatchTeamField extends StatelessWidget {
       child: TextFormField(
         // validator: (value) =>
         //     numberValidator(value, field: label.toLowerCase()),
-        // onChanged: (value) {
-        //   onChanged(value);
-        // },
+        onChanged: (value) {
+          onChanged(value);
+        },
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
           constraints: const BoxConstraints(
