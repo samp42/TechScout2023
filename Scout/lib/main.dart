@@ -9,6 +9,8 @@ import 'package:scout/views/practice_field_scouting/practice_field_scouting_list
 import 'package:scout/views/team_scouting/team_scouting_entry.dart';
 import 'package:scout/views/team_scouting/team_scouting_list.dart';
 import 'package:scout/theme.dart';
+import 'package:scout/views/team_scouting/team_scouting_list.dart';
+import 'package:scout/views/team_scouting/team_scouting_entry.dart';
 
 void main() {
   runApp(const MyApp());
@@ -46,13 +48,14 @@ class _MyHomePageState extends State<MyHomePage> {
   void _navigate() {
     Navigator.push(
         context,
-        _pageIndex == 0
-            ? MaterialPageRoute(builder: (context) => const PitScoutingEntry())
-            : (_pageIndex == 1
-                ? MaterialPageRoute(
-                    builder: (context) => const PracticeFieldScoutingEntry())
-                : MaterialPageRoute(
-                    builder: (context) => const MatchScoutingEntry())));
+        MaterialPageRoute(
+            builder: (context) => _pageIndex == 0
+                ? const PitScoutingEntry()
+                : _pageIndex == 1
+                    ? const PracticeFieldScoutingEntry()
+                    : _pageIndex == 2
+                        ? const TeamScoutingEntry()
+                        : const MatchScoutingEntry()));
   }
 
   final List<Widget> _tabs = [
@@ -89,15 +92,26 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.people_alt_rounded),
-            label: 'Team',
+            label: 'Pit',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.bar_chart_rounded),
+            label: 'Practice',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.assignment_ind_rounded),
+            label: 'Team',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.library_books_rounded),
             label: 'Match',
           ),
         ],
         currentIndex: _pageIndex,
         selectedItemColor: blackT4K,
+        unselectedItemColor: Colors.black38,
+        unselectedLabelStyle: const TextStyle(color: Colors.black38),
+        showUnselectedLabels: true,
         onTap: (int index) {
           setState(() {
             _pageIndex = index;

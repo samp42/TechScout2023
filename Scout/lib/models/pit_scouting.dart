@@ -24,11 +24,14 @@ class PitScouting {
   // game pieces
   late bool canIntakeCone;
   late bool canIntakeCube;
-  late PickupEnum pickupSpots;
+  late List<PickupEnum> pickupSpotsCube;
+  late List<PickupEnum> pickupSpotsCone;
   late List<ConeOrientationEnum> intakeConeOrientations;
+  late String gamePiecesNotes;
 
   // scoring
-  late List<GridLevelEnum> gridScoringLevels;
+  late List<GridLevelEnum> gridScoringLevelsCube;
+  late List<GridLevelEnum> gridScoringLevelsCone;
   late String scoringNotes;
 
   // charging stations
@@ -47,9 +50,12 @@ class PitScouting {
       required this.haveSeparatedIntake,
       required this.canIntakeCone,
       required this.canIntakeCube,
-      required this.pickupSpots,
+      required this.pickupSpotsCube,
+      required this.pickupSpotsCone,
       required this.intakeConeOrientations,
-      required this.gridScoringLevels,
+      required this.gamePiecesNotes,
+      required this.gridScoringLevelsCube,
+      required this.gridScoringLevelsCone,
       required this.scoringNotes,
       required this.chargingStationNotes});
 
@@ -67,14 +73,21 @@ class PitScouting {
         haveSeparatedIntake = map['haveSparatedIntake'],
         canIntakeCone = map['canIntakeCone'],
         canIntakeCube = map['canIntakeCube'],
-        pickupSpots = map['pickupSpots']
+        pickupSpotsCube = map['pickupSpotsCube'] = map['pickupSpotsCube']
+            .map<PickupEnum>((e) => PickupEnumExtension.fromValue(e))
+            .toList(),
+        pickupSpotsCone = map['pickupSpotsCone'] = map['pickupSpotsCone']
             .map<PickupEnum>((e) => PickupEnumExtension.fromValue(e))
             .toList(),
         intakeConeOrientations = map['intakeConeOrientations']
             .map<ConeOrientationEnum>(
                 (e) => ConeOrientationEnumExtension.fromValue(e))
             .toList(),
-        gridScoringLevels = map['gridScoringLevels']
+        gamePiecesNotes = map['gamePiecesNotes'],
+        gridScoringLevelsCube = map['gridScoringLevelsCube']
+            .map<GridLevelEnum>((e) => GridLevelEnumExtension.fromValue(e))
+            .toList(),
+        gridScoringLevelsCone = map['gridScoringLevelsCone']
             .map<GridLevelEnum>((e) => GridLevelEnumExtension.fromValue(e))
             .toList(),
         scoringNotes = map['scoringNotes'],
@@ -93,10 +106,15 @@ class PitScouting {
       'haveSparatedIntake': haveSeparatedIntake,
       'canIntakeCone': canIntakeCone,
       'canIntakeCube': canIntakeCube,
-      'pickupSpots': pickupSpots.value,
+      'pickupSpotsCube': pickupSpotsCube.map((e) => e.value).toList(),
+      'pickupSpotsCone': pickupSpotsCone.map((e) => e.value).toList(),
       'intakeConeOrientations':
           intakeConeOrientations.map((e) => e.value).toList(),
-      'gridScoringLevels': gridScoringLevels.map((e) => e.value).toList(),
+      'gridScoringLevelsCube':
+          gridScoringLevelsCube.map((e) => e.value).toList(),
+      'gridScoringLevelsCone':
+          gridScoringLevelsCone.map((e) => e.value).toList(),
+      'gamePiecesNotes': gamePiecesNotes,
       'scoringNotes': scoringNotes,
       'chargingStationNotes': chargingStationNotes,
     };

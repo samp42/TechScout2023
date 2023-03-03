@@ -21,25 +21,31 @@ void main() {
     stable: false,
     canIntakeCone: true,
     canIntakeCube: true,
-    pickupSpots: [PickupEnum.floor],
+    pickupSpotsCube: [PickupEnum.floor, PickupEnum.tablet],
+    pickupSpotsCone: [PickupEnum.floor],
     intakeConeOrientations: [
       ConeOrientationEnum.pointingAway,
       ConeOrientationEnum.pointingTowards,
       ConeOrientationEnum.upRight,
       ConeOrientationEnum.sideways,
     ],
-    gridScoringLevels: [
+    gamePiecesNotes: "",
+    gridScoringLevelsCube: [
+      GridLevelEnum.bottom,
+      GridLevelEnum.middle,
+    ],
+    gridScoringLevelsCone: [
       GridLevelEnum.bottom,
       GridLevelEnum.middle,
       GridLevelEnum.top,
     ],
-    scoringNotes: 'We can only score cubes on the bottom level of the grid.',
+    scoringNotes: 'We can only score cubes on the coopertition grid.',
     chargingStationNotes:
         'We can only park on the left side of the charging station.',
     haveSparatedIntake: true,
   );
 
-  test('Test fromMap', () {
+  test('test fromMap', () {
     // Given / When
     PitScouting actualRobot = PitScouting.fromMap({
       'teamNumber': 3990,
@@ -52,16 +58,18 @@ void main() {
       'stable': false,
       'canIntakeCone': true,
       'canIntakeCube': true,
-      'pickupSpots': ['floor'],
+      'pickupSpotsCube': ['floor', 'tablet'],
+      'pickupSpotsCone': ['floor'],
       'intakeConeOrientations': [
         'pointing away',
         'pointing towards',
         'sideways',
         'up right'
       ],
-      'gridScoringLevels': ['bottom', 'middle', 'top'],
-      'scoringNotes':
-          'We can only score cubes on the bottom level of the grid.',
+      'gamePiecesNotes': '',
+      'gridScoringLevelsCube': ['bottom', 'middle'],
+      'gridScoringLevelsCone': ['bottom', 'middle', 'top'],
+      'scoringNotes': 'We can only score cubes on the coopertition grid.',
       'chargingStationNotes':
           'We can only park on the left side of the charging station.',
     });
@@ -78,14 +86,21 @@ void main() {
     expect(actualRobot.canIntakeCone, equals(robotMock.canIntakeCone));
     expect(actualRobot.canIntakeCube, equals(robotMock.canIntakeCube));
     // expect to be equal ignoring order
-    expect(
-        actualRobot.pickupSpots.toSet(), equals(robotMock.pickupSpots.toSet()));
+    expect(actualRobot.pickupSpotsCube.toSet(),
+        equals(robotMock.pickupSpotsCube.toSet()));
+    // expect to be equal ignoring order
+    expect(actualRobot.pickupSpotsCone.toSet(),
+        equals(robotMock.pickupSpotsCone.toSet()));
     // expect to be equal ignoring order
     expect(actualRobot.intakeConeOrientations.toSet(),
         equals(robotMock.intakeConeOrientations.toSet()));
+    expect(actualRobot.gamePiecesNotes, equals(robotMock.gamePiecesNotes));
     // expect to be equal ignoring order
-    expect(actualRobot.gridScoringLevels.toSet(),
-        equals(robotMock.gridScoringLevels.toSet()));
+    expect(actualRobot.gridScoringLevelsCube.toSet(),
+        equals(robotMock.gridScoringLevelsCube.toSet()));
+    // expect to be equal ignoring order
+    expect(actualRobot.gridScoringLevelsCone.toSet(),
+        equals(robotMock.gridScoringLevelsCone.toSet()));
     expect(actualRobot.scoringNotes, equals(robotMock.scoringNotes));
     expect(actualRobot.chargingStationNotes,
         equals(robotMock.chargingStationNotes));
@@ -112,20 +127,27 @@ void main() {
     expect(actualRobot.canIntakeCone, equals(robotMock.canIntakeCone));
     expect(actualRobot.canIntakeCube, equals(robotMock.canIntakeCube));
     // expect to be equal ignoring order
-    expect(
-        actualRobot.pickupSpots.toSet(), equals(robotMock.pickupSpots.toSet()));
+    expect(actualRobot.pickupSpotsCube.toSet(),
+        equals(robotMock.pickupSpotsCube.toSet()));
+    // expect to be equal ignoring order
+    expect(actualRobot.pickupSpotsCone.toSet(),
+        equals(robotMock.pickupSpotsCone.toSet()));
     // expect to be equal ignoring order
     expect(actualRobot.intakeConeOrientations.toSet(),
         equals(robotMock.intakeConeOrientations.toSet()));
+    expect(actualRobot.gamePiecesNotes, equals(robotMock.gamePiecesNotes));
     // expect to be equal ignoring order
-    expect(actualRobot.gridScoringLevels.toSet(),
-        equals(robotMock.gridScoringLevels.toSet()));
+    expect(actualRobot.gridScoringLevelsCube.toSet(),
+        equals(robotMock.gridScoringLevelsCube.toSet()));
+    // expect to be equal ignoring order
+    expect(actualRobot.gridScoringLevelsCone.toSet(),
+        equals(robotMock.gridScoringLevelsCone.toSet()));
     expect(actualRobot.scoringNotes, equals(robotMock.scoringNotes));
     expect(actualRobot.chargingStationNotes,
         equals(robotMock.chargingStationNotes));
   });
 
-  test('Test toJson', () {
+  test('test toJson', () {
     // Given
     File robotJsonFile = File('test_resources/pit_scouting.json');
     String expectedRobotJsonString = robotJsonFile.readAsStringSync();
@@ -153,14 +175,20 @@ void main() {
     expect(actualRobotJson['canIntakeCube'],
         equals(expectedRobotJson['canIntakeCube']));
     // expect to be equal ignoring order
-    expect(actualRobotJson['pickupSpots'].toSet(),
-        equals(expectedRobotJson['pickupSpots'].toSet()));
+    expect(actualRobotJson['pickupSpotsCube'].toSet(),
+        equals(expectedRobotJson['pickupSpotsCube'].toSet()));
+    // expect to be equal ignoring order
+    expect(actualRobotJson['pickupSpotsCone'].toSet(),
+        equals(expectedRobotJson['pickupSpotsCone'].toSet()));
     // expect to be equal ignoring order
     expect(actualRobotJson['intakeConeOrientations'].toSet(),
         equals(expectedRobotJson['intakeConeOrientations'].toSet()));
     // expect to be equal ignoring order
-    expect(actualRobotJson['gridScoringLevels'].toSet(),
-        equals(expectedRobotJson['gridScoringLevels'].toSet()));
+    expect(actualRobotJson['gridScoringLevelsCube'].toSet(),
+        equals(expectedRobotJson['gridScoringLevelsCube'].toSet()));
+    // expect to be equal ignoring order
+    expect(actualRobotJson['gridScoringLevelsCone'].toSet(),
+        equals(expectedRobotJson['gridScoringLevelsCone'].toSet()));
     expect(actualRobotJson['scoringNotes'],
         equals(expectedRobotJson['scoringNotes']));
     expect(actualRobotJson['chargingStationNotes'],
