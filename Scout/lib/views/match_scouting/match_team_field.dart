@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:scout/models/validator_callback.dart';
 import 'package:scout/theme.dart';
+import 'package:scout/views/validators.dart';
 
 class MatchTeamField extends StatelessWidget {
   final String label;
   final Color color;
-  final ValidatorCallback onSubmit;
+  final ValidatorCallback onChanged;
 
   const MatchTeamField({
     Key? key,
     required this.label,
     required this.color,
-    required this.onSubmit,
+    required this.onChanged,
   }) : super(key: key);
 
   @override
@@ -25,22 +26,11 @@ class MatchTeamField extends StatelessWidget {
         borderRadius: BorderRadius.circular(4),
       ),
       child: TextFormField(
-        validator: (value) {
-          // value is empty
-          if (value == null || value.isEmpty) {
-            return 'Please enter a team number';
-          }
-
-          // value is not a number or is longer than 4 digits
-          if (int.tryParse(value) == null || value.length > 4) {
-            return 'Please enter a valid team number';
-          }
-
-          return null;
-        },
-        onSaved: (value) {
-          onSubmit(value);
-        },
+        // validator: (value) =>
+        //     numberValidator(value, field: label.toLowerCase()),
+        // onChanged: (value) {
+        //   onChanged(value);
+        // },
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
           constraints: const BoxConstraints(
@@ -60,6 +50,7 @@ class MatchTeamField extends StatelessWidget {
           fontSize: 16,
           fontWeight: FontWeight.bold,
         ),
+        autovalidateMode: AutovalidateMode.onUserInteraction,
       ),
     );
   }

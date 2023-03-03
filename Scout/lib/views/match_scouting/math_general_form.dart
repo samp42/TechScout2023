@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:scout/models/validator_callback.dart';
 
+import 'package:scout/views/validators.dart';
+
 class MatchGeneralForm extends StatefulWidget {
-  final ValidatorCallback onSubmit;
+  final ValidatorCallback onChanged;
 
   const MatchGeneralForm({
     Key? key,
-    required this.onSubmit,
+    required this.onChanged,
   }) : super(key: key);
 
   @override
@@ -39,17 +41,10 @@ class MatchGeneralFormState extends State<MatchGeneralForm> {
                     border: OutlineInputBorder(),
                     hintText: 'Match Number',
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter a match number';
-                    }
-                    if (int.tryParse(value) == null) {
-                      return 'Please enter a valid match number';
-                    }
-                    return null;
-                  },
+                  validator: (value) =>
+                      numberValidator(value, field: 'match number'),
                   onChanged: (value) {
-                    widget.onSubmit(
+                    widget.onChanged(
                         _formKey.currentState!.validate() ? value : null);
                   },
                 ),
@@ -87,7 +82,7 @@ class MatchGeneralFormState extends State<MatchGeneralForm> {
                     return null;
                   },
                   onChanged: (value) {
-                    widget.onSubmit(
+                    widget.onChanged(
                         _formKey.currentState!.validate() ? value : null);
                   },
                 ),

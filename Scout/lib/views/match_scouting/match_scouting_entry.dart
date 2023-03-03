@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:scout/enums/alliance_enum.dart';
 import 'package:scout/models/match_scouting.dart';
 import 'package:scout/theme.dart';
-import 'package:scout/views/match_scouting/match_information_step.dart';
 import 'package:scout/views/match_scouting/math_general_form.dart';
-import 'package:scout/views/match_scouting/results_form.dart';
-import 'package:scout/views/match_scouting/teleop_form.dart';
+import 'package:scout/views/match_scouting/match_teams_form.dart';
+import 'package:scout/views/match_scouting/match_teleop_form.dart';
+import 'package:scout/views/match_scouting/match_results_form.dart';
 
 class MatchScoutingEntry extends StatefulWidget {
-  const MatchScoutingEntry({Key? key}) : super(key: key);
+  MatchScouting matchScouting = MatchScouting();
+  // final MatchScoutingController _controller = MatchScoutingController();
+
+  MatchScoutingEntry({Key? key}) : super(key: key);
 
   @override
   State<MatchScoutingEntry> createState() => _MatchScoutingEntryState();
@@ -23,13 +25,10 @@ class _MatchScoutingEntryState extends State<MatchScoutingEntry> {
 
   MatchScouting matchScouting = MatchScouting();
 
-  bool _isActive(int step) => _index == step;
+  bool _isActive(int step) => _index >= step;
 
-  void _nextStep() {
-    setState(() {
-      _index++;
-      _isActiveStepValid = false;
-    });
+  StepState _state(int step) {
+    return step < _index ? StepState.complete : StepState.indexed;
   }
 
   @override
@@ -42,6 +41,13 @@ class _MatchScoutingEntryState extends State<MatchScoutingEntry> {
   void dispose() {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     super.dispose();
+  }
+
+  void _nextStep() {
+    setState(() {
+      _index++;
+      _isActiveStepValid = false;
+    });
   }
 
   void _validateStep(String? value) {
@@ -119,37 +125,34 @@ class _MatchScoutingEntryState extends State<MatchScoutingEntry> {
           elevation: 0,
           steps: [
             Step(
+              state: _state(0),
               isActive: _isActive(0),
               title: const Text('Match Information'),
               content: MatchGeneralForm(
-                onSubmit: (value) => _validateStep(value),
+                onChanged: (value) => _validateStep(value),
               ),
             ),
             Step(
+              state: _state(1),
               isActive: _isActive(1),
               title: const Text('Teams'),
-              content: Row(
-                children: [
-                  Expanded(
-                    child: MatchInformationStep(
-                        alliance: AllianceEnum.red, onSubmit: _validateStep),
-                  ),
-                  Expanded(
-                    child: MatchInformationStep(
-                        alliance: AllianceEnum.blue, onSubmit: _validateStep),
-                  ),
-                ],
+              content: MatchTeamsForm(
+                onChanged: (value) => _validateStep(value),
               ),
             ),
             Step(
+              state: _state(2),
               isActive: _isActive(2),
               title: const Text('Teleop'),
-              content: const TeleopForm(),
+              content: MatchTeleopForm(
+                onChanged: (value) => _validateStep(value),
+              ),
             ),
             Step(
+              state: _state(3),
               isActive: _isActive(3),
               title: const Text('Results'),
-              content: const ResultsForm(),
+              content: const MatchResultsForm(),
             ),
           ],
         ),

@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:scout/enums/alliance_enum.dart';
+import 'package:scout/models/validator_callback.dart';
 import 'package:scout/theme.dart';
 import 'package:scout/views/match_scouting/teleop_form_column.dart';
 
-class TeleopForm extends StatefulWidget {
-  const TeleopForm({Key? key}) : super(key: key);
+class MatchTeleopForm extends StatefulWidget {
+  final ValidatorCallback onChanged;
+
+  MatchTeleopForm({
+    Key? key,
+    required this.onChanged,
+  }) : super(key: key) {
+    onChanged('');
+  }
 
   @override
-  TeleopFormState createState() => TeleopFormState();
+  MatchTeleopFormState createState() => MatchTeleopFormState();
 }
 
-class TeleopFormState extends State<TeleopForm> {
+class MatchTeleopFormState extends State<MatchTeleopForm> {
   final _formKey = GlobalKey<FormState>();
 
   @override

@@ -1,14 +1,15 @@
+
 import 'package:flutter/material.dart';
 import 'package:scout/theme.dart';
 
-class ResultsForm extends StatefulWidget {
-  const ResultsForm({Key? key}) : super(key: key);
+class MatchResultsForm extends StatefulWidget {
+  const MatchResultsForm({Key? key}) : super(key: key);
 
   @override
-  ResultsFormState createState() => ResultsFormState();
+  MatchResultsFormState createState() => MatchResultsFormState();
 }
 
-class ResultsFormState extends State<ResultsForm> {
+class MatchResultsFormState extends State<MatchResultsForm> {
   @override
   Widget build(BuildContext context) {
     return Column(
