@@ -66,6 +66,24 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title, style: const TextStyle(color: yellowT4K)),
+        actions: [
+          TextButton(
+            onPressed: null,
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(yellowT4K),
+                foregroundColor: MaterialStateProperty.all<Color>(blackT4K),
+                fixedSize: MaterialStateProperty.all<Size>(const Size(54, 48))),
+            child: const Text(
+              'Clear',
+              style: TextStyle(
+                color: Colors.black,
+                height: 42,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
       ),
       body: _tabs[_pageIndex],
       floatingActionButton: FloatingActionButton(
