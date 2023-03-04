@@ -1,4 +1,5 @@
 enum PickupEnum {
+  none('none'),
   floor('floor'),
   tablet('tablet'),
   both('floor and tablet');
@@ -10,6 +11,8 @@ enum PickupEnum {
 extension PickupEnumExtension on PickupEnum {
   static PickupEnum fromValue(String value) {
     switch (value) {
+      case 'none':
+        return PickupEnum.none;
       case 'floor':
         return PickupEnum.floor;
       case 'tablet':

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:scout/models/pit_scouting.dart';
 import 'package:scout/services/persistence_service.dart';
@@ -12,7 +14,8 @@ import '../../enums/grid_level_enum.dart';
 import '../../enums/pickup_enum.dart';
 
 class PitScoutingEntry extends StatefulWidget {
-  const PitScoutingEntry({Key? key}) : super(key: key);
+  final PersistenceService storage;
+  const PitScoutingEntry({Key? key, required this.storage}) : super(key: key);
   static final list = _PitScoutingEntryState._list;
 
   @override
@@ -25,11 +28,11 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
   late bool isLastStep;
   String? intakeOrientation;
   String? _driveBaseValue;
-  String? _pickUp;
+  String? _pickUpCubes;
+  String? _pickUpCones;
   String? _driverExperience;
-
-  PersistenceService _persistenceService = PersistenceService();
   static final _list = <PitScouting>[];
+  late PitScouting data;
 
   // scout info
   late String scoutName;
@@ -46,8 +49,8 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
   // game pieces
   bool canIntakeCone = false;
   bool canIntakeCube = false;
-  late PickupEnum cubesPickupSpots;
-  late PickupEnum conesPickupSpots;
+  PickupEnum cubesPickupSpots = PickupEnum.none;
+  PickupEnum conesPickupSpots = PickupEnum.none;
   final intakeConeOrientations = <ConeOrientationEnum>[];
   bool pointingAway = false;
   bool pointingTowards = false;
@@ -56,10 +59,13 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
   late String gamePiecesNotes;
   // scoring
   final conesGridScoringLevels = <GridLevelEnum>[];
+  bool? topCones = false;
+  bool? middleCones = false;
+  bool? bottomCones = false;
   final cubesGridScoringLevel = <GridLevelEnum>[];
-  bool? top = false;
-  bool? middle = false;
-  bool? bottom = false;
+  bool? topCubes = false;
+  bool? middleCubes = false;
+  bool? bottomCubes = false;
   late String scoringNotes;
   // charging station
   late String chargingStationNotes;
@@ -394,7 +400,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                     const Expanded(child: Text('Pickup Spots')),
                     Expanded(
                         child: DropdownButtonFormField(
-                      value: _pickUp,
+                      value: _pickUpCones,
                       items: const [
                         DropdownMenuItem(value: 'floor', child: Text('Floor')),
                         DropdownMenuItem(
@@ -404,7 +410,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                             child: Text('Floor and Tablet'))
                       ],
                       onChanged: (value) => setState(() {
-                        _pickUp = value as String;
+                        _pickUpCones = value as String;
                       }),
                       onSaved: (value) => setState(() {
                         if (value == 'floor') {
@@ -447,7 +453,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                     const Expanded(child: Text('Pickup Spots')),
                     Expanded(
                         child: DropdownButtonFormField(
-                      value: _pickUp,
+                      value: _pickUpCubes,
                       items: const [
                         DropdownMenuItem(value: 'floor', child: Text('Floor')),
                         DropdownMenuItem(
@@ -457,7 +463,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                             child: Text('Floor and Tablet'))
                       ],
                       onChanged: (value) => setState(() {
-                        _pickUp = value as String;
+                        _pickUpCubes = value as String;
                       }),
                       onSaved: (value) => setState(() {
                         if (value == 'floor') {
@@ -528,10 +534,10 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                           child: Text('Can score cones in Top Grid?')),
                       Expanded(
                           child: Checkbox(
-                              value: top,
+                              value: topCones,
                               onChanged: (value) {
                                 setState(() {
-                                  top = value!;
+                                  topCones = value!;
                                   if (value) {
                                     conesGridScoringLevels
                                         .add(GridLevelEnum.top);
@@ -539,42 +545,44 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                                 });
                               }))
                     ])),
-              Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(children: <Widget>[
-                    const Expanded(
-                        child: Text('Can score cones in Middle Grid?')),
-                    Expanded(
-                        child: Checkbox(
-                            value: middle,
-                            onChanged: (value) {
-                              setState(() {
-                                middle = value!;
-                                if (value) {
-                                  conesGridScoringLevels
-                                      .add(GridLevelEnum.middle);
-                                }
-                              });
-                            }))
-                  ])),
-              Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(children: <Widget>[
-                    const Expanded(
-                        child: Text('Can score cones in Bottom Grid?')),
-                    Expanded(
-                        child: Checkbox(
-                            value: bottom,
-                            onChanged: (value) {
-                              setState(() {
-                                bottom = value!;
-                                if (value) {
-                                  conesGridScoringLevels
-                                      .add(GridLevelEnum.bottom);
-                                }
-                              });
-                            })),
-                  ])),
+              if (canIntakeCone)
+                Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(children: <Widget>[
+                      const Expanded(
+                          child: Text('Can score cones in Middle Grid?')),
+                      Expanded(
+                          child: Checkbox(
+                              value: middleCones,
+                              onChanged: (value) {
+                                setState(() {
+                                  middleCones = value!;
+                                  if (value) {
+                                    conesGridScoringLevels
+                                        .add(GridLevelEnum.middle);
+                                  }
+                                });
+                              }))
+                    ])),
+              if (canIntakeCone)
+                Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(children: <Widget>[
+                      const Expanded(
+                          child: Text('Can score cones in Bottom Grid?')),
+                      Expanded(
+                          child: Checkbox(
+                              value: bottomCones,
+                              onChanged: (value) {
+                                setState(() {
+                                  bottomCones = value!;
+                                  if (value) {
+                                    conesGridScoringLevels
+                                        .add(GridLevelEnum.bottom);
+                                  }
+                                });
+                              })),
+                    ])),
               if (canIntakeCube)
                 Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -583,10 +591,10 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                           child: Text('Can score cubes in Top Grid?')),
                       Expanded(
                           child: Checkbox(
-                              value: top,
+                              value: topCubes,
                               onChanged: (value) {
                                 setState(() {
-                                  top = value!;
+                                  topCubes = value!;
                                   if (value) {
                                     cubesGridScoringLevel
                                         .add(GridLevelEnum.top);
@@ -594,42 +602,44 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                                 });
                               }))
                     ])),
-              Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(children: <Widget>[
-                    const Expanded(
-                        child: Text('Can score cubes in Middle Grid?')),
-                    Expanded(
-                        child: Checkbox(
-                            value: middle,
-                            onChanged: (value) {
-                              setState(() {
-                                middle = value!;
-                                if (value) {
-                                  cubesGridScoringLevel
-                                      .add(GridLevelEnum.middle);
-                                }
-                              });
-                            }))
-                  ])),
-              Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(children: <Widget>[
-                    const Expanded(
-                        child: Text('Can score cubes in Bottom Grid?')),
-                    Expanded(
-                        child: Checkbox(
-                            value: bottom,
-                            onChanged: (value) {
-                              setState(() {
-                                bottom = value!;
-                                if (value) {
-                                  cubesGridScoringLevel
-                                      .add(GridLevelEnum.bottom);
-                                }
-                              });
-                            }))
-                  ])),
+              if (canIntakeCube)
+                Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(children: <Widget>[
+                      const Expanded(
+                          child: Text('Can score cubes in Middle Grid?')),
+                      Expanded(
+                          child: Checkbox(
+                              value: middleCubes,
+                              onChanged: (value) {
+                                setState(() {
+                                  middleCubes = value!;
+                                  if (value) {
+                                    cubesGridScoringLevel
+                                        .add(GridLevelEnum.middle);
+                                  }
+                                });
+                              }))
+                    ])),
+              if (canIntakeCube)
+                Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(children: <Widget>[
+                      const Expanded(
+                          child: Text('Can score cubes in Bottom Grid?')),
+                      Expanded(
+                          child: Checkbox(
+                              value: bottomCubes,
+                              onChanged: (value) {
+                                setState(() {
+                                  bottomCubes = value!;
+                                  if (value) {
+                                    cubesGridScoringLevel
+                                        .add(GridLevelEnum.bottom);
+                                  }
+                                });
+                              }))
+                    ])),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: const <Widget>[Text('Notes :')]),
@@ -716,6 +726,15 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
       ];
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  Future<void> writeData() async {
+    return widget.storage.writeRobot(data);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -768,12 +787,10 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                   if (isValid) {
                     setState(() {
                       _formKey.currentState!.save();
-                      PitScouting data = fillModel();
+                      data = fillModel();
+                      writeData();
                       _list.add(data);
                       print(_list[0].scoutName);
-
-                      _persistenceService.writeRobot(data);
-
                       SnackBar snackBar = const SnackBar(
                         content: Text('Submission completed'),
                         backgroundColor: Colors.green,
