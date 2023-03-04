@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scout/models/pit_scouting.dart';
+import 'package:scout/services/persistence_service.dart';
 import 'package:scout/theme.dart';
 import 'package:scout/main.dart';
 import 'package:scout/views/pit_scouting/pit_scouting_list.dart';
@@ -27,6 +28,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
   String? _pickUp;
   String? _driverExperience;
 
+  PersistenceService _persistenceService = PersistenceService();
   static final _list = <PitScouting>[];
 
   // scout info
@@ -44,14 +46,17 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
   // game pieces
   bool canIntakeCone = false;
   bool canIntakeCube = false;
-  late PickupEnum pickupSpots;
+  late PickupEnum cubesPickupSpots;
+  late PickupEnum conesPickupSpots;
   final intakeConeOrientations = <ConeOrientationEnum>[];
   bool pointingAway = false;
   bool pointingTowards = false;
   bool sideways = false;
   bool upRight = false;
+  late String gamePiecesNotes;
   // scoring
-  final gridScoringLevels = <GridLevelEnum>[];
+  final conesGridScoringLevels = <GridLevelEnum>[];
+  final cubesGridScoringLevel = <GridLevelEnum>[];
   bool? top = false;
   bool? middle = false;
   bool? bottom = false;
@@ -289,111 +294,99 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                   ]))
             ])),
         Step(
-            title: const Text('Game pieces'),
-            content: Column(children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(children: <Widget>[
-                  const Expanded(child: Text('Can intake cones?')),
-                  Checkbox(
-                      value: canIntakeCone,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          canIntakeCone = value!;
-                        });
-                      })
-                ]),
+          title: const Text('Game pieces'),
+          content: Column(children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(children: <Widget>[
+                const Expanded(child: Text('Can intake cones?')),
+                Checkbox(
+                    value: canIntakeCone,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        canIntakeCone = value!;
+                      });
+                    })
+              ]),
+            ),
+            if (canIntakeCone)
+              Column(
+                children: <Widget>[
+                  Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(children: <Widget>[
+                        const Expanded(child: Text('Pointing Away')),
+                        Expanded(
+                            child: Checkbox(
+                          value: pointingAway,
+                          onChanged: (value) {
+                            setState(() {
+                              pointingAway = value!;
+                              if (value) {
+                                intakeConeOrientations
+                                    .add(ConeOrientationEnum.pointingAway);
+                              }
+                            });
+                          },
+                        ))
+                      ])),
+                  Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(children: <Widget>[
+                        const Expanded(child: Text('Pointing Towards')),
+                        Expanded(
+                            child: Checkbox(
+                          value: pointingTowards,
+                          onChanged: (value) {
+                            setState(() {
+                              pointingTowards = value!;
+                              if (value) {
+                                intakeConeOrientations
+                                    .add(ConeOrientationEnum.pointingTowards);
+                              }
+                            });
+                          },
+                        ))
+                      ])),
+                  Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(children: <Widget>[
+                        const Expanded(child: Text('Sideways')),
+                        Expanded(
+                            child: Checkbox(
+                          value: sideways,
+                          onChanged: (value) {
+                            setState(() {
+                              sideways = value!;
+                              if (value) {
+                                intakeConeOrientations
+                                    .add(ConeOrientationEnum.sideways);
+                              }
+                            });
+                          },
+                        ))
+                      ])),
+                  Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(children: <Widget>[
+                        const Expanded(child: Text('Up Right')),
+                        Expanded(
+                            child: Checkbox(
+                          value: upRight,
+                          onChanged: (value) {
+                            setState(() {
+                              upRight = value!;
+                              if (value) {
+                                intakeConeOrientations
+                                    .add(ConeOrientationEnum.upRight);
+                              }
+                            });
+                          },
+                        ))
+                      ])),
+                ],
               ),
-              if (canIntakeCone)
-                Column(
-                  children: <Widget>[
-                    Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(children: <Widget>[
-                          const Expanded(child: Text('Pointing Away')),
-                          Expanded(
-                              child: Checkbox(
-                            value: pointingAway,
-                            onChanged: (value) {
-                              setState(() {
-                                pointingAway = value!;
-                                if (value) {
-                                  intakeConeOrientations
-                                      .add(ConeOrientationEnum.pointingAway);
-                                }
-                              });
-                            },
-                          ))
-                        ])),
-                    Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(children: <Widget>[
-                          const Expanded(child: Text('Pointing Towards')),
-                          Expanded(
-                              child: Checkbox(
-                            value: pointingTowards,
-                            onChanged: (value) {
-                              setState(() {
-                                pointingTowards = value!;
-                                if (value) {
-                                  intakeConeOrientations
-                                      .add(ConeOrientationEnum.pointingTowards);
-                                }
-                              });
-                            },
-                          ))
-                        ])),
-                    Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(children: <Widget>[
-                          const Expanded(child: Text('Sideways')),
-                          Expanded(
-                              child: Checkbox(
-                            value: sideways,
-                            onChanged: (value) {
-                              setState(() {
-                                sideways = value!;
-                                if (value) {
-                                  intakeConeOrientations
-                                      .add(ConeOrientationEnum.sideways);
-                                }
-                              });
-                            },
-                          ))
-                        ])),
-                    Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(children: <Widget>[
-                          const Expanded(child: Text('Up Right')),
-                          Expanded(
-                              child: Checkbox(
-                            value: upRight,
-                            onChanged: (value) {
-                              setState(() {
-                                upRight = value!;
-                                if (value) {
-                                  intakeConeOrientations
-                                      .add(ConeOrientationEnum.upRight);
-                                }
-                              });
-                            },
-                          ))
-                        ])),
-                  ],
-                ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(children: <Widget>[
-                  const Expanded(child: Text('Can intake cubes?')),
-                  Checkbox(
-                      value: canIntakeCube,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          canIntakeCube = value!;
-                        });
-                      })
-                ]),
-              ),
+            if (canIntakeCone)
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
@@ -415,11 +408,11 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                       }),
                       onSaved: (value) => setState(() {
                         if (value == 'floor') {
-                          pickupSpots = PickupEnum.floor;
+                          conesPickupSpots = PickupEnum.floor;
                         } else if (value == 'tablet') {
-                          pickupSpots = PickupEnum.tablet;
+                          conesPickupSpots = PickupEnum.tablet;
                         } else if (value == 'floor and tablet') {
-                          pickupSpots = PickupEnum.both;
+                          conesPickupSpots = PickupEnum.both;
                         }
                       }),
                       validator: (value) {
@@ -433,30 +426,124 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                   ],
                 ),
               ),
-            ])),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(children: <Widget>[
+                const Expanded(child: Text('Can intake cubes?')),
+                Checkbox(
+                    value: canIntakeCube,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        canIntakeCube = value!;
+                      });
+                    })
+              ]),
+            ),
+            if (canIntakeCube)
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: <Widget>[
+                    const Expanded(child: Text('Pickup Spots')),
+                    Expanded(
+                        child: DropdownButtonFormField(
+                      value: _pickUp,
+                      items: const [
+                        DropdownMenuItem(value: 'floor', child: Text('Floor')),
+                        DropdownMenuItem(
+                            value: 'tablet', child: Text('Tablet')),
+                        DropdownMenuItem(
+                            value: 'floor and tablet',
+                            child: Text('Floor and Tablet'))
+                      ],
+                      onChanged: (value) => setState(() {
+                        _pickUp = value as String;
+                      }),
+                      onSaved: (value) => setState(() {
+                        if (value == 'floor') {
+                          cubesPickupSpots = PickupEnum.floor;
+                        } else if (value == 'tablet') {
+                          cubesPickupSpots = PickupEnum.tablet;
+                        } else if (value == 'floor and tablet') {
+                          cubesPickupSpots = PickupEnum.both;
+                        }
+                      }),
+                      validator: (value) {
+                        if (value == null) {
+                          return 'Please Select a pickup Spot';
+                        } else {
+                          return null;
+                        }
+                      },
+                    ))
+                  ],
+                ),
+              ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(children: const <Widget>[Text('Notes :')]),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  border: Border.all(
+                    color: Colors.grey,
+                    width: 1.0,
+                  ),
+                ),
+                child: TextFormField(
+                  onSaved: (value) => setState(() {
+                    gamePiecesNotes = value!;
+                  }),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter some notes';
+                    } else {
+                      return null;
+                    }
+                  },
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Enter your notes here',
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 10.0,
+                      vertical: 8.0,
+                    ),
+                  ),
+                ),
+              ),
+            )
+          ]),
+        ),
         Step(
             title: const Text('Scoring'),
             content: Column(children: <Widget>[
+              if (canIntakeCone)
+                Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(children: <Widget>[
+                      const Expanded(
+                          child: Text('Can score cones in Top Grid?')),
+                      Expanded(
+                          child: Checkbox(
+                              value: top,
+                              onChanged: (value) {
+                                setState(() {
+                                  top = value!;
+                                  if (value) {
+                                    conesGridScoringLevels
+                                        .add(GridLevelEnum.top);
+                                  }
+                                });
+                              }))
+                    ])),
               Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(children: <Widget>[
-                    const Expanded(child: Text('Can score in Top Grid?')),
-                    Expanded(
-                        child: Checkbox(
-                            value: top,
-                            onChanged: (value) {
-                              setState(() {
-                                top = value!;
-                                if (value) {
-                                  gridScoringLevels.add(GridLevelEnum.top);
-                                }
-                              });
-                            }))
-                  ])),
-              Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(children: <Widget>[
-                    const Expanded(child: Text('Can Score in Middle Grid?')),
+                    const Expanded(
+                        child: Text('Can score cones in Middle Grid?')),
                     Expanded(
                         child: Checkbox(
                             value: middle,
@@ -464,7 +551,8 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                               setState(() {
                                 middle = value!;
                                 if (value) {
-                                  gridScoringLevels.add(GridLevelEnum.middle);
+                                  conesGridScoringLevels
+                                      .add(GridLevelEnum.middle);
                                 }
                               });
                             }))
@@ -472,7 +560,8 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
               Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(children: <Widget>[
-                    const Expanded(child: Text('Can Score in Bottom Grid?')),
+                    const Expanded(
+                        child: Text('Can score cones in Bottom Grid?')),
                     Expanded(
                         child: Checkbox(
                             value: bottom,
@@ -480,7 +569,63 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                               setState(() {
                                 bottom = value!;
                                 if (value) {
-                                  gridScoringLevels.add(GridLevelEnum.bottom);
+                                  conesGridScoringLevels
+                                      .add(GridLevelEnum.bottom);
+                                }
+                              });
+                            })),
+                  ])),
+              if (canIntakeCube)
+                Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(children: <Widget>[
+                      const Expanded(
+                          child: Text('Can score cubes in Top Grid?')),
+                      Expanded(
+                          child: Checkbox(
+                              value: top,
+                              onChanged: (value) {
+                                setState(() {
+                                  top = value!;
+                                  if (value) {
+                                    cubesGridScoringLevel
+                                        .add(GridLevelEnum.top);
+                                  }
+                                });
+                              }))
+                    ])),
+              Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(children: <Widget>[
+                    const Expanded(
+                        child: Text('Can score cubes in Middle Grid?')),
+                    Expanded(
+                        child: Checkbox(
+                            value: middle,
+                            onChanged: (value) {
+                              setState(() {
+                                middle = value!;
+                                if (value) {
+                                  cubesGridScoringLevel
+                                      .add(GridLevelEnum.middle);
+                                }
+                              });
+                            }))
+                  ])),
+              Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(children: <Widget>[
+                    const Expanded(
+                        child: Text('Can score cubes in Bottom Grid?')),
+                    Expanded(
+                        child: Checkbox(
+                            value: bottom,
+                            onChanged: (value) {
+                              setState(() {
+                                bottom = value!;
+                                if (value) {
+                                  cubesGridScoringLevel
+                                      .add(GridLevelEnum.bottom);
                                 }
                               });
                             }))
@@ -623,9 +768,11 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                   if (isValid) {
                     setState(() {
                       _formKey.currentState!.save();
-
-                      _list.add(fillModel());
+                      PitScouting data = fillModel();
+                      _list.add(data);
                       print(_list[0].scoutName);
+
+                      _persistenceService.writeRobot(data);
 
                       SnackBar snackBar = const SnackBar(
                         content: Text('Submission completed'),
@@ -703,11 +850,12 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
         haveSeparatedIntake: haveSeparatedIntake,
         canIntakeCone: canIntakeCone,
         canIntakeCube: canIntakeCube,
-        pickupSpotsCube: ,
-        pickupSpotsCone: pickupSpots,
+        pickupSpotsCube: cubesPickupSpots,
+        pickupSpotsCone: conesPickupSpots,
+        gamePiecesNotes: gamePiecesNotes,
         intakeConeOrientations: intakeConeOrientations,
-        gridScoringLevelsCube: gridScoringLevels,
-        gridScoringLevelsCone: ,
+        gridScoringLevelsCube: cubesGridScoringLevel,
+        gridScoringLevelsCone: conesGridScoringLevels,
         scoringNotes: scoringNotes,
         chargingStationNotes: chargingStationNotes);
   }
