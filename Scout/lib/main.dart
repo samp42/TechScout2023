@@ -1,7 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:scout/models/pit_scouting.dart';
+
 import 'package:scout/services/persistence_service.dart';
 import 'package:scout/views/match_scouting/match_scouting_entry.dart';
 import 'package:scout/views/match_scouting/match_scouting_list.dart';
@@ -12,8 +10,6 @@ import 'package:scout/views/practice_field_scouting/practice_field_scouting_list
 import 'package:scout/views/team_scouting/team_scouting_entry.dart';
 import 'package:scout/views/team_scouting/team_scouting_list.dart';
 import 'package:scout/theme.dart';
-import 'package:scout/views/team_scouting/team_scouting_list.dart';
-import 'package:scout/views/team_scouting/team_scouting_entry.dart';
 
 void main() {
   runApp(const MyApp());
@@ -49,9 +45,9 @@ class _MyHomePageState extends State<MyHomePage> {
   int _pageIndex = 0;
   final List<Widget> _tabs = [
     PitScoutingList(storage: PersistenceService()),
-    PracticeFieldScoutingList(),
-    MatchScoutingList(),
-    TeamScoutingList()
+    const PracticeFieldScoutingList(),
+    const MatchScoutingList(),
+    const TeamScoutingList()
   ];
 
   void _navigate() {

@@ -19,7 +19,7 @@ class PitScouting {
   late int length;
   late DriveBaseTypeEnum driveBaseType;
   late bool stable;
-  late bool haveSeparatedIntake;
+  late bool hasSeparateIntake;
 
   // game pieces
   late bool canIntakeCone;
@@ -47,7 +47,7 @@ class PitScouting {
       required this.length,
       required this.driveBaseType,
       required this.stable,
-      required this.haveSeparatedIntake,
+      required this.hasSeparateIntake,
       required this.canIntakeCone,
       required this.canIntakeCube,
       required this.pickupSpotsCube,
@@ -70,15 +70,11 @@ class PitScouting {
         driveBaseType =
             DriveBaseTypeEnumExtension.fromValue(map['driveBaseType']),
         stable = map['stable'],
-        haveSeparatedIntake = map['haveSparatedIntake'],
+        hasSeparateIntake = map['hasSeparateIntake'],
         canIntakeCone = map['canIntakeCone'],
         canIntakeCube = map['canIntakeCube'],
-        pickupSpotsCube = map['pickupSpotsCube'] = map['pickupSpotsCube']
-            .map<PickupEnum>((e) => PickupEnumExtension.fromValue(e))
-            .toList(),
-        pickupSpotsCone = map['pickupSpotsCone'] = map['pickupSpotsCone']
-            .map<PickupEnum>((e) => PickupEnumExtension.fromValue(e))
-            .toList(),
+        pickupSpotsCube = PickupEnumExtension.fromValue(map['pickupSpotsCube']),
+        pickupSpotsCone = PickupEnumExtension.fromValue(map['pickupSpotsCone']),
         intakeConeOrientations = map['intakeConeOrientations']
             .map<ConeOrientationEnum>(
                 (e) => ConeOrientationEnumExtension.fromValue(e))
@@ -103,18 +99,18 @@ class PitScouting {
       'length': length,
       'driveBaseType': driveBaseType.value,
       'stable': stable,
-      'haveSparatedIntake': haveSeparatedIntake,
+      'hasSeparateIntake': hasSeparateIntake,
       'canIntakeCone': canIntakeCone,
       'canIntakeCube': canIntakeCube,
-      'pickupSpotsCube': pickupSpotsCube,
-      'pickupSpotsCone': pickupSpotsCone,
+      'pickupSpotsCube': pickupSpotsCube.value,
+      'pickupSpotsCone': pickupSpotsCone.value,
       'intakeConeOrientations':
           intakeConeOrientations.map((e) => e.value).toList(),
+      'gamePiecesNotes': gamePiecesNotes,
       'gridScoringLevelsCube':
           gridScoringLevelsCube.map((e) => e.value).toList(),
       'gridScoringLevelsCone':
           gridScoringLevelsCone.map((e) => e.value).toList(),
-      'gamePiecesNotes': gamePiecesNotes,
       'scoringNotes': scoringNotes,
       'chargingStationNotes': chargingStationNotes,
     };

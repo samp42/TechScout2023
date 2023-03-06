@@ -10,17 +10,9 @@ enum PickupEnum {
 
 extension PickupEnumExtension on PickupEnum {
   static PickupEnum fromValue(String value) {
-    switch (value) {
-      case 'none':
-        return PickupEnum.none;
-      case 'floor':
-        return PickupEnum.floor;
-      case 'tablet':
-        return PickupEnum.tablet;
-      case 'floor and tablet':
-        return PickupEnum.both;
-      default:
-        throw Exception('Invalid PickupEnum value: $value');
-    }
+    return PickupEnum.values.firstWhere(
+      (e) => e.value == value,
+      orElse: () => throw Exception('Invalid PickupEnum value: $value'),
+    );
   }
 }

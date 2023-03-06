@@ -1,15 +1,13 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
+
 import 'package:scout/models/pit_scouting.dart';
 import 'package:scout/services/persistence_service.dart';
 import 'package:scout/theme.dart';
-import '../../enums/cone_orientation_enum.dart';
-import '../../enums/drive_base_type_enum.dart';
-import '../../enums/driver_experience_enum.dart';
-import '../../enums/grid_level_enum.dart';
-import '../../enums/pickup_enum.dart';
+import 'package:scout/enums/cone_orientation_enum.dart';
+import 'package:scout/enums/drive_base_type_enum.dart';
+import 'package:scout/enums/driver_experience_enum.dart';
+import 'package:scout/enums/grid_level_enum.dart';
+import 'package:scout/enums/pickup_enum.dart';
 
 class PitScoutingEntry extends StatefulWidget {
   final PersistenceService storage;
@@ -784,8 +782,8 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                     setState(() {
                       _formKey.currentState!.save();
                       data = fillModel();
-                      String jsonModel = data.toJson();
-                      print(jsonModel);
+                      // String jsonModel = data.toJson();
+                      // print(jsonModel);
                       writeData(data);
 
                       SnackBar snackBar = const SnackBar(
@@ -861,7 +859,7 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
         length: length,
         driveBaseType: driveBaseType,
         stable: isStable,
-        haveSeparatedIntake: haveSeparatedIntake,
+        hasSeparateIntake: haveSeparatedIntake,
         canIntakeCone: canIntakeCone,
         canIntakeCube: canIntakeCube,
         pickupSpotsCube: cubesPickupSpots,
