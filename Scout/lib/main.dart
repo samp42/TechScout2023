@@ -85,18 +85,6 @@ class _MyHomePageState extends State<MyHomePage> {
             label: 'Pit',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.wysiwyg),
-            label: 'Practice',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.people_alt_rounded),
-            label: 'Pit',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart_rounded),
-            label: 'Practice',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.assignment_ind_rounded),
             label: 'Team',
           ),
