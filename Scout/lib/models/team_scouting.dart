@@ -7,6 +7,7 @@ import 'package:scout/enums/grid_level_enum.dart';
 import 'package:scout/models/cycle_timestamp.dart';
 
 class TeamScouting {
+  //Identification
   late String scoutName;
   late int teamNumber;
   late int matchNumber;
