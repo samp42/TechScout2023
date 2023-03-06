@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:scout/models/match_scouting.dart';
 import 'package:scout/models/validator_callback.dart';
 
 import 'package:scout/views/validators.dart';
 
 class MatchGeneralForm extends StatefulWidget {
   final ValidatorCallback onChanged;
+  MatchScouting matchScouting;
+  final TextEditingController matchNumberController = TextEditingController();
+  final TextEditingController scoutNameController = TextEditingController();
 
-  const MatchGeneralForm({
+  MatchGeneralForm({
     Key? key,
     required this.onChanged,
+    required this.matchScouting,
   }) : super(key: key);
 
   @override
@@ -36,6 +41,7 @@ class MatchGeneralFormState extends State<MatchGeneralForm> {
               SizedBox(
                 width: kTextFieldWidth,
                 child: TextFormField(
+                  controller: widget.matchNumberController,
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
@@ -44,6 +50,9 @@ class MatchGeneralFormState extends State<MatchGeneralForm> {
                   validator: (value) =>
                       numberValidator(value, field: 'match number'),
                   onChanged: (value) {
+                    if (!_formKey.currentState!.validate()) {
+                      widget.matchScouting.matchNumber = int.parse(value);
+                    }
                     widget.onChanged(
                         _formKey.currentState!.validate() ? value : null);
                   },
@@ -62,6 +71,7 @@ class MatchGeneralFormState extends State<MatchGeneralForm> {
               SizedBox(
                 width: kTextFieldWidth,
                 child: TextFormField(
+                  controller: widget.scoutNameController,
                   keyboardType: TextInputType.text,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
@@ -82,6 +92,9 @@ class MatchGeneralFormState extends State<MatchGeneralForm> {
                     return null;
                   },
                   onChanged: (value) {
+                    if (!_formKey.currentState!.validate()) {
+                      widget.matchScouting.scoutName = value;
+                    }
                     widget.onChanged(
                         _formKey.currentState!.validate() ? value : null);
                   },

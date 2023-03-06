@@ -14,10 +14,10 @@ class MatchScoutingEntry extends StatefulWidget {
   MatchScoutingEntry({Key? key}) : super(key: key);
 
   @override
-  State<MatchScoutingEntry> createState() => _MatchScoutingEntryState();
+  State<MatchScoutingEntry> createState() => MatchScoutingEntryState();
 }
 
-class _MatchScoutingEntryState extends State<MatchScoutingEntry> {
+class MatchScoutingEntryState extends State<MatchScoutingEntry> {
   final int numOfSteps = 4;
   int _index = 0;
 
@@ -76,12 +76,6 @@ class _MatchScoutingEntryState extends State<MatchScoutingEntry> {
       ),
       body: SafeArea(
         child: Stepper(
-          // TODO: don't allow user to go to other step if current step is not valid
-          // onStepTapped: (int step) {
-          //   setState(() {
-          //     _index = step;
-          //   });
-          // },
           currentStep: _index,
           controlsBuilder: (BuildContext context, ControlsDetails details) {
             final isLastStep = _index == numOfSteps - 1;
@@ -129,7 +123,10 @@ class _MatchScoutingEntryState extends State<MatchScoutingEntry> {
               isActive: _isActive(0),
               title: const Text('Match Information'),
               content: MatchGeneralForm(
-                onChanged: (value) => _validateStep(value),
+                onChanged: (value) {
+                  _validateStep(value);
+                },
+                matchScouting: matchScouting,
               ),
             ),
             Step(
@@ -138,6 +135,7 @@ class _MatchScoutingEntryState extends State<MatchScoutingEntry> {
               title: const Text('Teams'),
               content: MatchTeamsForm(
                 onChanged: (value) => _validateStep(value),
+                matchScouting: matchScouting,
               ),
             ),
             Step(

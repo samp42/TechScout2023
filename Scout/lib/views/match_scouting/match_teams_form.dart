@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:scout/enums/alliance_enum.dart';
+import 'package:scout/models/match_scouting.dart';
 import 'package:scout/models/validator_callback.dart';
 import 'package:scout/theme.dart';
 import 'package:scout/views/match_scouting/match_team_field.dart';
 
 class MatchTeamsForm extends StatefulWidget {
   final ValidatorCallback onChanged;
+  MatchScouting matchScouting;
 
-  const MatchTeamsForm({
+  MatchTeamsForm({
     Key? key,
     required this.onChanged,
+    required this.matchScouting,
   }) : super(key: key);
 
   @override
@@ -43,6 +46,7 @@ class MatchTeamsFormState extends State<MatchTeamsForm> {
                     label: "${AllianceEnum.red.capitalisedValue} 1",
                     color: redPrimary,
                     onChanged: (value) {
+                      widget.matchScouting.redTeams[0] = int.parse(value!);
                       widget.onChanged(value);
                     },
                   ),
@@ -50,6 +54,7 @@ class MatchTeamsFormState extends State<MatchTeamsForm> {
                     label: "${AllianceEnum.red.capitalisedValue} 2",
                     color: redPrimary,
                     onChanged: (value) {
+                      widget.matchScouting.redTeams[1] = int.parse(value!);
                       widget.onChanged(value);
                     },
                   ),
@@ -57,6 +62,7 @@ class MatchTeamsFormState extends State<MatchTeamsForm> {
                     label: "${AllianceEnum.red.capitalisedValue} 3",
                     color: redPrimary,
                     onChanged: (value) {
+                      widget.matchScouting.redTeams[2] = int.parse(value!);
                       widget.onChanged(value);
                     },
                   ),
@@ -81,6 +87,7 @@ class MatchTeamsFormState extends State<MatchTeamsForm> {
                     label: "${AllianceEnum.blue.capitalisedValue} 1",
                     color: bluePrimary,
                     onChanged: (value) {
+                      widget.matchScouting.blueTeams[0] = int.parse(value!);
                       widget.onChanged(value);
                     },
                   ),
@@ -88,6 +95,7 @@ class MatchTeamsFormState extends State<MatchTeamsForm> {
                     label: "${AllianceEnum.blue.capitalisedValue} 2",
                     color: bluePrimary,
                     onChanged: (value) {
+                      widget.matchScouting.blueTeams[1] = int.parse(value!);
                       widget.onChanged(value);
                     },
                   ),
@@ -95,6 +103,7 @@ class MatchTeamsFormState extends State<MatchTeamsForm> {
                     label: "${AllianceEnum.blue.capitalisedValue} 3",
                     color: bluePrimary,
                     onChanged: (value) {
+                      widget.matchScouting.blueTeams[2] = int.parse(value!);
                       widget.onChanged(value);
                     },
                   ),

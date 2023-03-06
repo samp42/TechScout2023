@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:scout/enums/alliance_enum.dart';
+import 'package:scout/models/match_scouting.dart';
 import 'package:scout/theme.dart';
 
 class TeleopFormColumn extends StatefulWidget {
   final AllianceEnum alliance;
+  MatchScouting matchScouting;
 
-  const TeleopFormColumn({Key? key, required this.alliance}) : super(key: key);
+  TeleopFormColumn({
+    Key? key,
+    required this.alliance,
+    required this.matchScouting,
+  }) : super(key: key);
 
   @override
   TeleopFormColumnState createState() => TeleopFormColumnState();

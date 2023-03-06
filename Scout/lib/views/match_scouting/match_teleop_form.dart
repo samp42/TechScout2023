@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:scout/enums/alliance_enum.dart';
+import 'package:scout/models/match_scouting.dart';
 import 'package:scout/models/validator_callback.dart';
 import 'package:scout/theme.dart';
 import 'package:scout/views/match_scouting/teleop_form_column.dart';
 
 class MatchTeleopForm extends StatefulWidget {
   final ValidatorCallback onChanged;
+  MatchScouting matchScouting;
 
   MatchTeleopForm({
     Key? key,
     required this.onChanged,
+    required this.matchScouting,
   }) : super(key: key) {
     onChanged('');
   }
@@ -37,8 +40,9 @@ class MatchTeleopFormState extends State<MatchTeleopForm> {
                   bottomLeft: Radius.circular(kBorderRadius),
                 ),
               ),
-              child: const TeleopFormColumn(
+              child: TeleopFormColumn(
                 alliance: AllianceEnum.red,
+                matchScouting: widget.matchScouting,
               ),
             ),
           ),
@@ -52,8 +56,9 @@ class MatchTeleopFormState extends State<MatchTeleopForm> {
                   bottomRight: Radius.circular(kBorderRadius),
                 ),
               ),
-              child: const TeleopFormColumn(
+              child: TeleopFormColumn(
                 alliance: AllianceEnum.blue,
+                widget.matchScouting,
               ),
             ),
           ),
