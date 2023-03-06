@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:scout/models/match_scouting.dart';
+import 'package:scout/services/persistence_service.dart';
 import 'package:scout/theme.dart';
 import 'package:scout/views/match_scouting/math_general_form.dart';
 import 'package:scout/views/match_scouting/match_teams_form.dart';
@@ -8,8 +9,8 @@ import 'package:scout/views/match_scouting/match_teleop_form.dart';
 import 'package:scout/views/match_scouting/match_results_form.dart';
 
 class MatchScoutingEntry extends StatefulWidget {
-  MatchScouting matchScouting = MatchScouting();
-  // final MatchScoutingController _controller = MatchScoutingController();
+  final PersistenceService persistenceService = PersistenceService();
+  final MatchScouting matchScouting = MatchScouting();
 
   MatchScoutingEntry({Key? key}) : super(key: key);
 
@@ -105,8 +106,8 @@ class MatchScoutingEntryState extends State<MatchScoutingEntry> {
                         details.onStepContinue;
                       }
                     } else {
-                      // TODO
-                      print('submit');
+                      widget.persistenceService.writeMatch(matchScouting);
+                      Navigator.pop(context);
                     }
                   },
                   child:
@@ -144,6 +145,7 @@ class MatchScoutingEntryState extends State<MatchScoutingEntry> {
               title: const Text('Teleop'),
               content: MatchTeleopForm(
                 onChanged: (value) => _validateStep(value),
+                matchScouting: matchScouting,
               ),
             ),
             Step(
@@ -152,6 +154,7 @@ class MatchScoutingEntryState extends State<MatchScoutingEntry> {
               title: const Text('Results'),
               content: MatchResultsForm(
                 onChanged: (value) => _validateStep(value),
+                matchScouting: matchScouting,
               ),
             ),
           ],

@@ -38,6 +38,30 @@ class TeleopFormColumnState extends State<TeleopFormColumn> {
       bottomRight: Radius.circular(
           widget.alliance == AllianceEnum.red ? 0 : kBorderRadius));
 
+  void _setLinks(int links) {
+    if (widget.alliance == AllianceEnum.red) {
+      widget.matchScouting.redLinks = links;
+    } else {
+      widget.matchScouting.blueLinks = links;
+    }
+  }
+
+  void _setCoopertition(bool coopertition) {
+    if (widget.alliance == AllianceEnum.red) {
+      widget.matchScouting.redCoopertition = coopertition;
+    } else {
+      widget.matchScouting.blueCoopertition = coopertition;
+    }
+  }
+
+  void _setEngaged(bool engaged) {
+    if (widget.alliance == AllianceEnum.red) {
+      widget.matchScouting.redEngaged = engaged;
+    } else {
+      widget.matchScouting.blueEngaged = engaged;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -51,6 +75,7 @@ class TeleopFormColumnState extends State<TeleopFormColumn> {
                 onPressed: () {
                   setState(() {
                     links = links > 0 ? links - 1 : 0;
+                    _setLinks(links);
                   });
                 },
                 icon: const Icon(Icons.remove_circle_outline_outlined),
@@ -96,6 +121,7 @@ class TeleopFormColumnState extends State<TeleopFormColumn> {
                 onPressed: () {
                   setState(() {
                     if (links < 9) links++;
+                    _setLinks(links);
                   });
                 },
                 icon: const Icon(Icons.add_circle_outline_outlined),
@@ -116,6 +142,7 @@ class TeleopFormColumnState extends State<TeleopFormColumn> {
             onPressed: () {
               setState(() {
                 coopertition = !coopertition;
+                _setCoopertition(coopertition);
               });
             },
             child: Row(
@@ -151,6 +178,7 @@ class TeleopFormColumnState extends State<TeleopFormColumn> {
             onPressed: () {
               setState(() {
                 engaged = !engaged;
+                _setEngaged(engaged);
               });
             },
             child: Row(

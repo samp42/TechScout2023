@@ -58,7 +58,7 @@ class MatchTeleopFormState extends State<MatchTeleopForm> {
               ),
               child: TeleopFormColumn(
                 alliance: AllianceEnum.blue,
-                widget.matchScouting,
+                matchScouting: widget.matchScouting,
               ),
             ),
           ),

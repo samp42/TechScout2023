@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:scout/models/match_scouting.dart';
 import 'package:scout/models/validator_callback.dart';
 import 'package:scout/theme.dart';
 
 class MatchResultsForm extends StatefulWidget {
   final ValidatorCallback onChanged;
+  MatchScouting matchScouting;
 
-  const MatchResultsForm({
+  MatchResultsForm({
     Key? key,
     required this.onChanged,
+    required this.matchScouting,
   }) : super(key: key);
 
   @override
@@ -31,10 +34,13 @@ class MatchResultsFormState extends State<MatchResultsForm> {
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(kBorderRadius)),
                 ),
-                child: const TextField(
+                child: TextField(
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
-                  decoration: InputDecoration(
+                  onChanged: (value) {
+                    widget.matchScouting.redScore = int.parse(value);
+                  },
+                  decoration: const InputDecoration(
                     fillColor: redPrimary,
                     filled: true,
                     // no border
@@ -47,7 +53,7 @@ class MatchResultsFormState extends State<MatchResultsForm> {
                     ),
                     constraints: BoxConstraints(maxWidth: 120),
                   ),
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
@@ -64,10 +70,13 @@ class MatchResultsFormState extends State<MatchResultsForm> {
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(kBorderRadius)),
                 ),
-                child: const TextField(
+                child: TextField(
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
-                  decoration: InputDecoration(
+                  onChanged: (value) {
+                    widget.matchScouting.blueScore = int.parse(value);
+                  },
+                  decoration: const InputDecoration(
                     fillColor: bluePrimary,
                     filled: true,
                     border: InputBorder.none,
@@ -79,7 +88,7 @@ class MatchResultsFormState extends State<MatchResultsForm> {
                     ),
                     constraints: BoxConstraints(maxWidth: 120),
                   ),
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
@@ -101,9 +110,12 @@ class MatchResultsFormState extends State<MatchResultsForm> {
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(kBorderRadius)),
                 ),
-                child: const TextField(
+                child: TextField(
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
+                  onChanged: (value) {
+                    widget.matchScouting.redPenalty = int.parse(value);
+                  },
+                  decoration: const InputDecoration(
                     border: InputBorder.none,
                     fillColor: redPrimary,
                     filled: true,
@@ -115,7 +127,7 @@ class MatchResultsFormState extends State<MatchResultsForm> {
                     ),
                     constraints: BoxConstraints(maxWidth: 120),
                   ),
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -145,9 +157,12 @@ class MatchResultsFormState extends State<MatchResultsForm> {
                   borderRadius: BorderRadius.only(
                       bottomRight: Radius.circular(kBorderRadius)),
                 ),
-                child: const TextField(
+                child: TextField(
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
+                  onChanged: (value) {
+                    widget.matchScouting.bluePenalty = int.parse(value);
+                  },
+                  decoration: const InputDecoration(
                     fillColor: bluePrimary,
                     filled: true,
                     border: InputBorder.none,
@@ -159,7 +174,7 @@ class MatchResultsFormState extends State<MatchResultsForm> {
                     ),
                     constraints: BoxConstraints(maxWidth: 120),
                   ),
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
