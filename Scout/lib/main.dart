@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:scout/models/pit_scouting.dart';
+import 'package:scout/services/persistence_service.dart';
 import 'package:scout/views/match_scouting/match_scouting_entry.dart';
 import 'package:scout/views/match_scouting/match_scouting_list.dart';
 import 'package:scout/views/pit_scouting/pit_scouting_entry.dart';
@@ -44,26 +47,25 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _pageIndex = 0;
+  final List<Widget> _tabs = [
+    PitScoutingList(storage: PersistenceService()),
+    PracticeFieldScoutingList(),
+    MatchScoutingList(),
+    TeamScoutingList()
+  ];
 
   void _navigate() {
     Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => _pageIndex == 0
-                ? const PitScoutingEntry()
+                ? PitScoutingEntry(storage: PersistenceService())
                 : _pageIndex == 1
                     ? const PracticeFieldScoutingEntry()
                     : _pageIndex == 2
                         ? const TeamScoutingEntry()
                         : const MatchScoutingEntry()));
   }
-
-  final List<Widget> _tabs = [
-    PitScoutingList(list: PitScoutingEntry.list),
-    PracticeFieldScoutingList(),
-    MatchScoutingList(),
-    TeamScoutingList()
-  ];
 
   @override
   Widget build(BuildContext context) {

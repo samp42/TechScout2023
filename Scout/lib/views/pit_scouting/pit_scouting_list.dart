@@ -1,15 +1,24 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:scout/services/persistence_service.dart';
 
 import '../../models/pit_scouting.dart';
 
 class PitScoutingList extends StatelessWidget {
-  final List<PitScouting> list;
-  const PitScoutingList({Key? key, required this.list}) : super(key: key);
+  final PersistenceService storage;
+  PitScoutingList({Key? key, required this.storage}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Center(child: Text(list[0].canIntakeCone.toString())));
+    getAppDirectory();
+    return Container(child: Text('$_appStorageDirectory'));
+  }
+
+  late Future<Directory> _appStorageDirectory;
+  void getAppDirectory() async {
+    _appStorageDirectory = getApplicationDocumentsDirectory();
   }
 }
 /*ListView.builder(

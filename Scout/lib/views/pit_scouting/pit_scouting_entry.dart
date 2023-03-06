@@ -1,12 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:scout/models/pit_scouting.dart';
 import 'package:scout/services/persistence_service.dart';
 import 'package:scout/theme.dart';
-import 'package:scout/main.dart';
-import 'package:scout/views/pit_scouting/pit_scouting_list.dart';
-
 import '../../enums/cone_orientation_enum.dart';
 import '../../enums/drive_base_type_enum.dart';
 import '../../enums/driver_experience_enum.dart';
@@ -16,7 +14,6 @@ import '../../enums/pickup_enum.dart';
 class PitScoutingEntry extends StatefulWidget {
   final PersistenceService storage;
   const PitScoutingEntry({Key? key, required this.storage}) : super(key: key);
-  static final list = _PitScoutingEntryState._list;
 
   @override
   State<PitScoutingEntry> createState() => _PitScoutingEntryState();
@@ -31,7 +28,6 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
   String? _pickUpCubes;
   String? _pickUpCones;
   String? _driverExperience;
-  static final _list = <PitScouting>[];
   late PitScouting data;
 
   // scout info
@@ -730,8 +726,8 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
     super.initState();
   }
 
-  Future<void> writeData() async {
-    return widget.storage.writeRobot(data);
+  Future<void> writeData(PitScouting robot) async {
+    return widget.storage.writeRobot(robot);
   }
 
   @override
@@ -788,15 +784,16 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                     setState(() {
                       _formKey.currentState!.save();
                       data = fillModel();
-                      writeData();
-                      _list.add(data);
-                      print(_list[0].scoutName);
+                      String jsonModel = data.toJson();
+                      print(jsonModel);
+                      writeData(data);
+
                       SnackBar snackBar = const SnackBar(
                         content: Text('Submission completed'),
                         backgroundColor: Colors.green,
                       );
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                      Navigator.of(context).pop(_list);
+                      Navigator.of(context).pop();
                       //     },
                     });
                     //  showDialog(
