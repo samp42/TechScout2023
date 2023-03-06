@@ -2,13 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:scout/services/persistence_service.dart';
 
 class MatchScoutingList extends StatelessWidget {
-  const MatchScoutingList({Key? key}) : super(key: key);
+  final PersistenceService persistenceService = PersistenceService();
+  MatchScoutingList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: Text('Match Scouting List'),
+        child: ListView(
+            children: persistenceService
+                .readMatches()
+                .map<Widget>((e) => Text(e.matchNumber.toString()))
+                .toList()),
       ),
     );
   }

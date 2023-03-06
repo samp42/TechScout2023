@@ -10,7 +10,7 @@ import 'package:scout/views/match_scouting/match_results_form.dart';
 
 class MatchScoutingEntry extends StatefulWidget {
   final PersistenceService persistenceService = PersistenceService();
-  final MatchScouting matchScouting = MatchScouting();
+  MatchScouting matchScouting = MatchScouting();
 
   MatchScoutingEntry({Key? key}) : super(key: key);
 

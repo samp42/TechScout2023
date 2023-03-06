@@ -7,8 +7,6 @@ import 'package:scout/views/validators.dart';
 class MatchGeneralForm extends StatefulWidget {
   final ValidatorCallback onChanged;
   MatchScouting matchScouting;
-  final TextEditingController matchNumberController = TextEditingController();
-  final TextEditingController scoutNameController = TextEditingController();
 
   MatchGeneralForm({
     Key? key,
@@ -41,7 +39,6 @@ class MatchGeneralFormState extends State<MatchGeneralForm> {
               SizedBox(
                 width: kTextFieldWidth,
                 child: TextFormField(
-                  controller: widget.matchNumberController,
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
@@ -71,7 +68,6 @@ class MatchGeneralFormState extends State<MatchGeneralForm> {
               SizedBox(
                 width: kTextFieldWidth,
                 child: TextFormField(
-                  controller: widget.scoutNameController,
                   keyboardType: TextInputType.text,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),

@@ -24,6 +24,22 @@ class PersistenceService {
     return PitScouting.fromMap(json);
   }
 
+  List<MatchScouting> readMatches() {
+    // list all files in directory starting by 'match_'
+    final directory = getApplicationDocumentsDirectory();
+    final matches = <MatchScouting>[];
+    final files = directory
+        .then((dir) => dir.listSync().where((element) {
+              return element.path.contains('match_') && element is File;
+            }))
+        .then((file) {
+      final json = _readJsonFromFile(file as File)
+          .then((value) => matches.add(MatchScouting.fromMap(value)));
+    });
+
+    return matches;
+  }
+
   Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
 
@@ -47,6 +63,18 @@ class PersistenceService {
     } catch (e) {
       // If encountering an error, return 0
       return {};
+    }
+  }
+
+  Future<Map<String, dynamic>> _readJsonFromFile(File file) async {
+    try {
+      // Read the file
+      final contents = await file.readAsString();
+
+      // decode json from contents into a map
+      return jsonDecode(contents);
+    } catch (e) {
+      throw Exception('Error reading file');
     }
   }
 

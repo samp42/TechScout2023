@@ -62,10 +62,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         : MatchScoutingEntry()));
   }
 
-  final List<Widget> _tabs = const [
-    PitScoutingList(),
-    PracticeFieldScoutingList(),
-    TeamScoutingList(),
+  final List<Widget> _tabs = [
+    const PitScoutingList(),
+    const PracticeFieldScoutingList(),
+    const TeamScoutingList(),
     MatchScoutingList()
   ];
 
