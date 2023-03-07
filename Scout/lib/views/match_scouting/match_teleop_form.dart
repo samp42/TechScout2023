@@ -7,7 +7,7 @@ import 'package:scout/views/match_scouting/teleop_form_column.dart';
 
 class MatchTeleopForm extends StatefulWidget {
   final ValidatorCallback onChanged;
-  MatchScouting matchScouting;
+  final MatchScouting matchScouting;
 
   MatchTeleopForm({
     Key? key,
@@ -15,12 +15,12 @@ class MatchTeleopForm extends StatefulWidget {
     required this.matchScouting,
   }) : super(key: key) {
     onChanged('');
-    matchScouting.redLinks = 0;
-    matchScouting.blueLinks = 0;
-    matchScouting.redCoopertition = false;
-    matchScouting.blueCoopertition = false;
-    matchScouting.redEngaged = false;
-    matchScouting.blueEngaged = false;
+    // matchScouting.redLinks = 0;
+    // matchScouting.blueLinks = 0;
+    // matchScouting.redCoopertition = false;
+    // matchScouting.blueCoopertition = false;
+    // matchScouting.redEngaged = false;
+    // matchScouting.blueEngaged = false;
   }
 
   @override

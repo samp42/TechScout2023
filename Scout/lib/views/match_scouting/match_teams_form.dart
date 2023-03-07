@@ -7,9 +7,9 @@ import 'package:scout/views/match_scouting/match_team_field.dart';
 
 class MatchTeamsForm extends StatefulWidget {
   final ValidatorCallback onChanged;
-  MatchScouting matchScouting;
+  final MatchScouting matchScouting;
 
-  MatchTeamsForm({
+  const MatchTeamsForm({
     Key? key,
     required this.onChanged,
     required this.matchScouting,

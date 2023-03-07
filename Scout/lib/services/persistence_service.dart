@@ -28,13 +28,13 @@ class PersistenceService {
     // list all files in directory starting by 'match_'
     final directory = getApplicationDocumentsDirectory();
     final matches = <MatchScouting>[];
-    final files = directory
+    final _ = directory
         .then((dir) => dir.listSync().where((element) {
               return element.path.contains('match_') && element is File;
             }))
         .then((file) {
-      if(file is File) {
-        final json = _readJsonFromFile(file as File)
+      if (file is File) {
+        final _ = _readJsonFromFile(file as File)
             .then((value) => matches.add(MatchScouting.fromMap(value)));
       }
     });

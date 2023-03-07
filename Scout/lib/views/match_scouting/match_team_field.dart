@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scout/models/validator_callback.dart';
 import 'package:scout/theme.dart';
-import 'package:scout/views/validators.dart';
 
 class MatchTeamField extends StatelessWidget {
   final String label;

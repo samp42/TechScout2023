@@ -5,9 +5,9 @@ import 'package:scout/theme.dart';
 
 class TeleopFormColumn extends StatefulWidget {
   final AllianceEnum alliance;
-  MatchScouting matchScouting;
+  final MatchScouting matchScouting;
 
-  TeleopFormColumn({
+  const TeleopFormColumn({
     Key? key,
     required this.alliance,
     required this.matchScouting,
@@ -18,49 +18,62 @@ class TeleopFormColumn extends StatefulWidget {
 }
 
 class TeleopFormColumnState extends State<TeleopFormColumn> {
-  int links = 0;
-  bool coopertition = false;
-  bool engaged = false;
-
   Color get _primary =>
       widget.alliance == AllianceEnum.red ? redPrimary : bluePrimary;
 
-  Color get _secondary =>
-      widget.alliance == AllianceEnum.red ? redSecondary : blueSecondary;
-
-  BorderRadius get _borderRadius => BorderRadius.only(
-      topLeft: Radius.circular(
-          widget.alliance == AllianceEnum.red ? kBorderRadius : 0),
-      topRight: Radius.circular(
-          widget.alliance == AllianceEnum.red ? 0 : kBorderRadius),
-      bottomLeft: Radius.circular(
-          widget.alliance == AllianceEnum.red ? kBorderRadius : 0),
-      bottomRight: Radius.circular(
-          widget.alliance == AllianceEnum.red ? 0 : kBorderRadius));
-
-  void _setLinks(int links) {
+  void _decrementLinks() {
     if (widget.alliance == AllianceEnum.red) {
-      widget.matchScouting.redLinks = links;
+      if (widget.matchScouting.redLinks > 0) {
+        widget.matchScouting.redLinks--;
+      }
     } else {
-      widget.matchScouting.blueLinks = links;
+      if (widget.matchScouting.blueLinks > 0) {
+        widget.matchScouting.blueLinks--;
+      }
     }
   }
 
-  void _setCoopertition(bool coopertition) {
+  void _incrementLinks() {
     if (widget.alliance == AllianceEnum.red) {
-      widget.matchScouting.redCoopertition = coopertition;
+      if (widget.matchScouting.redLinks < 9) {
+        widget.matchScouting.redLinks++;
+      }
     } else {
-      widget.matchScouting.blueCoopertition = coopertition;
+      if (widget.matchScouting.blueLinks < 9) {
+        widget.matchScouting.blueLinks++;
+      }
     }
   }
 
-  void _setEngaged(bool engaged) {
+  int get _links => widget.alliance == AllianceEnum.red
+      ? widget.matchScouting.redLinks
+      : widget.matchScouting.blueLinks;
+
+  void _toggleCoopertition() {
     if (widget.alliance == AllianceEnum.red) {
-      widget.matchScouting.redEngaged = engaged;
+      widget.matchScouting.redCoopertition =
+          !widget.matchScouting.redCoopertition;
     } else {
-      widget.matchScouting.blueEngaged = engaged;
+      widget.matchScouting.blueCoopertition =
+          !widget.matchScouting.blueCoopertition;
     }
   }
+
+  bool get _coopertition => widget.alliance == AllianceEnum.red
+      ? widget.matchScouting.redCoopertition
+      : widget.matchScouting.blueCoopertition;
+
+  void _toggleEngaged() {
+    if (widget.alliance == AllianceEnum.red) {
+      widget.matchScouting.redEngaged = !widget.matchScouting.redEngaged;
+    } else {
+      widget.matchScouting.blueEngaged = !widget.matchScouting.blueEngaged;
+    }
+  }
+
+  bool get _engaged => widget.alliance == AllianceEnum.red
+      ? widget.matchScouting.redEngaged
+      : widget.matchScouting.blueEngaged;
 
   @override
   Widget build(BuildContext context) {
@@ -74,8 +87,7 @@ class TeleopFormColumnState extends State<TeleopFormColumn> {
               IconButton(
                 onPressed: () {
                   setState(() {
-                    links = links > 0 ? links - 1 : 0;
-                    _setLinks(links);
+                    _decrementLinks();
                   });
                 },
                 icon: const Icon(Icons.remove_circle_outline_outlined),
@@ -96,7 +108,7 @@ class TeleopFormColumnState extends State<TeleopFormColumn> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      '$links / 5',
+                      '$_links / 5',
                       style: const TextStyle(
                         color: whiteT4K,
                         fontWeight: FontWeight.bold,
@@ -120,8 +132,7 @@ class TeleopFormColumnState extends State<TeleopFormColumn> {
               IconButton(
                 onPressed: () {
                   setState(() {
-                    if (links < 9) links++;
-                    _setLinks(links);
+                    _incrementLinks();
                   });
                 },
                 icon: const Icon(Icons.add_circle_outline_outlined),
@@ -141,8 +152,7 @@ class TeleopFormColumnState extends State<TeleopFormColumn> {
             ),
             onPressed: () {
               setState(() {
-                coopertition = !coopertition;
-                _setCoopertition(coopertition);
+                _toggleCoopertition();
               });
             },
             child: Row(
@@ -150,14 +160,14 @@ class TeleopFormColumnState extends State<TeleopFormColumn> {
               children: [
                 Icon(
                   Icons.handshake_rounded,
-                  color: coopertition ? whiteT4K : Colors.white54,
+                  color: _coopertition ? whiteT4K : Colors.white54,
                   size: 24,
                 ),
                 const SizedBox(width: 8),
                 Text(
                   'Coopertition',
                   style: TextStyle(
-                    color: coopertition ? whiteT4K : Colors.white54,
+                    color: _coopertition ? whiteT4K : Colors.white54,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
@@ -177,8 +187,7 @@ class TeleopFormColumnState extends State<TeleopFormColumn> {
             ),
             onPressed: () {
               setState(() {
-                engaged = !engaged;
-                _setEngaged(engaged);
+                _toggleEngaged();
               });
             },
             child: Row(
@@ -186,14 +195,14 @@ class TeleopFormColumnState extends State<TeleopFormColumn> {
               children: [
                 Icon(
                   Icons.battery_charging_full_outlined,
-                  color: engaged ? whiteT4K : Colors.white54,
+                  color: _engaged ? whiteT4K : Colors.white54,
                   size: 24,
                 ),
                 const SizedBox(width: 8),
                 Text(
                   'Teleop Engaged',
                   style: TextStyle(
-                    color: engaged ? whiteT4K : Colors.white54,
+                    color: _engaged ? whiteT4K : Colors.white54,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),

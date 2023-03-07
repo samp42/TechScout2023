@@ -5,9 +5,9 @@ import 'package:scout/theme.dart';
 
 class MatchResultsForm extends StatefulWidget {
   final ValidatorCallback onChanged;
-  MatchScouting matchScouting;
+  final MatchScouting matchScouting;
 
-  MatchResultsForm({
+  const MatchResultsForm({
     Key? key,
     required this.onChanged,
     required this.matchScouting,
