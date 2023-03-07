@@ -46,8 +46,8 @@ class MatchTeamsFormState extends State<MatchTeamsForm> {
                     label: "${AllianceEnum.red.capitalisedValue} 1",
                     color: redPrimary,
                     onChanged: (value) {
-                      widget.matchScouting.redTeams[0] = int.parse(value!);
                       widget.onChanged(value);
+                      widget.matchScouting.redTeams[0] = int.parse(value!);
                     },
                   ),
                   MatchTeamField(

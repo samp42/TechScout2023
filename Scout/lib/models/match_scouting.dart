@@ -26,28 +26,37 @@ class MatchScouting {
   late int blueScore;
   late int redPenalty;
   late int bluePenalty;
-  late int redRankingPoints;
-  late int blueRankingPoints;
 
   MatchScouting();
 
-  MatchScouting.allArgs(
-      {required this.matchNumber,
-      required this.scoutName,
-      required this.redTeams,
-      required this.blueTeams,
-      required this.redLinks,
-      required this.blueLinks,
-      required this.redCoopertition,
-      required this.blueCoopertition,
-      required this.redEngaged,
-      required this.blueEngaged,
-      required this.redScore,
-      required this.blueScore,
-      required this.redPenalty,
-      required this.bluePenalty,
-      required this.redRankingPoints,
-      required this.blueRankingPoints});
+  MatchScouting.entry() {
+    scoutName = '';
+    redTeams = List.filled(3, 0, growable: false);
+    blueTeams = List.filled(3, 0, growable: false);
+    redLinks = 0;
+    blueLinks = 0;
+    redCoopertition = false;
+    blueCoopertition = false;
+    redEngaged = false;
+    blueEngaged = false;
+  }
+
+  MatchScouting.allArgs({
+    required this.matchNumber,
+    required this.scoutName,
+    required this.redTeams,
+    required this.blueTeams,
+    required this.redLinks,
+    required this.blueLinks,
+    required this.redCoopertition,
+    required this.blueCoopertition,
+    required this.redEngaged,
+    required this.blueEngaged,
+    required this.redScore,
+    required this.blueScore,
+    required this.redPenalty,
+    required this.bluePenalty,
+  });
 
   MatchScouting.fromMap(Map<String, dynamic> map)
       : matchNumber = map['matchNumber'],
@@ -63,9 +72,7 @@ class MatchScouting {
         redScore = map['redScore'],
         blueScore = map['blueScore'],
         redPenalty = map['redPenalty'],
-        bluePenalty = map['bluePenalty'],
-        redRankingPoints = map['redRankingPoints'],
-        blueRankingPoints = map['blueRankingPoints'];
+        bluePenalty = map['bluePenalty'];
 
   Map<String, dynamic> _toMap() {
     return {
@@ -83,8 +90,6 @@ class MatchScouting {
       'blueScore': blueScore,
       'redPenalty': redPenalty,
       'bluePenalty': bluePenalty,
-      'redRankingPoints': redRankingPoints,
-      'blueRankingPoints': blueRankingPoints,
     };
   }
 

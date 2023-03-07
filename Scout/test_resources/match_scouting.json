@@ -1,8 +1,16 @@
 {
     "matchNumber": 1,
     "scoutName": "John Doe",
-    "redTeams": [3990, 3991, 3992],
-    "blueTeams": [3993, 3994, 3995],
+    "redTeams": [
+        3990,
+        3991,
+        3992
+    ],
+    "blueTeams": [
+        3993,
+        3994,
+        3995
+    ],
     "redLinks": 2,
     "blueLinks": 1,
     "redCoopertition": true,
@@ -12,7 +20,5 @@
     "redScore": 193,
     "blueScore": 20,
     "redPenalty": 0,
-    "bluePenalty": 25,
-    "redRankingPoints": 4,
-    "blueRankingPoints": 1
+    "bluePenalty": 25
 }

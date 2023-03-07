@@ -10,7 +10,7 @@ import 'package:scout/views/match_scouting/match_results_form.dart';
 
 class MatchScoutingEntry extends StatefulWidget {
   final PersistenceService persistenceService = PersistenceService();
-  MatchScouting matchScouting = MatchScouting();
+  late MatchScouting matchScouting;
 
   MatchScoutingEntry({Key? key}) : super(key: key);
 
@@ -36,6 +36,10 @@ class MatchScoutingEntryState extends State<MatchScoutingEntry> {
   void initState() {
     super.initState();
     SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight]);
+
+    matchScouting = MatchScouting.entry();
+    // matchScouting.redTeams = List.filled(3, 0, growable: false);
+    // matchScouting.blueTeams = List.filled(3, 0, growable: false);
   }
 
   @override

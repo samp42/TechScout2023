@@ -33,8 +33,10 @@ class PersistenceService {
               return element.path.contains('match_') && element is File;
             }))
         .then((file) {
-      final json = _readJsonFromFile(file as File)
-          .then((value) => matches.add(MatchScouting.fromMap(value)));
+      if(file is File) {
+        final json = _readJsonFromFile(file as File)
+            .then((value) => matches.add(MatchScouting.fromMap(value)));
+      }
     });
 
     return matches;
