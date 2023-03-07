@@ -19,12 +19,14 @@ class MatchScoutingEntry extends StatefulWidget {
 class _MatchScoutingEntry extends State<MatchScoutingEntry> {
   final _formKey = GlobalKey<FormState>();
   int _index = 0;
+  String? _chargeStationAuto;
+
   //Identification
   late String scoutName;
   late int teamNumber;
   late int matchNumber;
   // Autonomous
-  late bool mobility;
+  bool mobility = false;
   late ChargeStationEnum chargeStationAuto;
   late Map<GridLevelEnum, int> conesAuto;
   late Map<GridLevelEnum, int> cubesAuto;
@@ -194,11 +196,64 @@ class _MatchScoutingEntry extends State<MatchScoutingEntry> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Row(),
+                  child: Row(children: [
+                    const Expanded(child: Text('Can do mobility')),
+                    Checkbox(
+                        value: mobility,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            mobility = value!;
+                          });
+                        }),
+                  ]),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Row(),
+                  child: Row(
+                    children: [
+                      const Expanded(child: Text('Charge Station scoring')),
+                      Expanded(
+                        child: DropdownButtonFormField(
+                          value: _chargeStationAuto,
+                          onChanged: (value) => setState(() {
+                            _chargeStationAuto = value as String;
+                          }),
+                          items: const [
+                            DropdownMenuItem(
+                              child: Text('dock'),
+                              value: 'dock',
+                            ),
+                            DropdownMenuItem(
+                              child: Text('engage'),
+                              value: 'engage',
+                            ),
+                            DropdownMenuItem(
+                              child: Text('none'),
+                              value: 'none',
+                            )
+                          ],
+                          onSaved: (value) => setState(() {
+                            if (value == 'dock') {
+                              chargeStationAuto = ChargeStationEnum.dock;
+                            }
+                            if (value == 'engage') {
+                              chargeStationAuto = ChargeStationEnum.engage;
+                            }
+                            if (value == 'none') {
+                              chargeStationAuto = ChargeStationEnum.none;
+                            }
+                          }),
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Please select an option';
+                            } else {
+                              return null;
+                            }
+                          },
+                        ),
+                      )
+                    ],
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
