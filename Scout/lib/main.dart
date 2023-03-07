@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:scout/views/match_scouting/match_scouting_entry.dart';
 import 'package:scout/views/match_scouting/match_scouting_list.dart';
 import 'package:scout/views/pit_scouting/pit_scouting_entry.dart';
@@ -8,6 +9,13 @@ import 'package:scout/views/team_scouting/team_scouting_list.dart';
 import 'package:scout/views/team_scouting/team_scouting_entry.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.landscapeLeft,
+    DeviceOrientation.landscapeRight,
+  ]);
+
   runApp(const MyApp());
 }
 
@@ -41,18 +49,19 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _navigate() {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => _pageIndex == 0
-                ? const PitScoutingEntry()
-                : _pageIndex == 1
-                    ? const TeamScoutingEntry()
-                    : const MatchScoutingEntry()));
+      context,
+      MaterialPageRoute(
+          builder: (context) => _pageIndex == 0
+              ? const PitScoutingEntry()
+              : _pageIndex == 1
+                  ? const TeamScoutingEntry()
+                  : MatchScoutingEntry()),
+    );
   }
 
-  final List<Widget> _tabs = const [
-    PitScoutingList(),
-    TeamScoutingList(),
+  final List<Widget> _tabs = [
+    const PitScoutingList(),
+    const TeamScoutingList(),
     MatchScoutingList()
   ];
 

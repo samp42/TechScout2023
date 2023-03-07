@@ -2,56 +2,67 @@ import 'dart:convert';
 
 class MatchScouting {
   // general info
-  num matchNumber;
-  String scoutName;
+  late int matchNumber;
+  late String scoutName;
 
   // teams
-  List<num> redTeams;
-  List<num> blueTeams;
+  late List<int> redTeams;
+  late List<int> blueTeams;
 
   // links
-  num redLinks;
-  num blueLinks;
+  late int redLinks;
+  late int blueLinks;
 
   // coopertition
-  bool redCoopertition;
-  bool blueCoopertition;
+  late bool redCoopertition;
+  late bool blueCoopertition;
 
   // endgame
-  bool redEngaged;
-  bool blueEngaged;
+  late bool redEngaged;
+  late bool blueEngaged;
 
   // match results
-  num redScore;
-  num blueScore;
-  num redPenalty;
-  num bluePenalty;
-  num redRankingPoints;
-  num blueRankingPoints;
+  late int redScore;
+  late int blueScore;
+  late int redPenalty;
+  late int bluePenalty;
 
-  MatchScouting(
-      {required this.matchNumber,
-      required this.scoutName,
-      required this.redTeams,
-      required this.blueTeams,
-      required this.redLinks,
-      required this.blueLinks,
-      required this.redCoopertition,
-      required this.blueCoopertition,
-      required this.redEngaged,
-      required this.blueEngaged,
-      required this.redScore,
-      required this.blueScore,
-      required this.redPenalty,
-      required this.bluePenalty,
-      required this.redRankingPoints,
-      required this.blueRankingPoints});
+  MatchScouting();
+
+  MatchScouting.entry() {
+    scoutName = '';
+    redTeams = List.filled(3, 0, growable: false);
+    blueTeams = List.filled(3, 0, growable: false);
+    redLinks = 0;
+    blueLinks = 0;
+    redCoopertition = false;
+    blueCoopertition = false;
+    redEngaged = false;
+    blueEngaged = false;
+  }
+
+  MatchScouting.allArgs({
+    required this.matchNumber,
+    required this.scoutName,
+    required this.redTeams,
+    required this.blueTeams,
+    required this.redLinks,
+    required this.blueLinks,
+    required this.redCoopertition,
+    required this.blueCoopertition,
+    required this.redEngaged,
+    required this.blueEngaged,
+    required this.redScore,
+    required this.blueScore,
+    required this.redPenalty,
+    required this.bluePenalty,
+  });
 
   MatchScouting.fromMap(Map<String, dynamic> map)
       : matchNumber = map['matchNumber'],
         scoutName = map['scoutName'],
-        redTeams = List<num>.from(map['redTeams']),
-        blueTeams = List<num>.from(map['blueTeams']),
+        redTeams = List<int>.from(map['redTeams']),
+        blueTeams = List<int>.from(map['blueTeams']),
         redLinks = map['redLinks'],
         blueLinks = map['blueLinks'],
         redCoopertition = map['redCoopertition'],
@@ -61,9 +72,7 @@ class MatchScouting {
         redScore = map['redScore'],
         blueScore = map['blueScore'],
         redPenalty = map['redPenalty'],
-        bluePenalty = map['bluePenalty'],
-        redRankingPoints = map['redRankingPoints'],
-        blueRankingPoints = map['blueRankingPoints'];
+        bluePenalty = map['bluePenalty'];
 
   Map<String, dynamic> _toMap() {
     return {
@@ -81,8 +90,6 @@ class MatchScouting {
       'blueScore': blueScore,
       'redPenalty': redPenalty,
       'bluePenalty': bluePenalty,
-      'redRankingPoints': redRankingPoints,
-      'blueRankingPoints': blueRankingPoints,
     };
   }
 
