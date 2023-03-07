@@ -3,8 +3,6 @@ import 'package:scout/views/match_scouting/match_scouting_entry.dart';
 import 'package:scout/views/match_scouting/match_scouting_list.dart';
 import 'package:scout/views/pit_scouting/pit_scouting_entry.dart';
 import 'package:scout/views/pit_scouting/pit_scouting_list.dart';
-import 'package:scout/views/practice_field_scouting/practice_field_scouting_entry.dart';
-import 'package:scout/views/practice_field_scouting/practice_field_scouting_list.dart';
 import 'package:scout/theme.dart';
 import 'package:scout/views/team_scouting/team_scouting_list.dart';
 import 'package:scout/views/team_scouting/team_scouting_entry.dart';
@@ -48,15 +46,12 @@ class _MyHomePageState extends State<MyHomePage> {
             builder: (context) => _pageIndex == 0
                 ? const PitScoutingEntry()
                 : _pageIndex == 1
-                    ? const PracticeFieldScoutingEntry()
-                    : _pageIndex == 2
-                        ? const TeamScoutingEntry()
-                        : const MatchScoutingEntry()));
+                    ? const TeamScoutingEntry()
+                    : const MatchScoutingEntry()));
   }
 
   final List<Widget> _tabs = const [
     PitScoutingList(),
-    PracticeFieldScoutingList(),
     TeamScoutingList(),
     MatchScoutingList()
   ];
@@ -66,24 +61,6 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title, style: const TextStyle(color: yellowT4K)),
-        actions: [
-          TextButton(
-            onPressed: null,
-            style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(yellowT4K),
-                foregroundColor: MaterialStateProperty.all<Color>(blackT4K),
-                fixedSize: MaterialStateProperty.all<Size>(const Size(54, 48))),
-            child: const Text(
-              'Clear',
-              style: TextStyle(
-                color: Colors.black,
-                height: 42,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ],
       ),
       body: _tabs[_pageIndex],
       floatingActionButton: FloatingActionButton(
@@ -98,10 +75,6 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.people_alt_rounded),
             label: 'Pit',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart_rounded),
-            label: 'Practice',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.assignment_ind_rounded),
