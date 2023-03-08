@@ -1,6 +1,8 @@
 enum PickupEnum {
+  none('none'),
   floor('floor'),
-  tablet('tablet');
+  tablet('tablet'),
+  both('floor and tablet');
 
   const PickupEnum(this.value);
   final String value;
@@ -8,13 +10,9 @@ enum PickupEnum {
 
 extension PickupEnumExtension on PickupEnum {
   static PickupEnum fromValue(String value) {
-    switch (value) {
-      case 'floor':
-        return PickupEnum.floor;
-      case 'tablet':
-        return PickupEnum.tablet;
-      default:
-        throw Exception('Invalid PickupEnum value: $value');
-    }
+    return PickupEnum.values.firstWhere(
+      (e) => e.value == value,
+      orElse: () => throw Exception('Invalid PickupEnum value: $value'),
+    );
   }
 }

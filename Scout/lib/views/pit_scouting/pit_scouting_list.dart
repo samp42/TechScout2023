@@ -1,14 +1,27 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:scout/services/persistence_service.dart';
+
+// ignore: must_be_immutable
 class PitScoutingList extends StatelessWidget {
-  const PitScoutingList({Key? key}) : super(key: key);
+  final PersistenceService storage;
+  PitScoutingList({Key? key, required this.storage}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Pit Scouting List'),
-      ),
-    );
+    getAppDirectory();
+    return Text('$_appStorageDirectory');
+  }
+
+  late Future<Directory> _appStorageDirectory;
+  void getAppDirectory() async {
+    _appStorageDirectory = getApplicationDocumentsDirectory();
   }
 }
+/*ListView.builder(
+            itemCount: list.length,
+            itemBuilder: (context, index) {
+              final item = list[index];
+            }));*/

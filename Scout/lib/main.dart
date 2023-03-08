@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:scout/services/persistence_service.dart';
+
 import 'package:scout/views/match_scouting/match_scouting_entry.dart';
 import 'package:scout/views/match_scouting/match_scouting_list.dart';
 import 'package:scout/views/pit_scouting/pit_scouting_entry.dart';
 import 'package:scout/views/pit_scouting/pit_scouting_list.dart';
+
 import 'package:scout/theme.dart';
 import 'package:scout/views/team_scouting/team_scouting_list.dart';
 import 'package:scout/views/team_scouting/team_scouting_entry.dart';
@@ -29,6 +32,7 @@ class MyApp extends StatelessWidget {
       title: _title,
       theme: ThemeData(
         primarySwatch: materialBlackT4K,
+        fontFamily: 'Futura',
       ),
       home: MyHomePage(title: _title),
     );
@@ -46,24 +50,25 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _pageIndex = 0;
+  final List<Widget> _tabs = [
+    PitScoutingList(storage: PersistenceService()),
+    MatchScoutingList(),
+    const TeamScoutingList()
+  ];
 
   void _navigate() {
     Navigator.push(
       context,
       MaterialPageRoute(
           builder: (context) => _pageIndex == 0
-              ? const PitScoutingEntry()
+              ? PitScoutingEntry(
+                  storage: PersistenceService(),
+                )
               : _pageIndex == 1
                   ? const TeamScoutingEntry()
                   : MatchScoutingEntry()),
     );
   }
-
-  final List<Widget> _tabs = [
-    const PitScoutingList(),
-    const TeamScoutingList(),
-    MatchScoutingList()
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -80,9 +85,10 @@ class _MyHomePageState extends State<MyHomePage> {
         child: const Icon(Icons.add),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.people_alt_rounded),
+            icon: Icon(Icons.house_sharp),
             label: 'Pit',
           ),
           BottomNavigationBarItem(
