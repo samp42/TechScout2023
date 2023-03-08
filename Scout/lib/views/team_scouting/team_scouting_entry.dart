@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:scout/enums/card_color_enum.dart';
 import 'package:scout/enums/charge_station_enum.dart';
+import 'package:scout/enums/charge_station_auto_enum.dart';
 import 'package:scout/enums/charge_station_order_enum.dart';
+import 'package:scout/enums/game_piece_enum.dart';
+import 'package:scout/enums/teleop_action_enum.dart';
+import 'package:scout/models/cycle_timestamp.dart';
 import 'package:scout/models/team_scouting.dart';
 import 'package:scout/theme.dart';
 
@@ -36,6 +40,12 @@ class TeamScoutingEntryState extends State<TeamScoutingEntry> {
 
   String currentTime = '0';
 
+  GamePieceEnum? currentGamePiece;
+  int timeToIntake =
+      0; // don't add intake action to cycle just yet, wait for dropped / placed / etc.
+
+  late Timer timer;
+
   int _index = 0;
 
   bool _isActive(int step) => _index >= step;
@@ -56,20 +66,18 @@ class TeamScoutingEntryState extends State<TeamScoutingEntry> {
     });
   }
 
-  Timer scheduleTimeout([int milliseconds = 500]) =>
-      Timer(Duration(milliseconds: milliseconds), updateStopWatch);
-
-  void updateStopWatch() {
-    setState(() {
-      currentTime = stopwatch.elapsed.inSeconds.toString();
-    });
-  }
-
   @override
   void initState() {
     super.initState();
     SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight]);
     stopwatch.start();
+    timer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
+      if (mounted) {
+        setState(() {
+          currentTime = stopwatch.elapsed.inSeconds.toString();
+        });
+      }
+    });
   }
 
   @override
@@ -118,6 +126,10 @@ class TeamScoutingEntryState extends State<TeamScoutingEntry> {
                     if (_index < 3) {
                       _nextStep();
                       details.onStepContinue;
+                      if (_index == 2) {
+                        // officially "start" stopwatch on teleop page
+                        stopwatch.reset();
+                      }
                     } else {
                       // TODO
                       Navigator.pop(context);
@@ -293,13 +305,13 @@ class TeamScoutingEntryState extends State<TeamScoutingEntry> {
                             const Spacer(),
                             DropdownButton(
                               value: teamScouting.chargeStationAuto,
-                              items: ChargeStationEnum.values
+                              items: ChargeStationAutoEnum.values
                                   .map((e) => DropdownMenuItem(
                                         value: e,
                                         child: Text(e.value),
                                       ))
                                   .toList(),
-                              onChanged: (ChargeStationEnum? value) {
+                              onChanged: (ChargeStationAutoEnum? value) {
                                 setState(() {
                                   teamScouting.chargeStationAuto = value!;
                                 });
@@ -326,7 +338,24 @@ class TeamScoutingEntryState extends State<TeamScoutingEntry> {
                     Column(
                       children: [
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            setState(() {
+                              // don't reset timer if change game piece (potential entry mistake)
+                              if (currentGamePiece == null) {
+                                timeToIntake = stopwatch.elapsed.inSeconds;
+                                stopwatch.reset();
+                              }
+                              currentGamePiece = GamePieceEnum.cone;
+                            });
+                          },
+                          style: currentGamePiece == GamePieceEnum.cone
+                              ? ElevatedButton.styleFrom(
+                                  side: const BorderSide(
+                                    width: 5.0,
+                                    color: Colors.red,
+                                  ),
+                                )
+                              : null,
                           child: Image.asset(
                             'assets/images/cone.jpeg',
                             width: 70,
@@ -334,7 +363,24 @@ class TeamScoutingEntryState extends State<TeamScoutingEntry> {
                         ),
                         const SizedBox(height: 10),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            setState(() {
+                              // don't reset timer if change game piece (potential entry mistake)
+                              if (currentGamePiece == null) {
+                                timeToIntake = stopwatch.elapsed.inSeconds;
+                                stopwatch.reset();
+                              }
+                              currentGamePiece = GamePieceEnum.cube;
+                            });
+                          },
+                          style: currentGamePiece == GamePieceEnum.cube
+                              ? ElevatedButton.styleFrom(
+                                  side: const BorderSide(
+                                    width: 5.0,
+                                    color: Colors.red,
+                                  ),
+                                )
+                              : null,
                           child: Image.asset(
                             'assets/images/cube.jpeg',
                             width: 70,
@@ -342,7 +388,13 @@ class TeamScoutingEntryState extends State<TeamScoutingEntry> {
                         ),
                         const SizedBox(height: 10),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            teamScouting.cycles.add(CycleTimestamp(
+                              timestamp: stopwatch.elapsed.inSeconds,
+                              action: TeleopActionEnum.tippedOver,
+                            ));
+                            stopwatch.reset();
+                          },
                           style: const ButtonStyle(
                               backgroundColor:
                                   MaterialStatePropertyAll(Colors.red)),
@@ -364,7 +416,33 @@ class TeamScoutingEntryState extends State<TeamScoutingEntry> {
                               ),
                             ),
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                if (currentGamePiece != null) {
+                                  teamScouting.cycles.add(CycleTimestamp(
+                                      timestamp: timeToIntake,
+                                      action:
+                                          currentGamePiece == GamePieceEnum.cone
+                                              ? TeleopActionEnum.intakeCone
+                                              : TeleopActionEnum.intakeCube));
+                                  timeToIntake = 0;
+                                  teamScouting.cycles.add(CycleTimestamp(
+                                      timestamp: stopwatch.elapsed.inSeconds,
+                                      action: TeleopActionEnum.placeTop));
+                                  stopwatch.reset();
+                                }
+                                if (currentGamePiece == GamePieceEnum.cone) {
+                                  setState(() {
+                                    topCones++;
+                                    currentGamePiece = null;
+                                  });
+                                }
+                                if (currentGamePiece == GamePieceEnum.cube) {
+                                  setState(() {
+                                    topCubes++;
+                                    currentGamePiece = null;
+                                  });
+                                }
+                              },
                               icon:
                                   const Icon(Icons.add_circle_outline_outlined),
                               color: Colors.greenAccent,
@@ -403,7 +481,33 @@ class TeamScoutingEntryState extends State<TeamScoutingEntry> {
                               ),
                             ),
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                if (currentGamePiece != null) {
+                                  teamScouting.cycles.add(CycleTimestamp(
+                                      timestamp: timeToIntake,
+                                      action:
+                                          currentGamePiece == GamePieceEnum.cone
+                                              ? TeleopActionEnum.intakeCone
+                                              : TeleopActionEnum.intakeCube));
+                                  timeToIntake = 0;
+                                  teamScouting.cycles.add(CycleTimestamp(
+                                      timestamp: stopwatch.elapsed.inSeconds,
+                                      action: TeleopActionEnum.placeMiddle));
+                                  stopwatch.reset();
+                                }
+                                if (currentGamePiece == GamePieceEnum.cone) {
+                                  setState(() {
+                                    midCones++;
+                                    currentGamePiece = null;
+                                  });
+                                }
+                                if (currentGamePiece == GamePieceEnum.cube) {
+                                  setState(() {
+                                    midCubes++;
+                                    currentGamePiece = null;
+                                  });
+                                }
+                              },
                               icon:
                                   const Icon(Icons.add_circle_outline_outlined),
                               color: Colors.greenAccent,
@@ -442,7 +546,33 @@ class TeamScoutingEntryState extends State<TeamScoutingEntry> {
                               ),
                             ),
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                if (currentGamePiece != null) {
+                                  teamScouting.cycles.add(CycleTimestamp(
+                                      timestamp: timeToIntake,
+                                      action:
+                                          currentGamePiece == GamePieceEnum.cone
+                                              ? TeleopActionEnum.intakeCone
+                                              : TeleopActionEnum.intakeCube));
+                                  timeToIntake = 0;
+                                  teamScouting.cycles.add(CycleTimestamp(
+                                      timestamp: stopwatch.elapsed.inSeconds,
+                                      action: TeleopActionEnum.placeBottom));
+                                  stopwatch.reset();
+                                }
+                                if (currentGamePiece == GamePieceEnum.cone) {
+                                  setState(() {
+                                    botCones++;
+                                    currentGamePiece = null;
+                                  });
+                                }
+                                if (currentGamePiece == GamePieceEnum.cube) {
+                                  setState(() {
+                                    botCubes++;
+                                    currentGamePiece = null;
+                                  });
+                                }
+                              },
                               icon:
                                   const Icon(Icons.add_circle_outline_outlined),
                               color: Colors.greenAccent,
@@ -515,7 +645,33 @@ class TeamScoutingEntryState extends State<TeamScoutingEntry> {
                               ),
                             ),
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                if (currentGamePiece != null) {
+                                  teamScouting.cycles.add(CycleTimestamp(
+                                      timestamp: timeToIntake,
+                                      action:
+                                          currentGamePiece == GamePieceEnum.cone
+                                              ? TeleopActionEnum.intakeCone
+                                              : TeleopActionEnum.intakeCube));
+                                  timeToIntake = 0;
+                                  teamScouting.cycles.add(CycleTimestamp(
+                                      timestamp: stopwatch.elapsed.inSeconds,
+                                      action: TeleopActionEnum.placeCommunity));
+                                  stopwatch.reset();
+                                }
+                                if (currentGamePiece == GamePieceEnum.cone) {
+                                  setState(() {
+                                    communityCones++;
+                                    currentGamePiece = null;
+                                  });
+                                }
+                                if (currentGamePiece == GamePieceEnum.cube) {
+                                  setState(() {
+                                    communityCubes++;
+                                    currentGamePiece = null;
+                                  });
+                                }
+                              },
                               icon:
                                   const Icon(Icons.add_circle_outline_outlined),
                               color: Colors.greenAccent,
@@ -554,7 +710,33 @@ class TeamScoutingEntryState extends State<TeamScoutingEntry> {
                               ),
                             ),
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                if (currentGamePiece != null) {
+                                  teamScouting.cycles.add(CycleTimestamp(
+                                      timestamp: timeToIntake,
+                                      action:
+                                          currentGamePiece == GamePieceEnum.cone
+                                              ? TeleopActionEnum.intakeCone
+                                              : TeleopActionEnum.intakeCube));
+                                  timeToIntake = 0;
+                                  teamScouting.cycles.add(CycleTimestamp(
+                                      timestamp: stopwatch.elapsed.inSeconds,
+                                      action: TeleopActionEnum.drop));
+                                  stopwatch.reset();
+                                }
+                                if (currentGamePiece == GamePieceEnum.cone) {
+                                  setState(() {
+                                    droppedCones++;
+                                    currentGamePiece = null;
+                                  });
+                                }
+                                if (currentGamePiece == GamePieceEnum.cube) {
+                                  setState(() {
+                                    droppedCubes++;
+                                    currentGamePiece = null;
+                                  });
+                                }
+                              },
                               icon:
                                   const Icon(Icons.add_circle_outline_outlined),
                               color: Colors.greenAccent,
@@ -619,7 +801,7 @@ class TeamScoutingEntryState extends State<TeamScoutingEntry> {
                           value: teamScouting.chargeStationOrder,
                           items: ChargeStationOrderEnum.values
                               .map((e) => DropdownMenuItem(
-                                  value: e, child: Text(e.index.toString())))
+                                  value: e, child: Text(e.value)))
                               .toList(),
                           onChanged: (ChargeStationOrderEnum? value) {
                             setState(() {

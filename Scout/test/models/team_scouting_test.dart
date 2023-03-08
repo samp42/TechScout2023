@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:scout/enums/card_color_enum.dart';
 import 'package:scout/enums/charge_station_enum.dart';
+import 'package:scout/enums/charge_station_auto_enum.dart';
 import 'package:scout/enums/charge_station_order_enum.dart';
 import 'package:scout/enums/teleop_action_enum.dart';
 import 'package:scout/models/cycle_timestamp.dart';
@@ -15,7 +16,7 @@ void main() {
     teamNumber: 3990,
     matchNumber: 1,
     mobility: true,
-    chargeStationAuto: ChargeStationEnum.engage,
+    chargeStationAuto: ChargeStationAutoEnum.engage,
     conesAuto: 1,
     cubesAuto: 0,
     cycles: [

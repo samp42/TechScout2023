@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:scout/enums/teleop_action_enum.dart';
 
 class CycleTimestamp {
-  final double timestamp;
+  final int timestamp;
   final TeleopActionEnum action;
 
   const CycleTimestamp({required this.timestamp, required this.action});
@@ -17,7 +17,7 @@ class CycleTimestamp {
 
   Map<String, dynamic> _toMap() {
     return {
-      'timestamp': timestamp.round(),
+      'timestamp': timestamp,
       'action': action.value,
     };
   }

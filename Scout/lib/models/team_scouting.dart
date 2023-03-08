@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:scout/enums/card_color_enum.dart';
+import 'package:scout/enums/charge_station_auto_enum.dart';
 import 'package:scout/enums/charge_station_order_enum.dart';
 import 'package:scout/enums/charge_station_enum.dart';
-import 'package:scout/enums/grid_level_enum.dart';
 import 'package:scout/models/cycle_timestamp.dart';
 
 class TeamScouting {
@@ -13,7 +13,7 @@ class TeamScouting {
 
   // Autonomous
   late bool mobility;
-  late ChargeStationEnum chargeStationAuto;
+  late ChargeStationAutoEnum chargeStationAuto;
   late int conesAuto;
   late int cubesAuto;
 
@@ -29,7 +29,7 @@ class TeamScouting {
 
   TeamScouting.entry() {
     mobility = false;
-    chargeStationAuto = ChargeStationEnum.none;
+    chargeStationAuto = ChargeStationAutoEnum.none;
     conesAuto = 0;
     cubesAuto = 0;
     cycles = [];
@@ -58,7 +58,7 @@ class TeamScouting {
         scoutName = map['scoutName'],
         mobility = map['mobility'],
         chargeStationAuto =
-            ChargeStationEnumExtension.fromValue(map['chargeStationAuto']),
+            ChargeStationAutoEnumExtension.fromValue(map['chargeStationAuto']),
         conesAuto = map['conesAuto'],
         cubesAuto = map['cubesAuto'],
         cycles = map['cycles']
