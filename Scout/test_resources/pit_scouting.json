@@ -7,15 +7,11 @@
   "length": 30,
   "driveBaseType": "tank",
   "stable": false,
+  "hasSeparateIntake": true,
   "canIntakeCone": true,
   "canIntakeCube": true,
-  "pickupSpotsCube": [
-    "floor",
-    "tablet"
-  ],
-  "pickupSpotsCone": [
-    "floor"
-  ],
+  "pickupSpotsCube": "floor and tablet",
+  "pickupSpotsCone": "floor",
   "intakeConeOrientations": [
     "pointing away",
     "pointing towards",

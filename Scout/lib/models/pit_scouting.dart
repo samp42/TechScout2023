@@ -7,36 +7,38 @@ import 'package:scout/enums/grid_level_enum.dart';
 import 'package:scout/enums/pickup_enum.dart';
 
 class PitScouting {
-  int teamNumber;
-  String scoutName;
+  late int teamNumber;
+  late String scoutName;
 
   // team info
-  DriverExperienceEnum driverExperience;
+  late DriverExperienceEnum driverExperience;
 
   // robot info
-  int weight;
-  int width;
-  int length;
-  DriveBaseTypeEnum driveBaseType;
-  bool stable;
+  late int weight;
+  late int width;
+  late int length;
+  late DriveBaseTypeEnum driveBaseType;
+  late bool stable;
+  late bool hasSeparateIntake;
 
   // game pieces
-  bool canIntakeCone;
-  bool canIntakeCube;
-  List<PickupEnum> pickupSpotsCube;
-  List<PickupEnum> pickupSpotsCone;
-  List<ConeOrientationEnum> intakeConeOrientations;
-  String gamePiecesNotes;
+  late bool canIntakeCone;
+  late bool canIntakeCube;
+  late PickupEnum pickupSpotsCube;
+  late PickupEnum pickupSpotsCone;
+  late List<ConeOrientationEnum> intakeConeOrientations;
+  late String gamePiecesNotes;
 
   // scoring
-  List<GridLevelEnum> gridScoringLevelsCube;
-  List<GridLevelEnum> gridScoringLevelsCone;
-  String scoringNotes;
+  late List<GridLevelEnum> gridScoringLevelsCube;
+  late List<GridLevelEnum> gridScoringLevelsCone;
+  late String scoringNotes;
 
   // charging stations
-  String chargingStationNotes;
+  late String chargingStationNotes;
 
-  PitScouting(
+  PitScouting.empty();
+  PitScouting.full(
       {required this.teamNumber,
       required this.scoutName,
       required this.driverExperience,
@@ -45,6 +47,7 @@ class PitScouting {
       required this.length,
       required this.driveBaseType,
       required this.stable,
+      required this.hasSeparateIntake,
       required this.canIntakeCone,
       required this.canIntakeCube,
       required this.pickupSpotsCube,
@@ -67,14 +70,11 @@ class PitScouting {
         driveBaseType =
             DriveBaseTypeEnumExtension.fromValue(map['driveBaseType']),
         stable = map['stable'],
+        hasSeparateIntake = map['hasSeparateIntake'],
         canIntakeCone = map['canIntakeCone'],
         canIntakeCube = map['canIntakeCube'],
-        pickupSpotsCube = map['pickupSpotsCube'] = map['pickupSpotsCube']
-            .map<PickupEnum>((e) => PickupEnumExtension.fromValue(e))
-            .toList(),
-        pickupSpotsCone = map['pickupSpotsCone'] = map['pickupSpotsCone']
-            .map<PickupEnum>((e) => PickupEnumExtension.fromValue(e))
-            .toList(),
+        pickupSpotsCube = PickupEnumExtension.fromValue(map['pickupSpotsCube']),
+        pickupSpotsCone = PickupEnumExtension.fromValue(map['pickupSpotsCone']),
         intakeConeOrientations = map['intakeConeOrientations']
             .map<ConeOrientationEnum>(
                 (e) => ConeOrientationEnumExtension.fromValue(e))
@@ -99,17 +99,18 @@ class PitScouting {
       'length': length,
       'driveBaseType': driveBaseType.value,
       'stable': stable,
+      'hasSeparateIntake': hasSeparateIntake,
       'canIntakeCone': canIntakeCone,
       'canIntakeCube': canIntakeCube,
-      'pickupSpotsCube': pickupSpotsCube.map((e) => e.value).toList(),
-      'pickupSpotsCone': pickupSpotsCone.map((e) => e.value).toList(),
+      'pickupSpotsCube': pickupSpotsCube.value,
+      'pickupSpotsCone': pickupSpotsCone.value,
       'intakeConeOrientations':
           intakeConeOrientations.map((e) => e.value).toList(),
+      'gamePiecesNotes': gamePiecesNotes,
       'gridScoringLevelsCube':
           gridScoringLevelsCube.map((e) => e.value).toList(),
       'gridScoringLevelsCone':
           gridScoringLevelsCone.map((e) => e.value).toList(),
-      'gamePiecesNotes': gamePiecesNotes,
       'scoringNotes': scoringNotes,
       'chargingStationNotes': chargingStationNotes,
     };

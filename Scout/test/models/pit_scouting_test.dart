@@ -10,7 +10,7 @@ import 'package:scout/models/pit_scouting.dart';
 import 'package:test/test.dart';
 
 void main() {
-  final PitScouting robotMock = PitScouting(
+  final PitScouting robotMock = PitScouting.full(
     teamNumber: 3990,
     scoutName: 'John Doe',
     driverExperience: DriverExperienceEnum.firstYear,
@@ -21,8 +21,8 @@ void main() {
     stable: false,
     canIntakeCone: true,
     canIntakeCube: true,
-    pickupSpotsCube: [PickupEnum.floor, PickupEnum.tablet],
-    pickupSpotsCone: [PickupEnum.floor],
+    pickupSpotsCube: PickupEnum.both,
+    pickupSpotsCone: PickupEnum.floor,
     intakeConeOrientations: [
       ConeOrientationEnum.pointingAway,
       ConeOrientationEnum.pointingTowards,
@@ -42,6 +42,7 @@ void main() {
     scoringNotes: 'We can only score cubes on the coopertition grid.',
     chargingStationNotes:
         'We can only park on the left side of the charging station.',
+    hasSeparateIntake: true,
   );
 
   test('test fromMap', () {
@@ -55,10 +56,11 @@ void main() {
       'length': 30,
       'driveBaseType': 'tank',
       'stable': false,
+      'hasSeparateIntake': true,
       'canIntakeCone': true,
       'canIntakeCube': true,
-      'pickupSpotsCube': ['floor', 'tablet'],
-      'pickupSpotsCone': ['floor'],
+      'pickupSpotsCube': 'floor and tablet',
+      'pickupSpotsCone': 'floor',
       'intakeConeOrientations': [
         'pointing away',
         'pointing towards',
@@ -82,14 +84,11 @@ void main() {
     expect(actualRobot.length, equals(robotMock.length));
     expect(actualRobot.driveBaseType, equals(robotMock.driveBaseType));
     expect(actualRobot.stable, equals(robotMock.stable));
+    expect(actualRobot.hasSeparateIntake, equals(robotMock.hasSeparateIntake));
     expect(actualRobot.canIntakeCone, equals(robotMock.canIntakeCone));
     expect(actualRobot.canIntakeCube, equals(robotMock.canIntakeCube));
-    // expect to be equal ignoring order
-    expect(actualRobot.pickupSpotsCube.toSet(),
-        equals(robotMock.pickupSpotsCube.toSet()));
-    // expect to be equal ignoring order
-    expect(actualRobot.pickupSpotsCone.toSet(),
-        equals(robotMock.pickupSpotsCone.toSet()));
+    expect(actualRobot.pickupSpotsCube, equals(robotMock.pickupSpotsCube));
+    expect(actualRobot.pickupSpotsCone, equals(robotMock.pickupSpotsCone));
     // expect to be equal ignoring order
     expect(actualRobot.intakeConeOrientations.toSet(),
         equals(robotMock.intakeConeOrientations.toSet()));
@@ -123,14 +122,11 @@ void main() {
     expect(actualRobot.length, equals(robotMock.length));
     expect(actualRobot.driveBaseType, equals(robotMock.driveBaseType));
     expect(actualRobot.stable, equals(robotMock.stable));
+    expect(actualRobot.hasSeparateIntake, equals(robotMock.hasSeparateIntake));
     expect(actualRobot.canIntakeCone, equals(robotMock.canIntakeCone));
     expect(actualRobot.canIntakeCube, equals(robotMock.canIntakeCube));
-    // expect to be equal ignoring order
-    expect(actualRobot.pickupSpotsCube.toSet(),
-        equals(robotMock.pickupSpotsCube.toSet()));
-    // expect to be equal ignoring order
-    expect(actualRobot.pickupSpotsCone.toSet(),
-        equals(robotMock.pickupSpotsCone.toSet()));
+    expect(actualRobot.pickupSpotsCube, equals(robotMock.pickupSpotsCube));
+    expect(actualRobot.pickupSpotsCone, equals(robotMock.pickupSpotsCone));
     // expect to be equal ignoring order
     expect(actualRobot.intakeConeOrientations.toSet(),
         equals(robotMock.intakeConeOrientations.toSet()));
@@ -174,11 +170,11 @@ void main() {
     expect(actualRobotJson['canIntakeCube'],
         equals(expectedRobotJson['canIntakeCube']));
     // expect to be equal ignoring order
-    expect(actualRobotJson['pickupSpotsCube'].toSet(),
-        equals(expectedRobotJson['pickupSpotsCube'].toSet()));
+    expect(actualRobotJson['pickupSpotsCube'],
+        equals(expectedRobotJson['pickupSpotsCube']));
     // expect to be equal ignoring order
-    expect(actualRobotJson['pickupSpotsCone'].toSet(),
-        equals(expectedRobotJson['pickupSpotsCone'].toSet()));
+    expect(actualRobotJson['pickupSpotsCone'],
+        equals(expectedRobotJson['pickupSpotsCone']));
     // expect to be equal ignoring order
     expect(actualRobotJson['intakeConeOrientations'].toSet(),
         equals(expectedRobotJson['intakeConeOrientations'].toSet()));
