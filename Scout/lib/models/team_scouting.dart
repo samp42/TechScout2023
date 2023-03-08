@@ -23,7 +23,7 @@ class TeamScouting {
   // End Game
   late ChargeStationEnum chargeStationEndgame;
   late ChargeStationOrderEnum chargeStationOrder;
-  late CardColorEnum? card;
+  late CardColorEnum card;
 
   TeamScouting();
 
@@ -35,6 +35,7 @@ class TeamScouting {
     cycles = [];
     chargeStationEndgame = ChargeStationEnum.none;
     chargeStationOrder = ChargeStationOrderEnum.none;
+    card = CardColorEnum.none;
   }
 
   TeamScouting.allArgs({

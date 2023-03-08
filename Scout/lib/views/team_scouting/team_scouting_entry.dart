@@ -1,5 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:scout/enums/card_color_enum.dart';
+import 'package:scout/enums/charge_station_enum.dart';
+import 'package:scout/enums/charge_station_order_enum.dart';
 import 'package:scout/models/team_scouting.dart';
 import 'package:scout/theme.dart';
 
@@ -11,7 +16,25 @@ class TeamScoutingEntry extends StatefulWidget {
 }
 
 class TeamScoutingEntryState extends State<TeamScoutingEntry> {
+  final Stopwatch stopwatch = Stopwatch();
+
   TeamScouting teamScouting = TeamScouting.entry();
+
+  int topCones = 0;
+  int midCones = 0;
+  int botCones = 0;
+
+  int topCubes = 0;
+  int midCubes = 0;
+  int botCubes = 0;
+
+  int communityCones = 0;
+  int communityCubes = 0;
+
+  int droppedCones = 0;
+  int droppedCubes = 0;
+
+  String currentTime = '0';
 
   int _index = 0;
 
@@ -33,14 +56,25 @@ class TeamScoutingEntryState extends State<TeamScoutingEntry> {
     });
   }
 
+  Timer scheduleTimeout([int milliseconds = 500]) =>
+      Timer(Duration(milliseconds: milliseconds), updateStopWatch);
+
+  void updateStopWatch() {
+    setState(() {
+      currentTime = stopwatch.elapsed.inSeconds.toString();
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight]);
+    stopwatch.start();
   }
 
   @override
   void dispose() {
+    stopwatch.stop();
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     super.dispose();
   }
@@ -146,18 +180,19 @@ class TeamScoutingEntryState extends State<TeamScoutingEntry> {
                   ),
                 ],
               ),
-              isActive: true,
+              isActive: _isActive(0),
+              state: _state(0),
             ),
             Step(
               title: const Text('Autonomous'),
               content: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Column(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Row(
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      children: [
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -192,42 +227,43 @@ class TeamScoutingEntryState extends State<TeamScoutingEntry> {
                             )
                           ],
                         ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              setState(() {
-                                if (teamScouting.conesAuto > 0) {
-                                  teamScouting.cubesAuto--;
-                                }
-                              });
-                            },
-                            icon: const Icon(
-                                Icons.remove_circle_outline_outlined),
-                            color: Colors.red,
-                          ),
-                          Text(
-                            'Cubes: ${teamScouting.cubesAuto}',
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  if (teamScouting.conesAuto > 0) {
+                                    teamScouting.cubesAuto--;
+                                  }
+                                });
+                              },
+                              icon: const Icon(
+                                  Icons.remove_circle_outline_outlined),
+                              color: Colors.red,
                             ),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              setState(() {
-                                teamScouting.cubesAuto++;
-                              });
-                            },
-                            icon: const Icon(Icons.add_circle_outline_outlined),
-                            color: Colors.green,
-                          )
-                        ],
-                      ),
-                    ],
+                            Text(
+                              'Cubes: ${teamScouting.cubesAuto}',
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  teamScouting.cubesAuto++;
+                                });
+                              },
+                              icon:
+                                  const Icon(Icons.add_circle_outline_outlined),
+                              color: Colors.green,
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                   Expanded(
                     flex: 1,
@@ -238,6 +274,7 @@ class TeamScoutingEntryState extends State<TeamScoutingEntry> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             const Text('Mobility:'),
+                            const Spacer(),
                             Checkbox(
                               value: teamScouting.mobility,
                               onChanged: (value) {
@@ -248,22 +285,370 @@ class TeamScoutingEntryState extends State<TeamScoutingEntry> {
                             )
                           ],
                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Text('Charging Station:'),
+                            const Spacer(),
+                            DropdownButton(
+                              value: teamScouting.chargeStationAuto,
+                              items: ChargeStationEnum.values
+                                  .map((e) => DropdownMenuItem(
+                                        value: e,
+                                        child: Text(e.value),
+                                      ))
+                                  .toList(),
+                              onChanged: (ChargeStationEnum? value) {
+                                setState(() {
+                                  teamScouting.chargeStationAuto = value!;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
                 ],
               ),
-              isActive: true,
+              isActive: _isActive(1),
+              state: _state(1),
             ),
             Step(
               title: const Text('Teleop'),
-              content: const Text('Content for Step 2'),
-              isActive: true,
+              content: Container(
+                padding: const EdgeInsets.all(8),
+                color: Colors.black38,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {},
+                          child: Image.asset(
+                            'assets/images/cone.jpeg',
+                            width: 70,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        ElevatedButton(
+                          onPressed: () {},
+                          child: Image.asset(
+                            'assets/images/cube.jpeg',
+                            width: 70,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        TextButton(
+                          onPressed: () {},
+                          style: const ButtonStyle(
+                              backgroundColor:
+                                  MaterialStatePropertyAll(Colors.red)),
+                          child: const Text('Tipped Over'),
+                        ),
+                      ],
+                    ),
+                    // const Spacer(),
+                    Column(
+                      children: [
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Text(
+                              'Top Grid',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () {},
+                              icon:
+                                  const Icon(Icons.add_circle_outline_outlined),
+                              color: Colors.greenAccent,
+                            )
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              topCones.toString(),
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.amber,
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Text(
+                              topCubes.toString(),
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.deepPurple,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Text(
+                              'Middle Grid',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () {},
+                              icon:
+                                  const Icon(Icons.add_circle_outline_outlined),
+                              color: Colors.greenAccent,
+                            )
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              midCones.toString(),
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.amber,
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Text(
+                              midCubes.toString(),
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.deepPurple,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Text(
+                              'Bottom Grid',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () {},
+                              icon:
+                                  const Icon(Icons.add_circle_outline_outlined),
+                              color: Colors.greenAccent,
+                            )
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              botCones.toString(),
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.amber,
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Text(
+                              botCubes.toString(),
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.deepPurple,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    // const Spacer(),
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                            const Text(
+                              'Timer',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Container(
+                              padding: const EdgeInsets.fromLTRB(12, 6, 12, 6),
+                              decoration: const BoxDecoration(
+                                color: Colors.black,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(8)),
+                              ),
+                              child: Text(
+                                currentTime,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.redAccent,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Text(
+                              'Community',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () {},
+                              icon:
+                                  const Icon(Icons.add_circle_outline_outlined),
+                              color: Colors.greenAccent,
+                            )
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              communityCones.toString(),
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.amber,
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Text(
+                              communityCubes.toString(),
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.deepPurple,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Text(
+                              'Dropped',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () {},
+                              icon:
+                                  const Icon(Icons.add_circle_outline_outlined),
+                              color: Colors.greenAccent,
+                            )
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              droppedCones.toString(),
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.amber,
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Text(
+                              droppedCubes.toString(),
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.deepPurple,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              isActive: _isActive(2),
+              state: _state(2),
             ),
             Step(
               title: const Text('Endgame'),
-              content: const Text('Content for Step 3'),
-              isActive: true,
+              content: Column(
+                children: [
+                  Row(
+                    children: [
+                      const Text('Charge Station:'),
+                      const Spacer(),
+                      DropdownButton(
+                          value: teamScouting.chargeStationEndgame,
+                          items: ChargeStationEnum.values
+                              .map((e) => DropdownMenuItem(
+                                  value: e, child: Text(e.value)))
+                              .toList(),
+                          onChanged: (ChargeStationEnum? value) {
+                            setState(() {
+                              teamScouting.chargeStationEndgame = value!;
+                            });
+                          }),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Text('Charge Station Order:'),
+                      const Spacer(),
+                      DropdownButton(
+                          value: teamScouting.chargeStationOrder,
+                          items: ChargeStationOrderEnum.values
+                              .map((e) => DropdownMenuItem(
+                                  value: e, child: Text(e.index.toString())))
+                              .toList(),
+                          onChanged: (ChargeStationOrderEnum? value) {
+                            setState(() {
+                              teamScouting.chargeStationOrder = value!;
+                            });
+                          }),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Text('Card:'),
+                      const Spacer(),
+                      DropdownButton(
+                          value: teamScouting.card,
+                          items: CardColorEnum.values
+                              .map((e) => DropdownMenuItem(
+                                  value: e, child: Text(e.value)))
+                              .toList(),
+                          onChanged: (CardColorEnum? value) {
+                            setState(() {
+                              teamScouting.card = value!;
+                            });
+                          }),
+                    ],
+                  ),
+                ],
+              ),
+              isActive: _isActive(3),
+              state: _state(3),
             ),
           ],
         ),

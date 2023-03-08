@@ -1,8 +1,10 @@
 enum CardColorEnum {
+  none('none'),
   red('red'),
   yellow('yellow');
 
   const CardColorEnum(this.value);
+
   final String value;
 }
 
