@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:scout/models/match_scouting.dart';
 import 'package:scout/services/persistence_service.dart';
 import 'package:scout/theme.dart';
@@ -18,7 +19,7 @@ class MatchScoutingEntry extends StatefulWidget {
 }
 
 class MatchScoutingEntryState extends State<MatchScoutingEntry> {
-  final int numOfSteps = 4;
+  final int numOfSteps = 5;
   int _index = 0;
 
   bool _isActiveStepValid = false;
@@ -156,6 +157,24 @@ class MatchScoutingEntryState extends State<MatchScoutingEntry> {
               content: MatchResultsForm(
                 onChanged: (value) => _validateStep(value),
                 matchScouting: matchScouting,
+              ),
+            ),
+            Step(
+              state: _state(4),
+              isActive: _isActive(4),
+              title: const Text('QR Code'),
+              content: Center(
+                child: QrImage(
+                  data: _index == 4 ? matchScouting.toJson().toString() : '',
+                  version: QrVersions.auto,
+                  size: 240,
+                  gapless: false,
+                  embeddedImage: const AssetImage(
+                      'assets/images/T4K_RGB_round[colour]_transparent.png'),
+                  embeddedImageStyle: QrEmbeddedImageStyle(
+                    size: const Size(40, 40),
+                  ),
+                ),
               ),
             ),
           ],

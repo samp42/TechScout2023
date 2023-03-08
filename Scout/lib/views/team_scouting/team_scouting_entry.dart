@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:scout/enums/card_color_enum.dart';
 import 'package:scout/enums/charge_station_enum.dart';
 import 'package:scout/enums/charge_station_auto_enum.dart';
@@ -102,7 +103,7 @@ class TeamScoutingEntryState extends State<TeamScoutingEntry> {
           type: StepperType.horizontal,
           elevation: 0,
           controlsBuilder: (context, details) {
-            final isLastStep = _index == 3;
+            final isLastStep = _index == 4;
             return Row(children: [
               if (_index > 0)
                 Expanded(
@@ -123,7 +124,7 @@ class TeamScoutingEntryState extends State<TeamScoutingEntry> {
                 flex: 1,
                 child: ElevatedButton(
                   onPressed: () {
-                    if (_index < 3) {
+                    if (_index < 4) {
                       _nextStep();
                       details.onStepContinue;
                       if (_index == 2) {
@@ -871,6 +872,24 @@ class TeamScoutingEntryState extends State<TeamScoutingEntry> {
               ),
               isActive: _isActive(3),
               state: _state(3),
+            ),
+            Step(
+              title: const Text('QR Code'),
+              content: Center(
+                child: QrImage(
+                  data: _index == 4 ? teamScouting.toJson().toString() : '',
+                  version: QrVersions.auto,
+                  size: 240,
+                  gapless: false,
+                  embeddedImage: const AssetImage(
+                      'assets/images/T4K_RGB_round[colour]_transparent.png'),
+                  embeddedImageStyle: QrEmbeddedImageStyle(
+                    size: const Size(40, 40),
+                  ),
+                ),
+              ),
+              isActive: _isActive(4),
+              state: _state(4),
             ),
           ],
         ),

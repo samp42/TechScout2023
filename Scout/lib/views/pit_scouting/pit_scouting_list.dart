@@ -12,12 +12,14 @@ class PitScoutingList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     getAppDirectory();
-    return Text('$_appStorageDirectory');
+    return Text('$path');
   }
 
-  late Future<Directory> _appStorageDirectory;
+  late Directory _appStorageDirectory;
+  late String path;
   void getAppDirectory() async {
-    _appStorageDirectory = getApplicationDocumentsDirectory();
+    _appStorageDirectory = await getApplicationDocumentsDirectory();
+    path = _appStorageDirectory.path;
   }
 }
 /*ListView.builder(

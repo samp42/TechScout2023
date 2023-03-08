@@ -84,9 +84,9 @@ class TeamScouting {
       'chargeStationAuto': chargeStationAuto.value,
       'conesAuto': conesAuto,
       'cubesAuto': cubesAuto,
-      'cycles': cycles.map((c) => c.toJson()).toList(),
+      'cycles': cycles.map((c) => c.toMap()).toList(),
       'chargeStationEndgame': chargeStationEndgame.value,
-      'chargeStationOrder': chargeStationOrder.index,
+      'chargeStationOrder': chargeStationOrder.value,
       'card': card.value,
     };
   }

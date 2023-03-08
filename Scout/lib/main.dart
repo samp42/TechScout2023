@@ -24,6 +24,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   final _title = 'Tech Scout';
+
   const MyApp({Key? key}) : super(key: key);
 
   @override
@@ -52,8 +53,8 @@ class _MyHomePageState extends State<MyHomePage> {
   int _pageIndex = 0;
   final List<Widget> _tabs = [
     PitScoutingList(storage: PersistenceService()),
+    const TeamScoutingList(),
     MatchScoutingList(),
-    const TeamScoutingList()
   ];
 
   void _navigate() {
