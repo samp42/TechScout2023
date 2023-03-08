@@ -152,6 +152,23 @@ class TeamScoutingEntryState extends State<TeamScoutingEntry> {
                     children: [
                       const Expanded(
                         flex: 1,
+                        child: Text('Practice Match?'),
+                      ),
+                      Checkbox(
+                          value: teamScouting.practice,
+                          onChanged: (value) {
+                            setState(() {
+                              teamScouting.practice = value!;
+                            });
+                          }),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Expanded(
+                        flex: 1,
                         child: Text('Match Number:'),
                       ),
                       SizedBox(
@@ -164,6 +181,29 @@ class TeamScoutingEntryState extends State<TeamScoutingEntry> {
                           ),
                           onChanged: (value) =>
                               teamScouting.matchNumber = int.parse(value),
+                        ),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Expanded(
+                        flex: 1,
+                        child: Text('Team Number:'),
+                      ),
+                      SizedBox(
+                        width: 300,
+                        child: TextField(
+                          keyboardType: TextInputType.number,
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'Team Number',
+                          ),
+                          onChanged: (value) =>
+                              teamScouting.teamNumber = int.parse(value),
                         ),
                       )
                     ],

@@ -12,6 +12,7 @@ import 'package:test/test.dart';
 
 void main() {
   final TeamScouting teamScouting = TeamScouting.allArgs(
+    practice: false,
     scoutName: 'John Doe',
     teamNumber: 3990,
     matchNumber: 1,
@@ -34,6 +35,7 @@ void main() {
   test('Test fromMap', () {
     // Given / When
     TeamScouting teamScoutingActual = TeamScouting.fromMap({
+      'practice': false,
       'matchNumber': 1,
       'teamNumber': 3990,
       'scoutName': 'John Doe',
@@ -54,6 +56,7 @@ void main() {
     });
 
     //Then
+    expect(teamScoutingActual.practice, equals(teamScouting.practice));
     expect(teamScoutingActual.matchNumber, equals(teamScouting.matchNumber));
     expect(teamScoutingActual.teamNumber, equals(teamScouting.teamNumber));
     expect(teamScoutingActual.scoutName, equals(teamScouting.scoutName));
@@ -84,6 +87,7 @@ void main() {
     TeamScouting teamScoutingActual = TeamScouting.fromMap(teamScoutingMap);
 
     // Then
+    expect(teamScoutingActual.practice, equals(teamScouting.practice));
     expect(teamScoutingActual.matchNumber, equals(teamScouting.matchNumber));
     expect(teamScoutingActual.teamNumber, equals(teamScouting.teamNumber));
     expect(teamScoutingActual.scoutName, equals(teamScouting.scoutName));
@@ -114,6 +118,7 @@ void main() {
     Map<String, dynamic> actualTeamJson = jsonDecode(teamScouting.toJson());
 
     // Then
+    expect(actualTeamJson['practice'], equals(expectedTeamJson['practice']));
     expect(
         actualTeamJson['matchNumber'], equals(expectedTeamJson['matchNumber']));
     expect(

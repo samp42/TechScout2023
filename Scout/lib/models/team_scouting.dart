@@ -7,6 +7,7 @@ import 'package:scout/enums/charge_station_enum.dart';
 import 'package:scout/models/cycle_timestamp.dart';
 
 class TeamScouting {
+  late bool practice;
   late String scoutName;
   late int teamNumber;
   late int matchNumber;
@@ -28,6 +29,7 @@ class TeamScouting {
   TeamScouting();
 
   TeamScouting.entry() {
+    practice = false;
     mobility = false;
     chargeStationAuto = ChargeStationAutoEnum.none;
     conesAuto = 0;
@@ -39,6 +41,7 @@ class TeamScouting {
   }
 
   TeamScouting.allArgs({
+    required this.practice,
     required this.matchNumber,
     required this.teamNumber,
     required this.scoutName,
@@ -53,7 +56,8 @@ class TeamScouting {
   });
 
   TeamScouting.fromMap(Map<String, dynamic> map)
-      : matchNumber = map['matchNumber'],
+      : practice = map['practice'],
+        matchNumber = map['matchNumber'],
         teamNumber = map['teamNumber'],
         scoutName = map['scoutName'],
         mobility = map['mobility'],
@@ -72,6 +76,7 @@ class TeamScouting {
 
   Map<String, dynamic> _toMap() {
     return {
+      'practice': practice,
       'matchNumber': matchNumber,
       'teamNumber': teamNumber,
       'scoutName': scoutName,
