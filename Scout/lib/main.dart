@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:scout/services/persistence_service.dart';
 
 import 'package:scout/views/match_scouting/match_scouting_entry.dart';
 import 'package:scout/views/match_scouting/match_scouting_list.dart';
 import 'package:scout/views/pit_scouting/pit_scouting_entry.dart';
 import 'package:scout/views/pit_scouting/pit_scouting_list.dart';
-import 'package:scout/views/practice_field_scouting/practice_field_scouting_entry.dart';
-import 'package:scout/views/practice_field_scouting/practice_field_scouting_list.dart';
 
 import 'package:scout/theme.dart';
 import 'package:scout/views/team_scouting/team_scouting_list.dart';
@@ -56,29 +55,23 @@ class _MyHomePageState extends State<MyHomePage> {
   int _pageIndex = 0;
   final List<Widget> _tabs = [
     PitScoutingList(storage: PersistenceService()),
-    const PracticeFieldScoutingList(),
-    const MatchScoutingList(),
+    MatchScoutingList(),
     const TeamScoutingList()
   ];
 
   void _navigate() {
     Navigator.push(
-
       context,
       MaterialPageRoute(
           builder: (context) => _pageIndex == 0
-              ? const PitScoutingEntry()
+              ? PitScoutingEntry(
+                  storage: PersistenceService(),
+                )
               : _pageIndex == 1
                   ? const TeamScoutingEntry()
                   : MatchScoutingEntry()),
     );
   }
-
-  final List<Widget> _tabs = [
-    const PitScoutingList(),
-    const TeamScoutingList(),
-    MatchScoutingList()
-  ];
 
   @override
   Widget build(BuildContext context) {
