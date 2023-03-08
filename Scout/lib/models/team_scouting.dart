@@ -14,19 +14,28 @@ class TeamScouting {
   // Autonomous
   late bool mobility;
   late ChargeStationEnum chargeStationAuto;
-  late Map<GridLevelEnum, int> conesAuto;
-  late Map<GridLevelEnum, int> cubesAuto;
+  late int conesAuto;
+  late int cubesAuto;
 
   // Teleop
   late List<CycleTimestamp> cycles;
-  late int penalties;
 
   // End Game
   late ChargeStationEnum chargeStationEndgame;
   late ChargeStationOrderEnum chargeStationOrder;
-  late CardColorEnum card;
+  late CardColorEnum? card;
 
   TeamScouting();
+
+  TeamScouting.entry() {
+    mobility = false;
+    chargeStationAuto = ChargeStationEnum.none;
+    conesAuto = 0;
+    cubesAuto = 0;
+    cycles = [];
+    chargeStationEndgame = ChargeStationEnum.none;
+    chargeStationOrder = ChargeStationOrderEnum.none;
+  }
 
   TeamScouting.allArgs({
     required this.matchNumber,
@@ -37,7 +46,6 @@ class TeamScouting {
     required this.conesAuto,
     required this.cubesAuto,
     required this.cycles,
-    required this.penalties,
     required this.chargeStationEndgame,
     required this.chargeStationOrder,
     required this.card,
@@ -50,18 +58,11 @@ class TeamScouting {
         mobility = map['mobility'],
         chargeStationAuto =
             ChargeStationEnumExtension.fromValue(map['chargeStationAuto']),
-        conesAuto = map['conesAuto']
-            .cast<String, int>()
-            .map((k, v) => MapEntry(GridLevelEnumExtension.fromValue(k), v))
-            .cast<GridLevelEnum, int>(),
-        cubesAuto = map['cubesAuto']
-            .cast<String, int>()
-            .map((k, v) => MapEntry(GridLevelEnumExtension.fromValue(k), v))
-            .cast<GridLevelEnum, int>(),
+        conesAuto = map['conesAuto'],
+        cubesAuto = map['cubesAuto'],
         cycles = map['cycles']
             .map<CycleTimestamp>((e) => CycleTimestamp.fromMap(e))
             .toList(),
-        penalties = map['penalties'],
         chargeStationEndgame =
             ChargeStationEnumExtension.fromValue(map['chargeStationEndgame']),
         chargeStationOrder = ChargeStationOrderEnumExtension.fromValue(
@@ -75,13 +76,12 @@ class TeamScouting {
       'scoutName': scoutName,
       'mobility': mobility,
       'chargeStationAuto': chargeStationAuto.value,
-      'conesAuto': conesAuto.map((k, v) => MapEntry(k.value, v)).toString(),
-      'cubesAuto': cubesAuto.map((k, v) => MapEntry(k.value, v)).toString(),
+      'conesAuto': conesAuto,
+      'cubesAuto': cubesAuto,
       'cycles': cycles.map((c) => c.toJson()).toList(),
-      'penalties': penalties,
       'chargeStationEndgame': chargeStationEndgame.value,
       'chargeStationOrder': chargeStationOrder.index,
-      'card': card.value,
+      'card': card != null ? card!.value : null,
     };
   }
 

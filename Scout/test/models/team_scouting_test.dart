@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:scout/enums/card_color_enum.dart';
 import 'package:scout/enums/charge_station_enum.dart';
 import 'package:scout/enums/charge_station_order_enum.dart';
-import 'package:scout/enums/grid_level_enum.dart';
 import 'package:scout/enums/teleop_action_enum.dart';
 import 'package:scout/models/cycle_timestamp.dart';
 import 'package:scout/models/team_scouting.dart';
@@ -17,16 +16,8 @@ void main() {
     matchNumber: 1,
     mobility: true,
     chargeStationAuto: ChargeStationEnum.engage,
-    conesAuto: {
-      GridLevelEnum.bottom: 1,
-      GridLevelEnum.middle: 1,
-      GridLevelEnum.top: 0,
-    },
-    cubesAuto: {
-      GridLevelEnum.bottom: 0,
-      GridLevelEnum.middle: 0,
-      GridLevelEnum.top: 1,
-    },
+    conesAuto: 1,
+    cubesAuto: 0,
     cycles: [
       const CycleTimestamp(timestamp: 1, action: TeleopActionEnum.intakeCone),
       const CycleTimestamp(timestamp: 5, action: TeleopActionEnum.placeTop),
@@ -34,7 +25,6 @@ void main() {
       const CycleTimestamp(timestamp: 11, action: TeleopActionEnum.placeMiddle),
       const CycleTimestamp(timestamp: 12, action: TeleopActionEnum.tippedOver),
     ],
-    penalties: 2,
     chargeStationEndgame: ChargeStationEnum.park,
     chargeStationOrder: ChargeStationOrderEnum.none,
     card: CardColorEnum.red,
@@ -48,16 +38,8 @@ void main() {
       'scoutName': 'John Doe',
       'mobility': true,
       'chargeStationAuto': 'engage',
-      'conesAuto': {
-        'bottom': 1,
-        'middle': 1,
-        'top': 0,
-      },
-      'cubesAuto': {
-        'bottom': 0,
-        'middle': 0,
-        'top': 1,
-      },
+      'conesAuto': 1,
+      'cubesAuto': 0,
       'cycles': [
         {'timestamp': 1, 'action': 'intakeCone'},
         {'timestamp': 5, 'action': 'placeTop'},
@@ -65,7 +47,6 @@ void main() {
         {'timestamp': 11, 'action': 'placeMiddle'},
         {'timestamp': 12, 'action': 'tippedOver'},
       ],
-      'penalties': 2,
       'chargeStationEndgame': 'park',
       'chargeStationOrder': 0,
       'card': 'red',
@@ -85,7 +66,6 @@ void main() {
     for (int i = 0; i < teamScoutingActual.cycles.length; i++) {
       expect(teamScoutingActual.cycles[i].equals(teamScouting.cycles[i]), true);
     }
-    expect(teamScoutingActual.penalties, equals(teamScouting.penalties));
     expect(teamScoutingActual.chargeStationEndgame,
         equals(teamScouting.chargeStationEndgame));
     expect(teamScoutingActual.chargeStationOrder,
@@ -116,7 +96,6 @@ void main() {
     for (int i = 0; i < teamScoutingActual.cycles.length; i++) {
       expect(teamScoutingActual.cycles[i].equals(teamScouting.cycles[i]), true);
     }
-    expect(teamScoutingActual.penalties, equals(teamScouting.penalties));
     expect(teamScoutingActual.chargeStationEndgame,
         equals(teamScouting.chargeStationEndgame));
     expect(teamScoutingActual.chargeStationOrder,
@@ -146,7 +125,6 @@ void main() {
         equals(expectedTeamJson['scoringGridCones']));
     expect(actualTeamJson['scoringGridCubes'],
         equals(expectedTeamJson['scoringGridCubes']));
-    expect(actualTeamJson['penalties'], equals(expectedTeamJson['penalties']));
     expect(actualTeamJson['robotCycleTimer'],
         equals(expectedTeamJson['robotCycleTimer']));
     expect(
