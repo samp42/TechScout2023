@@ -49,7 +49,7 @@ void main() {
         {'timestamp': 12, 'action': 'tippedOver'},
       ],
       'chargeStationEndgame': 'park',
-      'chargeStationOrder': 0,
+      'chargeStationOrder': 'none',
       'card': 'red',
     });
 

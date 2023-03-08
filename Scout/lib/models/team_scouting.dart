@@ -82,7 +82,7 @@ class TeamScouting {
       'cycles': cycles.map((c) => c.toJson()).toList(),
       'chargeStationEndgame': chargeStationEndgame.value,
       'chargeStationOrder': chargeStationOrder.index,
-      'card': card != null ? card!.value : null,
+      'card': card.value,
     };
   }
 

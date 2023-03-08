@@ -10,7 +10,7 @@ class CycleTimestamp {
 
   static CycleTimestamp fromMap(Map<String, dynamic> map) {
     return CycleTimestamp(
-      timestamp: map['timestamp'].toDouble(),
+      timestamp: map['timestamp'],
       action: TeleopActionEnumExtension.fromValue(map['action']),
     );
   }

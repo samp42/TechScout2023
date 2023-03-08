@@ -4,16 +4,8 @@
   "scoutName": "John Doe",
   "mobility": true,
   "chargeStationAuto": "engage",
-  "conesAuto": {
-    "bottom": 1,
-    "middle": 1,
-    "top": 0
-  },
-  "cubesAuto": {
-    "bottom": 0,
-    "middle": 0,
-    "top": 1
-  },
+  "conesAuto": 1,
+  "cubesAuto": 0,
   "cycles": [
     {
       "timestamp": 1,
@@ -37,6 +29,6 @@
     }
   ],
   "chargeStationEndgame": "park",
-  "chargeStationOrder": 0,
+  "chargeStationOrder": "none",
   "card": "red"
 }
