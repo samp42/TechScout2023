@@ -9,10 +9,7 @@ import 'package:scout/views/pit_scouting/pit_scouting_list.dart';
 
 import 'package:scout/theme.dart';
 import 'package:scout/views/team_scouting/team_scouting_list.dart';
-
 import 'package:scout/views/team_scouting/team_scouting_entry.dart';
-import 'package:scout/views/team_scouting/team_scouting_list.dart';
-import 'package:scout/theme.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
