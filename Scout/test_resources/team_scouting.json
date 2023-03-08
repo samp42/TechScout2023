@@ -1,44 +1,35 @@
 {
-    "matchNumber": 1,
-    "teamNumber": 3990,
-    "scoutName": "John Doe",
-    "mobility": true,
-    "chargeStationAuto": "engage",
-    "conesAuto": {
-      "bottom": 1,
-      "middle": 1,
-      "top": 0
+  "practice": false,
+  "matchNumber": 1,
+  "teamNumber": 3990,
+  "scoutName": "John Doe",
+  "mobility": true,
+  "chargeStationAuto": "engage",
+  "conesAuto": 1,
+  "cubesAuto": 0,
+  "cycles": [
+    {
+      "timestamp": 1,
+      "action": "intakeCone"
     },
-    "cubesAuto": {
-      "bottom": 0,
-      "middle": 0,
-      "top": 1
+    {
+      "timestamp": 5,
+      "action": "placeTop"
     },
-    "cycles": [
-      {
-        "timestamp": 1,
-        "action": "intakeCone"
-      },
-      {
-        "timestamp": 5,
-        "action": "placeTop"
-      },
-      {
-        "timestamp": 6,
-        "action": "intakeCube"
-      },
-      {
-        "timestamp": 11,
-        "action": "placeMiddle"
-      },
-      {
-        "timestamp": 12,
-        "action": "tippedOver"
-      }
-    ],
-    "penalties": 2,
-    "chargeStationEndgame": "park",
-    "chargeStationOrder": 0,
-    "card": "red"
-  }
-  
+    {
+      "timestamp": 6,
+      "action": "intakeCube"
+    },
+    {
+      "timestamp": 11,
+      "action": "placeMiddle"
+    },
+    {
+      "timestamp": 12,
+      "action": "tippedOver"
+    }
+  ],
+  "chargeStationEndgame": "park",
+  "chargeStationOrder": "none",
+  "card": "red"
+}

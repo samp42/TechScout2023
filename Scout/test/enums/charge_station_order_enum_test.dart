@@ -5,13 +5,13 @@ void main() {
   test('test fromValue when happy', () {
     for (var element in ChargeStationOrderEnum.values) {
       // When / Then
-      expect(ChargeStationOrderEnumExtension.fromValue(element.index), element);
+      expect(ChargeStationOrderEnumExtension.fromValue(element.value), element);
     }
   });
 
   test('test fromValue when invalid value', () {
     // When / Then
-    expect(() => ChargeStationOrderEnumExtension.fromValue(-1),
+    expect(() => ChargeStationOrderEnumExtension.fromValue('other'),
         throwsA(isA<Exception>()));
   });
 }
