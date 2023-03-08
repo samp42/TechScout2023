@@ -3,8 +3,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
+import 'package:scout/models/match_scouting.dart';
 
-import '../models/pit_scouting.dart';
+import 'package:scout/models/pit_scouting.dart';
 
 class PersistenceService {
   void writeRobot(PitScouting robot) async {
@@ -12,10 +13,33 @@ class PersistenceService {
     final _ = await _writeJson(fileName, robot);
   }
 
+  void writeMatch(MatchScouting match) async {
+    final fileName = 'match_${match.matchNumber}';
+    final _ = await _writeJson(fileName, match);
+  }
+
   Future<PitScouting> readRobotByTeamNumber(num teamNumber) async {
     final fileName = 'robot_$teamNumber';
     final json = await _readJson(fileName);
     return PitScouting.fromMap(json);
+  }
+
+  List<MatchScouting> readMatches() {
+    // list all files in directory starting by 'match_'
+    final directory = getApplicationDocumentsDirectory();
+    final matches = <MatchScouting>[];
+    final _ = directory
+        .then((dir) => dir.listSync().where((element) {
+              return element.path.contains('match_') && element is File;
+            }))
+        .then((file) {
+      if (file is File) {
+        final _ = _readJsonFromFile(file as File)
+            .then((value) => matches.add(MatchScouting.fromMap(value)));
+      }
+    });
+
+    return matches;
   }
 
   Future<String> get _localPath async {
@@ -41,6 +65,18 @@ class PersistenceService {
     } catch (e) {
       // If encountering an error, return 0
       return {};
+    }
+  }
+
+  Future<Map<String, dynamic>> _readJsonFromFile(File file) async {
+    try {
+      // Read the file
+      final contents = await file.readAsString();
+
+      // decode json from contents into a map
+      return jsonDecode(contents);
+    } catch (e) {
+      throw Exception('Error reading file');
     }
   }
 

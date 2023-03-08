@@ -6,7 +6,7 @@ import 'package:test/test.dart';
 import 'package:scout/models/match_scouting.dart';
 
 void main() {
-  final matchScoutingMock = MatchScouting(
+  final matchScoutingMock = MatchScouting.allArgs(
     matchNumber: 1,
     scoutName: 'John Doe',
     redTeams: [3990, 3991, 3992],
@@ -21,8 +21,6 @@ void main() {
     blueScore: 20,
     redPenalty: 0,
     bluePenalty: 25,
-    redRankingPoints: 4,
-    blueRankingPoints: 1,
   );
 
   test('Test fromMap', () {
@@ -42,8 +40,6 @@ void main() {
       'blueScore': 20,
       'redPenalty': 0,
       'bluePenalty': 25,
-      'redRankingPoints': 4,
-      'blueRankingPoints': 1,
     });
 
     // Then
@@ -68,10 +64,6 @@ void main() {
         actualMatchScouting.redPenalty, equals(matchScoutingMock.redPenalty));
     expect(
         actualMatchScouting.bluePenalty, equals(matchScoutingMock.bluePenalty));
-    expect(actualMatchScouting.redRankingPoints,
-        equals(matchScoutingMock.redRankingPoints));
-    expect(actualMatchScouting.blueRankingPoints,
-        equals(matchScoutingMock.blueRankingPoints));
   });
 
   test('test fromMap from json file', () {
@@ -100,10 +92,6 @@ void main() {
     expect(actualMatch.blueScore, equals(matchScoutingMock.blueScore));
     expect(actualMatch.redPenalty, equals(matchScoutingMock.redPenalty));
     expect(actualMatch.bluePenalty, equals(matchScoutingMock.bluePenalty));
-    expect(actualMatch.redRankingPoints,
-        equals(matchScoutingMock.redRankingPoints));
-    expect(actualMatch.blueRankingPoints,
-        equals(matchScoutingMock.blueRankingPoints));
   });
 
   test('test toJson', () {
