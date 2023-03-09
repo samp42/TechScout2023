@@ -27,15 +27,15 @@ class PitScouting {
   late PickupEnum pickupSpotsCube;
   late PickupEnum pickupSpotsCone;
   late List<ConeOrientationEnum> intakeConeOrientations;
-  late String gamePiecesNotes;
+  String? gamePiecesNotes;
 
   // scoring
   late List<GridLevelEnum> gridScoringLevelsCube;
   late List<GridLevelEnum> gridScoringLevelsCone;
-  late String scoringNotes;
+  String? scoringNotes;
 
   // charging stations
-  late String chargingStationNotes;
+  String? chargingStationNotes;
 
   PitScouting.empty();
   PitScouting.full(

@@ -97,6 +97,7 @@ class TeamScoutingEntryState extends State<TeamScoutingEntry> {
           style: TextStyle(color: yellowT4K),
         ),
       ),
+      resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: Stepper(
           currentStep: _index,
@@ -876,15 +877,21 @@ class TeamScoutingEntryState extends State<TeamScoutingEntry> {
             Step(
               title: const Text('QR Code'),
               content: Center(
-                child: QrImage(
-                  data: _index == 4 ? teamScouting.toJson().toString() : '',
-                  version: QrVersions.auto,
-                  size: 240,
-                  gapless: false,
-                  embeddedImage: const AssetImage(
-                      'assets/images/T4K_RGB_round[colour]_transparent.png'),
-                  embeddedImageStyle: QrEmbeddedImageStyle(
-                    size: const Size(40, 40),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: QrImage(
+                    data: _index == 4 ? teamScouting.toJson().toString() : '',
+                    version: QrVersions.auto,
+                    size: 240,
+                    gapless: false,
+                    embeddedImage: const AssetImage(
+                        'assets/images/T4K_RGB_round[colour]_transparent.png'),
+                    embeddedImageStyle: QrEmbeddedImageStyle(
+                      size: const Size(40, 40),
+                    ),
                   ),
                 ),
               ),

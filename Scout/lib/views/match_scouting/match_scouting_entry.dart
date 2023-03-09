@@ -163,18 +163,35 @@ class MatchScoutingEntryState extends State<MatchScoutingEntry> {
               state: _state(4),
               isActive: _isActive(4),
               title: const Text('QR Code'),
-              content: Center(
-                child: QrImage(
-                  data: _index == 4 ? matchScouting.toJson().toString() : '',
-                  version: QrVersions.auto,
-                  size: 240,
-                  gapless: false,
-                  embeddedImage: const AssetImage(
-                      'assets/images/T4K_RGB_round[colour]_transparent.png'),
-                  embeddedImageStyle: QrEmbeddedImageStyle(
-                    size: const Size(40, 40),
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Text(
+                  //   'Q ${matchScouting.matchNumber.toString()}',
+                  //   style: const TextStyle(
+                  //     fontSize: 16,
+                  //     fontWeight: FontWeight.bold,
+                  //   ),
+                  // ),
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: QrImage(
+                      data:
+                          _index == 4 ? matchScouting.toJson().toString() : '',
+                      version: QrVersions.auto,
+                      size: 240,
+                      gapless: false,
+                      embeddedImage: const AssetImage(
+                          'assets/images/T4K_RGB_round[colour]_transparent.png'),
+                      embeddedImageStyle: QrEmbeddedImageStyle(
+                        size: const Size(40, 40),
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
           ],

@@ -11,16 +11,18 @@ class PitScoutingList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    getAppDirectory();
-    return Text('$path');
+    // getAppDirectory();
+    return const Center(
+      child: Text('Pit Scouting List'),
+    );
   }
 
-  late Directory _appStorageDirectory;
-  late String path;
-  void getAppDirectory() async {
-    _appStorageDirectory = await getApplicationDocumentsDirectory();
-    path = _appStorageDirectory.path;
-  }
+  // late Directory _appStorageDirectory;
+  // late String path;
+  // void getAppDirectory() async {
+  //   _appStorageDirectory = await getApplicationDocumentsDirectory();
+  //   path = _appStorageDirectory.path;
+  // }
 }
 /*ListView.builder(
             itemCount: list.length,
