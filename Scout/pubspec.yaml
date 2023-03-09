@@ -30,6 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
   path_provider: ^2.0.12
+  qr_flutter: ^4.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -64,11 +65,12 @@ flutter:
       fonts:
         - asset: lib/font/FuturaCyrillicMedium.ttf
           style: normal
-    
+
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/cone.jpeg
     - assets/images/cube.jpeg
+    - assets/images/T4K_RGB_round[colour]_transparent.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

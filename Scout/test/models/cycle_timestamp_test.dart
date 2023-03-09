@@ -21,16 +21,19 @@ void main() {
     }
   });
 
-  test('test toJson', () {
+  test('test toMap', () {
     for (var element in TeleopActionEnum.values) {
       // Given
-      String expected = '{"timestamp":1,"action":"${element.value}"}';
+      Map<String, dynamic> expected = {
+        'timestamp': 1,
+        'action': element.value,
+      };
 
       // When
-      String actual = CycleTimestamp(
+      Map<String, dynamic> actual = CycleTimestamp(
         timestamp: 1,
         action: element,
-      ).toJson();
+      ).toMap();
 
       // Then
       expect(actual, equals(expected));

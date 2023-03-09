@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:scout/enums/teleop_action_enum.dart';
 
 class CycleTimestamp {
@@ -15,14 +13,12 @@ class CycleTimestamp {
     );
   }
 
-  Map<String, dynamic> _toMap() {
+  Map<String, dynamic> toMap() {
     return {
       'timestamp': timestamp,
       'action': action.value,
     };
   }
-
-  String toJson() => jsonEncode(_toMap());
 
   bool equals(CycleTimestamp other) {
     return timestamp == other.timestamp && action == other.action;
