@@ -2,8 +2,8 @@ import 'dart:convert';
 
 class MatchScouting {
   // general info
-  late int matchNumber;
-  late String scoutName;
+  int? matchNumber;
+  String? scoutName;
 
   // teams
   late List<int> redTeams;
@@ -30,7 +30,6 @@ class MatchScouting {
   MatchScouting();
 
   MatchScouting.entry() {
-    scoutName = '';
     redTeams = List.filled(3, 0, growable: false);
     blueTeams = List.filled(3, 0, growable: false);
     redLinks = 0;
