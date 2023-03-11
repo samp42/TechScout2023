@@ -32,8 +32,6 @@ class MatchScoutingEntryState extends State<MatchScoutingEntry> {
     return step < _index ? StepState.complete : StepState.indexed;
   }
 
-  double get _toolbarHeight => _index == numOfSteps ? 64 : 0;
-
   @override
   void initState() {
     super.initState();
