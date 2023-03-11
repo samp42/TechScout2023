@@ -822,10 +822,15 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'New Pit Scouting Entry',
-            style: TextStyle(color: yellowT4K),
+        appBar: PreferredSize(
+          preferredSize:
+              Size.fromHeight(_index == stepList().length - 1 ? 0 : 56),
+          child: AppBar(
+            backgroundColor: materialBlackT4K,
+            title: const Text(
+              'New Pit Scouting Entry',
+              style: TextStyle(color: yellowT4K),
+            ),
           ),
         ),
         body: Form(

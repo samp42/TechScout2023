@@ -32,6 +32,8 @@ class MatchScoutingEntryState extends State<MatchScoutingEntry> {
     return step < _index ? StepState.complete : StepState.indexed;
   }
 
+  double get _toolbarHeight => _index == numOfSteps ? 64 : 0;
+
   @override
   void initState() {
     super.initState();
@@ -71,10 +73,14 @@ class MatchScoutingEntryState extends State<MatchScoutingEntry> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'New Match Scouting Entry',
-          style: TextStyle(color: yellowT4K),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(_index == numOfSteps - 1 ? 0 : 56),
+        child: AppBar(
+          backgroundColor: materialBlackT4K,
+          title: const Text(
+            'New Team Scouting Entry',
+            style: TextStyle(color: yellowT4K),
+          ),
         ),
       ),
       body: SafeArea(
