@@ -71,10 +71,14 @@ class MatchScoutingEntryState extends State<MatchScoutingEntry> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'New Match Scouting Entry',
-          style: TextStyle(color: yellowT4K),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(_index == numOfSteps - 1 ? 0 : 56),
+        child: AppBar(
+          backgroundColor: materialBlackT4K,
+          title: const Text(
+            'New Team Scouting Entry',
+            style: TextStyle(color: yellowT4K),
+          ),
         ),
       ),
       body: SafeArea(
