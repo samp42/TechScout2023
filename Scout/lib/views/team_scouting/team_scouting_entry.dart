@@ -889,6 +889,13 @@ class TeamScoutingEntryState extends State<TeamScoutingEntry> {
             currentStep: _index,
             type: StepperType.horizontal,
             elevation: 0,
+            onStepTapped: (value) {
+              if (value < _stepList().length - 1) {
+                setState(() {
+                  _index = value;
+                });
+              }
+            },
             controlsBuilder: (context, details) {
               final isLastStep = _index == _stepList().length - 1;
               return Row(children: [

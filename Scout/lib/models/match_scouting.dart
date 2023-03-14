@@ -22,10 +22,10 @@ class MatchScouting {
   late bool blueEngaged;
 
   // match results
-  late int redScore;
-  late int blueScore;
-  late int redPenalty;
-  late int bluePenalty;
+  int? redScore;
+  int? blueScore;
+  int? redPenalty;
+  int? bluePenalty;
 
   MatchScouting();
 
