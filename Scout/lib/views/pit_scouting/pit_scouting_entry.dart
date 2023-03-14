@@ -899,9 +899,11 @@ class _PitScoutingEntryState extends State<PitScoutingEntry> {
                 }
               },
               onStepTapped: (int index) {
-                setState(() {
-                  _index = index;
-                });
+                if (index < (stepList().length - 1)) {
+                  setState(() {
+                    _index = index;
+                  });
+                }
               },
               steps: stepList()),
         ),

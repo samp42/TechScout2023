@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:scout/enums/alliance_enum.dart';
 import 'package:scout/models/match_scouting.dart';
-import 'package:scout/models/validator_callback.dart';
 import 'package:scout/theme.dart';
 import 'package:scout/views/match_scouting/teleop_form_column.dart';
 
 class MatchTeleopForm extends StatefulWidget {
-  final ValidatorCallback onChanged;
   final MatchScouting matchScouting;
 
-  MatchTeleopForm({
+  const MatchTeleopForm({
     Key? key,
-    required this.onChanged,
     required this.matchScouting,
-  }) : super(key: key) {
-    onChanged('');
-  }
+  }) : super(key: key);
 
   @override
   MatchTeleopFormState createState() => MatchTeleopFormState();

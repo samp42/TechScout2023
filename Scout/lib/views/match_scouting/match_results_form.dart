@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:scout/models/match_scouting.dart';
-import 'package:scout/models/validator_callback.dart';
 import 'package:scout/theme.dart';
 
 class MatchResultsForm extends StatefulWidget {
-  final ValidatorCallback onChanged;
   final MatchScouting matchScouting;
 
   const MatchResultsForm({
     Key? key,
-    required this.onChanged,
     required this.matchScouting,
   }) : super(key: key);
 

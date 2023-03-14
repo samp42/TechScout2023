@@ -28,7 +28,7 @@ class MatchTeamField extends StatelessWidget {
         onChanged: (value) {
           onChanged(value);
         },
-        keyboardType: TextInputType.number,
+        keyboardType: TextInputType.datetime,
         decoration: InputDecoration(
           constraints: const BoxConstraints(
             maxHeight: 36,

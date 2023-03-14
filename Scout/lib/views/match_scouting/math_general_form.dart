@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:scout/models/match_scouting.dart';
-import 'package:scout/models/validator_callback.dart';
 
 class MatchGeneralForm extends StatefulWidget {
-  final ValidatorCallback onChanged;
   final MatchScouting matchScouting;
 
   const MatchGeneralForm({
     Key? key,
-    required this.onChanged,
     required this.matchScouting,
   }) : super(key: key);
 
@@ -39,7 +36,6 @@ class MatchGeneralFormState extends State<MatchGeneralForm> {
                 ),
                 onChanged: (value) {
                   widget.matchScouting.matchNumber = int.parse(value);
-                  widget.onChanged(value);
                 },
               ),
             ),
@@ -63,7 +59,6 @@ class MatchGeneralFormState extends State<MatchGeneralForm> {
                 ),
                 onChanged: (value) {
                   widget.matchScouting.scoutName = value;
-                  widget.onChanged(value);
                 },
               ),
             ),
