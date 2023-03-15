@@ -13,15 +13,15 @@ export interface PitScouting {
     length: number;
     driveBaseType: DriveBaseTypeEnum;
     stable: boolean;
-    hasSeperateIntake: boolean;
+    hasSeparateIntake: boolean;
     canIntakeCone: boolean;
     canIntakeCube: boolean;
     pickupSpotsCube: PickupEnum;
     pickupSpotsCone: PickupEnum;
     intakeConeOrientations: ConeOrientationEnum[];
-    gamePiecesNotes?: string;
+    gamePiecesNotes: string | null;
     gridScoringLevelsCube: GridLevelEnum[];
     gridScoringLevelsCone: GridLevelEnum[];
-    scoringNotes?: string;
-    chargingStationNotes?: string;
+    scoringNotes: string | null;
+    chargingStationNotes: string | null;
 }
